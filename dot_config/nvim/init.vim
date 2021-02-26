@@ -45,6 +45,8 @@ Plug 'peitalin/vim-jsx-typescript'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'rust-lang/rust.vim'
 Plug 'dag/vim-fish'
+Plug 'elixir-editors/vim-elixir'
+Plug 'andys8/vim-elm-syntax'
 
 
 call plug#end()
@@ -58,6 +60,7 @@ let g:coc_global_extensions = [
       \, 'coc-fzf-preview'
       \, 'coc-rust-analyzer'
       \, 'coc-flutter'
+      \, 'coc-elixir'
       \, ]
 
 " editor {{{1
