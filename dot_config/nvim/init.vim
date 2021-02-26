@@ -7,7 +7,6 @@ Plug 'editorconfig/editorconfig-vim'
 
 Plug 'lambdalisue/gina.vim'
 
-Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -43,6 +42,11 @@ Plug 'moll/vim-bbye'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'rust-lang/rust.vim'
+Plug 'dag/vim-fish'
+
+
 call plug#end()
 
 let g:coc_global_extensions = [
@@ -53,6 +57,7 @@ let g:coc_global_extensions = [
       \, 'coc-pairs'
       \, 'coc-fzf-preview'
       \, 'coc-rust-analyzer'
+      \, 'coc-flutter'
       \, ]
 
 " editor {{{1
