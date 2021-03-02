@@ -232,21 +232,10 @@ let g:fern#renderer = "nerdfont"
 let g:fern#default_hidden = 1
 
 " Fcitx {{{1
-let g:input_toggle = 1
-function! Fcitx2en()
-  if executable("fcitx-remote") 
-    let s:input_status = system("fcitx-remote")
-    if s:input_status == 2
-      let g:input_toggle = 1
-      let l:a = system("fcitx-remote -c")
-    endif
-  endif
-endfunction
-
-set ttimeoutlen=150
-"Leave Insert mode
-autocmd InsertLeave * call Fcitx2en()
-
+if executable('fcitx')
+   autocmd InsertLeave * :call system('fcitx-remote -c')
+   autocmd CmdlineLeave * :call system('fcitx-remote -c')
+endif
 
 " set filetypes as typescriptreact
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
