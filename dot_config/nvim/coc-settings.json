@@ -3,8 +3,9 @@
     "elmLS": {
       "command": "elm-language-server",
       "filetypes": ["elm"],
-      "rootPatterns": ["elm.json"],
-    },
+      "rootPatterns": ["elm.json"]
+    }
   },
-  "coc.preferences.formatOnSaveFiletypes": ["elm"],
+  "flutter.sdk.flutter-lookup": "asdf which flutter",
+  "coc.preferences.formatOnSaveFiletypes": ["elm", "dart"]
 }
