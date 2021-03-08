@@ -37,6 +37,9 @@ Plug 'lambdalisue/fern-hijack.vim'
 
 Plug 'ryanoasis/vim-devicons'
 
+Plug 'easymotion/vim-easymotion'
+
+
 Plug 'moll/vim-bbye'
 
 Plug 'leafgarland/typescript-vim'
@@ -114,6 +117,8 @@ nnoremap <silent> <Leader><Right> <C-w>l
 nnoremap <silent> <ESC><ESC> :nohl<CR>
 nnoremap <silent> gn :bnext<CR>
 nnoremap <silent> gb :bprevious<CR>
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <ESC>:w<CR>
 
 function! g:CloseBuffer()
   if stridx(bufname("%"), "fern://drawer") == 0 
