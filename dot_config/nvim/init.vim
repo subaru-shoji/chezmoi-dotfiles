@@ -19,6 +19,7 @@ Plug 'w0ng/vim-hybrid'
 
 Plug 'tyru/caw.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'easymotion/vim-easymotion'
 
 Plug 'vim-test/vim-test'
 Plug 'puremourning/vimspector'
@@ -36,8 +37,6 @@ Plug 'lambdalisue/fern-git-status.vim'
 Plug 'lambdalisue/fern-hijack.vim'
 
 Plug 'ryanoasis/vim-devicons'
-
-Plug 'easymotion/vim-easymotion'
 
 
 Plug 'moll/vim-bbye'
@@ -62,8 +61,8 @@ let g:coc_global_extensions = [
       \, 'coc-pairs'
       \, 'coc-fzf-preview'
       \, 'coc-rust-analyzer'
-      \, 'coc-flutter'
       \, 'coc-elixir'
+      \, 'coc-flutter'
       \, ]
 
 " editor {{{1
@@ -96,29 +95,22 @@ nnoremap <silent> gj G
 nnoremap <silent> gk gg
 nnoremap <Leader>o :e
 nnoremap <silent> <Leader>n :ene<CR>
-nnoremap <silent> <Leader>w :update<CR>
 nnoremap <silent> <Leader>q :call CloseBuffer()<CR>
-nnoremap <silent> <Leader>s :split<CR>
-nnoremap <silent> <Leader>v :vsplit<CR>
 nnoremap <silent> <C-h> <C-w>h
 nnoremap <silent> <C-j> <C-w>j
 nnoremap <silent> <C-k> <C-w>k
 nnoremap <silent> <C-l> <C-w>l
-nnoremap <silent> <Leader>h <C-w>h
-nnoremap <silent> <Leader>j <C-w>j
-nnoremap <silent> <Leader>k <C-w>k
-nnoremap <silent> <Leader>l <C-w>l
-nnoremap <silent> <Leader><Left> <C-w>h
-nnoremap <silent> <Leader><Down> <C-w>j
-nnoremap <silent> <Leader><Up> <C-w>k
-nnoremap <silent> <Leader><Right> <C-w>l
 
+noremap <silent> <C-S> :update<CR>
+vnoremap <silent> <C-S> <C-C>:update<CR>
+inoremap <silent> <C-S> <C-O>:update<CR>
 
 nnoremap <silent> <ESC><ESC> :nohl<CR>
 nnoremap <silent> gn :bnext<CR>
 nnoremap <silent> gb :bprevious<CR>
-nnoremap <C-s> :w<CR>
-inoremap <C-s> <ESC>:w<CR>
+nnoremap <silent> K :bnext<CR>
+nnoremap <silent> J :bprevious<CR>
+
 
 function! g:CloseBuffer()
   if stridx(bufname("%"), "fern://drawer") == 0 
@@ -145,6 +137,7 @@ let g:fzf_preview_use_dev_icons = 1
 
 nnoremap <silent> <Leader>f :<C-u>CocCommand fzf-preview.ProjectFiles<CR> 
 nnoremap <silent> <Leader>F :<C-u>CocCommand fzf-preview.DirectoryFiles<CR> 
+nnoremap <silent> <Leader>r :<C-u>CocCommand fzf-preview.ProjectMruFiles<CR> 
 nnoremap <silent> <Leader>b :<C-u>CocCommand fzf-preview.Buffers<CR> 
 nnoremap <silent> <Leader>/ :<C-u>CocCommand fzf-preview.Lines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'"<CR> 
 nnoremap <Leader>? :<C-u>CocCommand fzf-preview.ProjectGrep<Space> 
@@ -191,8 +184,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> <Leader>m :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -206,7 +198,7 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
-nmap <leader>r <Plug>(coc-rename)
+nmap <leader>R <Plug>(coc-rename)
 
 " Codeaction
 nmap <leader>.  <Plug>(coc-codeaction)
