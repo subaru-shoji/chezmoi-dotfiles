@@ -103,7 +103,7 @@ nnoremap <silent> <C-l> <C-w>l
 
 noremap <silent> <C-S> :update<CR>
 vnoremap <silent> <C-S> <C-C>:update<CR>
-inoremap <silent> <C-S> <C-O>:update<CR>
+inoremap <silent> <C-S> <esc>:update<CR>
 
 nnoremap <silent> <ESC><ESC> :nohl<CR>
 nnoremap <silent> gn :bnext<CR>
