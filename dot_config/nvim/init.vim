@@ -161,9 +161,10 @@ nnoremap <silent> <leader>/ :<C-u>CocCommand fzf-preview.Lines -add-fzf-arg=--no
 nnoremap <silent> <leader>? :<C-u>CocCommand fzf-preview.ProjectGrep<Space> 
 nnoremap <silent> <leader>c :Commands<CR>
 nnoremap <silent> <leader>C :CocFzfList<CR>
+nnoremap <silent> <leader><leader>c :CocFzfList<CR>
 nnoremap <silent> <leader>g :CocCommand fzf-preview.GitActions<CR> 
 nnoremap <silent> <leader>G :CocCommand fzf-preview.GitStatus<CR> 
->>>>>>> 0e5cb48 (feat: change keybindings. use lowercase.)
+nnoremap <silent> <leader><leader>g :CocCommand fzf-preview.GitStatus<CR> 
 
 " coc.nvim {{{1
 nmap <expr> <silent> <C-d> <SID>select_current_word()
