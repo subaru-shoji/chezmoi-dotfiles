@@ -107,7 +107,7 @@ noremap <silent> <C-S> :update<CR>
 vnoremap <silent> <C-S> <C-C>:update<CR>
 inoremap <silent> <C-S> <esc>:update<CR>
 
-nnoremap <silent> <ESC><ESC> :nohl<CR>
+nnoremap <silent> <esc><esc> :nohl<CR>
 nnoremap <silent> gn :bnext<CR>
 nnoremap <silent> gb :bprevious<CR>
 nnoremap <silent> K :bnext<CR>
@@ -154,6 +154,16 @@ nnoremap <silent> <leader>G :<C-u>CocCommand fzf-preview.GitActions<CR>
 nnoremap <silent> <leader><leader>g :<C-u>CocCommand fzf-preview.GitActions<CR> 
 nnoremap <silent> <leader>d :<C-u>CocCommand fzf-preview.CocDiagnostics<CR> 
 nnoremap <silent> <leader><leader>d :<C-u>CocCommand fzf-preview.CocDiagnostics<CR> 
+=======
+nnoremap <silent> <leader>r :<C-u>CocCommand fzf-preview.ProjectMruFiles<CR> 
+nnoremap <silent> <leader>b :<C-u>CocCommand fzf-preview.Buffers<CR> 
+nnoremap <silent> <leader>/ :<C-u>CocCommand fzf-preview.Lines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'"<CR> 
+nnoremap <silent> <leader>? :<C-u>CocCommand fzf-preview.ProjectGrep<Space> 
+nnoremap <silent> <leader>c :Commands<CR>
+nnoremap <silent> <leader>C :CocFzfList<CR>
+nnoremap <silent> <leader>g :CocCommand fzf-preview.GitActions<CR> 
+nnoremap <silent> <leader>G :CocCommand fzf-preview.GitStatus<CR> 
+>>>>>>> 0e5cb48 (feat: change keybindings. use lowercase.)
 
 " coc.nvim {{{1
 nmap <expr> <silent> <C-d> <SID>select_current_word()
@@ -243,6 +253,7 @@ if executable('fcitx')
    autocmd CmdlineLeave * :call system('fcitx-remote -c')
 endif
 
+" TypeScript {{{1
 " set filetypes as typescriptreact
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
