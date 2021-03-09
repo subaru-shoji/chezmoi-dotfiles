@@ -93,9 +93,10 @@ let mapleader = "\<Space>"
 
 nnoremap <silent> gj G
 nnoremap <silent> gk gg
-nnoremap <Leader>o :e
-nnoremap <silent> <Leader>n :ene<CR>
-nnoremap <silent> <Leader>q :call CloseBuffer()<CR>
+nnoremap <leader>o :e
+nnoremap <silent> <leader>n :ene<CR>
+nnoremap <silent> <leader>q :call CloseBuffer()<CR>
+nnoremap <silent> <leader><leader>q :q<CR>
 nnoremap <silent> <C-h> <C-w>h
 nnoremap <silent> <C-j> <C-w>j
 nnoremap <silent> <C-k> <C-w>k
@@ -135,16 +136,16 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 let g:fzf_preview_filelist_command = 'fd -H -E .git'
 let g:fzf_preview_use_dev_icons = 1
 
-nnoremap <silent> <Leader>f :<C-u>CocCommand fzf-preview.ProjectFiles<CR> 
-nnoremap <silent> <Leader>F :<C-u>CocCommand fzf-preview.DirectoryFiles<CR> 
-nnoremap <silent> <Leader>r :<C-u>CocCommand fzf-preview.ProjectMruFiles<CR> 
-nnoremap <silent> <Leader>b :<C-u>CocCommand fzf-preview.Buffers<CR> 
-nnoremap <silent> <Leader>/ :<C-u>CocCommand fzf-preview.Lines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'"<CR> 
-nnoremap <silent> <Leader>? :<C-u>CocCommand fzf-preview.ProjectGrep<Space> 
-nnoremap <silent> <Leader>c :Commands<CR>
-nnoremap <silent> <Leader>C :CocFzfList<CR>
-nnoremap <silent> <Leader>g :CocCommand fzf-preview.GitActions<CR> 
-nnoremap <silent> <Leader>G :CocCommand fzf-preview.GitStatus<CR> 
+nnoremap <silent> <leader>f :<C-u>CocCommand fzf-preview.ProjectFiles<CR> 
+nnoremap <silent> <leader>F :<C-u>CocCommand fzf-preview.DirectoryFiles<CR> 
+nnoremap <silent> <leader>r :<C-u>CocCommand fzf-preview.ProjectMruFiles<CR> 
+nnoremap <silent> <leader>b :<C-u>CocCommand fzf-preview.Buffers<CR> 
+nnoremap <silent> <leader>/ :<C-u>CocCommand fzf-preview.Lines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'"<CR> 
+nnoremap <silent> <leader>? :<C-u>CocCommand fzf-preview.ProjectGrep<Space> 
+nnoremap <silent> <leader>c :Commands<CR>
+nnoremap <silent> <leader>C :CocFzfList<CR>
+nnoremap <silent> <leader>g :CocCommand fzf-preview.GitActions<CR> 
+nnoremap <silent> <leader>G :CocCommand fzf-preview.GitStatus<CR> 
 
 " coc.nvim {{{1
 nmap <expr> <silent> <C-d> <SID>select_current_word()
