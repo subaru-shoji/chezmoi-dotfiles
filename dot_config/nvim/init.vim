@@ -140,7 +140,7 @@ nnoremap <silent> <Leader>F :<C-u>CocCommand fzf-preview.DirectoryFiles<CR>
 nnoremap <silent> <Leader>r :<C-u>CocCommand fzf-preview.ProjectMruFiles<CR> 
 nnoremap <silent> <Leader>b :<C-u>CocCommand fzf-preview.Buffers<CR> 
 nnoremap <silent> <Leader>/ :<C-u>CocCommand fzf-preview.Lines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'"<CR> 
-nnoremap <Leader>? :<C-u>CocCommand fzf-preview.ProjectGrep<Space> 
+nnoremap <silent> <Leader>? :<C-u>CocCommand fzf-preview.ProjectGrep<Space> 
 nnoremap <silent> <Leader>c :Commands<CR>
 nnoremap <silent> <Leader>C :CocFzfList<CR>
 nnoremap <silent> <Leader>g :CocCommand fzf-preview.GitActions<CR> 
@@ -237,4 +237,6 @@ endif
 " set filetypes as typescriptreact
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
-
+" easymotion {{{1
+nmap H <Plug>(easymotion-overwin-f)
+nmap L <Plug>(easymotion-overwin-line)
