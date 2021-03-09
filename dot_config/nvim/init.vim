@@ -184,7 +184,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-nnoremap <silent> <Leader>h :call <SID>show_documentation()<CR>
+nnoremap <silent> H :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -240,6 +240,3 @@ autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 " Vista {{{1
 nnoremap <silent> <leader>v :Vista coc<CR>
 
-" easymotion {{{1
-nmap H <Plug>(easymotion-overwin-f)
-nmap L <Plug>(easymotion-overwin-line)
