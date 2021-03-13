@@ -154,7 +154,6 @@ nnoremap <silent> <leader>G :<C-u>CocCommand fzf-preview.GitActions<CR>
 nnoremap <silent> <leader><leader>g :<C-u>CocCommand fzf-preview.GitActions<CR> 
 nnoremap <silent> <leader>d :<C-u>CocCommand fzf-preview.CocDiagnostics<CR> 
 nnoremap <silent> <leader><leader>d :<C-u>CocCommand fzf-preview.CocDiagnostics<CR> 
-=======
 nnoremap <silent> <leader>r :<C-u>CocCommand fzf-preview.ProjectMruFiles<CR> 
 nnoremap <silent> <leader>b :<C-u>CocCommand fzf-preview.Buffers<CR> 
 nnoremap <silent> <leader>/ :<C-u>CocCommand fzf-preview.Lines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'"<CR> 
