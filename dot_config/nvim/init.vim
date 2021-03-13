@@ -59,6 +59,7 @@ let g:coc_global_extensions = [
       \, 'coc-snippets'
       \, 'coc-prettier'
       \, 'coc-pairs'
+      \, 'coc-highlight'
       \, 'coc-fzf-preview'
       \, 'coc-rust-analyzer'
       \, 'coc-elixir'
@@ -138,14 +139,21 @@ let g:fzf_preview_use_dev_icons = 1
 
 nnoremap <silent> <leader>f :<C-u>CocCommand fzf-preview.ProjectFiles<CR> 
 nnoremap <silent> <leader>F :<C-u>CocCommand fzf-preview.DirectoryFiles<CR> 
+nnoremap <silent> <leader><leader>f :<C-u>CocCommand fzf-preview.DirectoryFiles<CR> 
 nnoremap <silent> <leader>r :<C-u>CocCommand fzf-preview.ProjectMruFiles<CR> 
+nnoremap <silent> <leader><leader>r :<C-u>CocCommand fzf-preview.CommandPalette<CR> 
 nnoremap <silent> <leader>b :<C-u>CocCommand fzf-preview.Buffers<CR> 
 nnoremap <silent> <leader>/ :<C-u>CocCommand fzf-preview.Lines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'"<CR> 
+nnoremap <silent> <leader><leader>/ :<C-u>CocCommand fzf-preview.ProjectGrep<Space> 
 nnoremap <silent> <leader>? :<C-u>CocCommand fzf-preview.ProjectGrep<Space> 
-nnoremap <silent> <leader>c :Commands<CR>
-nnoremap <silent> <leader>C :CocFzfList<CR>
-nnoremap <silent> <leader>g :CocCommand fzf-preview.GitActions<CR> 
-nnoremap <silent> <leader>G :CocCommand fzf-preview.GitStatus<CR> 
+nnoremap <silent> <leader>c :<C-u>Commands<CR>
+nnoremap <silent> <leader>C :<C-u>CocFzfList<CR>
+nnoremap <silent> <leader><leader>c :<C-u>CocFzfList<CR>
+nnoremap <silent> <leader>g :<C-u>CocCommand fzf-preview.GitStatus<CR> 
+nnoremap <silent> <leader>G :<C-u>CocCommand fzf-preview.GitActions<CR> 
+nnoremap <silent> <leader><leader>g :<C-u>CocCommand fzf-preview.GitActions<CR> 
+nnoremap <silent> <leader>d :<C-u>CocCommand fzf-preview.CocDiagnostics<CR> 
+nnoremap <silent> <leader><leader>d :<C-u>CocCommand fzf-preview.CocDiagnostics<CR> 
 
 " coc.nvim {{{1
 nmap <expr> <silent> <C-d> <SID>select_current_word()
@@ -202,7 +210,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>R <Plug>(coc-rename)
 
 " Codeaction
-nmap <leader>.  <Plug>(coc-codeaction)
+nmap <leader>. <Plug>(coc-codeaction)
 
 augroup mygroup
   autocmd!
@@ -218,8 +226,8 @@ nmap <silent> <TAB> <Plug>(coc-range-select)
 xmap <silent> <TAB> <Plug>(coc-range-select)
 
 command! -nargs=0 Format :call CocAction('format')
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-command! -nargs=0 Import   :call     CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=? Fold :call CocAction('fold', <f-args>)
+command! -nargs=0 Import :call CocAction('runCommand', 'editor.action.organizeImport')
 
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
@@ -240,4 +248,5 @@ autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
 " Vista {{{1
 nnoremap <silent> <leader>v :Vista coc<CR>
+nnoremap <silent> <leader><leader>v :Vista coc<CR>
 
