@@ -7,6 +7,7 @@ Plug 'editorconfig/editorconfig-vim'
 
 Plug 'lambdalisue/gina.vim'
 
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -91,6 +92,10 @@ colorscheme hybrid
 
 " keybinding {{{1
 let mapleader = "\<Space>"
+
+inoremap <silent> jj <esc>
+noremap <C-j> <esc>
+noremap! <C-j> <esc>
 
 nnoremap <silent> gj G
 nnoremap <silent> gk gg
