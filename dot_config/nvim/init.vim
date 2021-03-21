@@ -28,6 +28,7 @@ Plug 'liuchengxu/vista.vim'
 Plug 'iberianpig/tig-explorer.vim'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'junegunn/goyo.vim'
 
 Plug 'lambdalisue/fern.vim'
 Plug 'antoinemadec/FixCursorHold.nvim'
@@ -50,6 +51,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'dag/vim-fish'
 Plug 'elixir-editors/vim-elixir'
 Plug 'andys8/vim-elm-syntax'
+Plug 'thosakwe/vim-flutter'
 
 
 call plug#end()
@@ -266,3 +268,8 @@ autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 nnoremap <silent> <leader>v :Vista coc<CR>
 nnoremap <silent> <leader><leader>v :Vista coc<CR>
 
+" Plug {{{1
+autocmd VimEnter *
+  \  if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall
+  \| endif
