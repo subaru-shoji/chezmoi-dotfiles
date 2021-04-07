@@ -114,6 +114,12 @@ noremap <silent> <C-S> :update<CR>
 vnoremap <silent> <C-S> <C-C>:update<CR>
 inoremap <silent> <C-S> <esc>:update<CR>
 
+" copy to clipboard
+vnoremap <silent> <leader>y "+y
+" paste from clipboard
+nnoremap <silent> <leader>p "+p
+nnoremap <silent> <leader>P "+P
+
 nnoremap <silent> <esc><esc> :nohl<CR>
 nnoremap <silent> gn :bnext<CR>
 nnoremap <silent> gb :bprevious<CR>
