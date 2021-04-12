@@ -102,6 +102,8 @@ imap <silent> <c-e> <c-o>A
 imap <silent> <c-u> <c-o>dd
 cmap <c-a> <home>
 cmap <c-e> <end>
+nmap <c-a> 0
+nmap <c-e> $
 vmap <c-a> 0
 vmap <c-e> $
 
