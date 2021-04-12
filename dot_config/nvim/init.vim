@@ -96,8 +96,12 @@ colorscheme hybrid
 let mapleader = "\<Space>"
 
 inoremap <silent> jj <esc>
-noremap <C-j> <esc>
-noremap! <C-j> <esc>
+
+imap <silent> <c-a> <c-o>I
+imap <silent> <c-e> <c-o>A
+imap <silent> <c-u> <c-o>dd
+cmap <c-a> <home>
+cmap <c-e> <end>
 
 nnoremap <silent> gj G
 nnoremap <silent> gk gg
