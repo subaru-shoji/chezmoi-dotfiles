@@ -112,7 +112,8 @@ nnoremap <silent> gk gg
 nnoremap <leader>o :e
 nnoremap <silent> <leader>n :ene<CR>
 nnoremap <silent> <leader>q :call CloseBuffer()<CR>
-nnoremap <silent> <leader><leader>q :q<CR>
+nnoremap <silent> <leader><leader>q <C-w>q
+nnoremap <silent> <leader><leader><leader>q :q<CR>
 nnoremap <silent> <C-h> <C-w>h
 nnoremap <silent> <C-j> <C-w>j
 nnoremap <silent> <C-k> <C-w>k
