@@ -96,6 +96,9 @@ colorscheme hybrid
 let mapleader = "\<Space>"
 
 inoremap <silent> jj <esc>
+inoremap <silent> kk <esc>
+inoremap <silent> hh <esc>
+inoremap <silent> ll <esc>
 
 imap <silent> <c-a> <c-o>I
 imap <silent> <c-e> <c-o>A
@@ -112,12 +115,16 @@ nnoremap <silent> gk gg
 nnoremap <leader>o :e
 nnoremap <silent> <leader>n :ene<CR>
 nnoremap <silent> <leader>q :call CloseBuffer()<CR>
-nnoremap <silent> <leader><leader>q <C-w>q
-nnoremap <silent> <leader><leader><leader>q :q<CR>
-nnoremap <silent> <C-h> <C-w>h
-nnoremap <silent> <C-j> <C-w>j
-nnoremap <silent> <C-k> <C-w>k
-nnoremap <silent> <C-l> <C-w>l
+nnoremap <silent> <leader><leader>q :q<CR>
+nnoremap <silent> <leader><leader><leader>q <C-w>q
+
+nnoremap <silent> <leader>h <C-w>h
+nnoremap <silent> <leader>j <C-w>j
+nnoremap <silent> <leader>k <C-w>k
+nnoremap <silent> <leader>l <C-w>l
+nnoremap <silent> <leader>s <C-w>s
+nnoremap <silent> <leader>v <C-w>v
+nnoremap <silent> <leader>w <C-w>w
 
 noremap <silent> <C-S> :update<CR>
 vnoremap <silent> <C-S> <C-C>:update<CR>
@@ -280,7 +287,6 @@ endif
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
 " Vista {{{1
-nnoremap <silent> <leader>v :Vista coc<CR>
 nnoremap <silent> <leader><leader>v :Vista coc<CR>
 
 " Plug {{{1
