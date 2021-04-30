@@ -112,8 +112,7 @@ vmap <c-e> $
 
 nnoremap <silent> gj G
 nnoremap <silent> gk gg
-nnoremap <leader>o :e
-nnoremap <silent> <leader>n :ene<CR>
+nnoremap <silent> <leader>t :ene<CR>
 nnoremap <silent> <leader>q :call CloseBuffer()<CR>
 nnoremap <silent> <leader><leader>q :q<CR>
 nnoremap <silent> <leader><leader><leader>q <C-w>q
@@ -271,8 +270,8 @@ command! -nargs=0 Import :call CocAction('runCommand', 'editor.action.organizeIm
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Fern {{{1
-nnoremap <silent> <leader>t :Fern . -drawer -toggle<CR>
-nnoremap <silent> <leader>e :Fern . <CR>
+nnoremap <silent> <leader>e :Fern . -drawer -toggle<CR>
+nnoremap <silent> <leader><leader>e :Fern . <CR>
 let g:fern#renderer = "nerdfont"
 let g:fern#default_hidden = 1
 
