@@ -270,8 +270,8 @@ command! -nargs=0 Import :call CocAction('runCommand', 'editor.action.organizeIm
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Fern {{{1
-nnoremap <silent> <leader>e :Fern . -drawer -toggle<CR>
-nnoremap <silent> <leader><leader>e :Fern . <CR>
+nnoremap <silent> <leader>e :Fern . <CR>
+nnoremap <silent> <leader><leader>e :Fern . -drawer -toggle<CR>
 let g:fern#renderer = "nerdfont"
 let g:fern#default_hidden = 1
 
