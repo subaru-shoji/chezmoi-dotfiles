@@ -288,6 +288,15 @@ autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 " Vista {{{1
 nnoremap <silent> <leader><leader>v :Vista coc<CR>
 
+" EasyMotion{{{1
+nmap s <Plug>(easymotion-s2)
+nmap t <Plug>(easymotion-t2)
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+let g:EasyMotion_smartcase = 1
+
 " Plug {{{1
 autocmd VimEnter *
   \  if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
