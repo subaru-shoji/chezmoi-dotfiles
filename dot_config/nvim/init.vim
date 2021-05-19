@@ -21,6 +21,7 @@ Plug 'w0ng/vim-hybrid'
 Plug 'tyru/caw.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'easymotion/vim-easymotion'
+Plug 'danilamihailov/beacon.nvim'
 
 Plug 'vim-test/vim-test'
 Plug 'puremourning/vimspector'
@@ -78,6 +79,7 @@ set tabstop=2
 set shiftwidth=2
 set noswapfile
 set cursorline
+set cursorcolumn
 set showtabline=2
 set mouse=a
 
@@ -94,11 +96,6 @@ colorscheme hybrid
 
 " keybinding {{{1
 let mapleader = "\<Space>"
-
-inoremap <silent> jj <esc>
-inoremap <silent> kk <esc>
-inoremap <silent> hh <esc>
-inoremap <silent> ll <esc>
 
 imap <silent> <c-a> <c-o>I
 imap <silent> <c-e> <c-o>A
@@ -121,8 +118,8 @@ nnoremap <silent> <leader>h <C-w>h
 nnoremap <silent> <leader>j <C-w>j
 nnoremap <silent> <leader>k <C-w>k
 nnoremap <silent> <leader>l <C-w>l
-nnoremap <silent> <leader>s <C-w>s
-nnoremap <silent> <leader>v <C-w>v
+nnoremap <silent> <leader>s <C-w>s<C-w>j
+nnoremap <silent> <leader>v <C-w>v<C-w>l
 nnoremap <silent> <leader>w <C-w>w
 
 noremap <silent> <C-S> :update<CR>
