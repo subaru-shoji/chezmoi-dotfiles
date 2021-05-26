@@ -160,7 +160,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
 " fzf {{{1
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 let g:fzf_preview_filelist_command = 'fd -H -E .git'
 let g:fzf_preview_use_dev_icons = 1
 
@@ -191,6 +191,28 @@ nnoremap <silent> <leader><leader>c :CocFzfList<CR>
 nnoremap <silent> <leader>g :CocCommand fzf-preview.GitActions<CR> 
 nnoremap <silent> <leader>G :CocCommand fzf-preview.GitStatus<CR> 
 nnoremap <silent> <leader><leader>g :CocCommand fzf-preview.GitStatus<CR> 
+
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+function! s:fzfQuickAction()
+  let list = [
+  \  'Format'
+  \, 'Import'
+  \, 'ene'
+  \, ]
+
+ call fzf#run({
+  \ 'source': list,
+  \ 'sink*': function('execute'),
+  \ 'window': g:fzf_layout['window'],
+  \ })
+endfunction
+
+command! -nargs=0 FzfQuickAction :call s:fzfQuickAction()
+nnoremap <silent> <leader><leader>. :FzfQuickAction<CR> 
+
 
 " coc.nvim {{{1
 nmap <expr> <silent> <C-d> <SID>select_current_word()
