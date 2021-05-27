@@ -81,7 +81,7 @@ set noswapfile
 set cursorline
 set cursorcolumn
 set showtabline=2
-set mouse=a
+" set mouse=a
 
 set hidden
 set nobackup
