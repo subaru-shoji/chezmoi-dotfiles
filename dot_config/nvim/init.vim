@@ -32,6 +32,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'junegunn/goyo.vim'
 
 Plug 'lambdalisue/fern.vim'
+Plug 'yuki-yano/fern-preview.vim'
 Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/glyph-palette.vim'
@@ -295,6 +296,15 @@ nnoremap <silent> <leader>e :Fern . -reveal=%<CR>
 nnoremap <silent> <leader><leader>e :Fern . -drawer -reveal=% -toggle<CR>
 let g:fern#renderer = "nerdfont"
 let g:fern#default_hidden = 1
+
+function! s:init_fern_mapping_preview() abort
+    nmap <buffer> p <Plug>(fern-action-preview:toggle) 
+endfunction
+augroup my-fern-mapping-preview
+    autocmd! *
+    autocmd FileType fern call s:init_fern_mapping_preview()
+augroup END
+
 
 " Fcitx {{{1
 if executable('fcitx')
