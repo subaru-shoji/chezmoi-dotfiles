@@ -22,6 +22,7 @@ Plug 'tyru/caw.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'easymotion/vim-easymotion'
 Plug 'danilamihailov/beacon.nvim'
+Plug 'TaDaa/vimade'
 
 Plug 'vim-test/vim-test'
 Plug 'puremourning/vimspector'
