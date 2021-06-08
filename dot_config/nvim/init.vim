@@ -321,8 +321,9 @@ autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 nnoremap <silent> <leader><leader>v :Vista coc<CR>
 
 " EasyMotion{{{1
-nmap s <Plug>(easymotion-s2)
-nmap t <Plug>(easymotion-t2)
+nmap s <Plug>(easymotion-overwin-f2)
+map <leader><leader>l <Plug>(easymotion-bd-jk)
+nmap <leader><leader>l <Plug>(easymotion-overwin-line)
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 map  n <Plug>(easymotion-next)
