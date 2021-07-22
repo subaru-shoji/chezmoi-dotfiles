@@ -360,3 +360,14 @@ wk.register(
   },
   {prefix = "g"}
 )
+
+vim.api.nvim_exec(
+  [[
+if executable('fcitx')
+   autocmd InsertLeave * :call system('fcitx-remote -c')
+   autocmd CmdlineLeave * :call system('fcitx-remote -c')
+endif
+]]
+)
+
+
