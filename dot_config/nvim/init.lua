@@ -165,6 +165,8 @@ require("packer").startup(
     use "tamago324/nlsp-settings.nvim"
     use "simrat39/symbols-outline.nvim"
     use "mg979/vim-visual-multi"
+    use "yuki-yano/fern-preview.vim"
+    use "danilamihailov/beacon.nvim"
   end
 )
 
@@ -191,6 +193,7 @@ vim.o.shiftwidth = vim.o.tabstop
 vim.g.mapleader = " "
 
 vim.wo.number = true
+vim.wo.cursorcolumn = true
 
 vim.cmd("set guicursor=")
 
@@ -205,11 +208,12 @@ vim.o.shortmess = vim.o.shortmess .. "c"
 
 vim.g.timeoutlen = 0
 
-local set_key_map = vim.api.nvim_set_keymap
-set_key_map("i", "<c-a>", "<c-o>I", {silent = true})
-set_key_map("i", "<c-e>", "<c-o>A", {silent = true})
-set_key_map("c", "<c-a>", "<home>", {silent = true})
-set_key_map("c", "<c-e>", "<end>", {silent = true})
+vimp.imap("qq", "<esc>")
+
+vimp.imap({"silent"}, "<c-a>", "<c-o>I")
+vimp.imap({"silent"}, "<c-e>", "<c-o>A")
+vimp.cmap({"silent"}, "<c-a>", "<home>")
+vimp.cmap({"silent"}, "<c-e>", "<end>")
 vimp.nmap("<c-a>", "0")
 vimp.nmap("<c-e>", "$")
 vimp.vmap("<c-a>", "0")
@@ -223,7 +227,19 @@ vimp.nnoremap("<c-i>", ":Telescope jumplist<cr>")
 
 vimp.nnoremap({"silent"}, "<esc><esc>", ":nohl<cr>")
 
--- becase of conflict with default help keybinding.
+vimp.nmap("<s-up>", "v<up>")
+vimp.nmap("<s-down>", "v<down>")
+vimp.nmap("<s-left>", "v<left>")
+vimp.nmap("<s-right>", "v<right>")
+vimp.vmap("<s-up>", "<up>")
+vimp.vmap("<s-down>", "<down>")
+vimp.vmap("<s-left>", "<left>")
+vimp.vmap("<s-right>", "<right>")
+vimp.imap("<s-up>", "<esc>v<up>")
+vimp.imap("<s-down>", "<esc>v<down>")
+vimp.imap("<s-left>", "<esc>v<left>")
+vimp.imap("<s-right>", "<esc>v<right>")
+
 vim.api.nvim_exec(
   [[
   augroup Packer
@@ -268,7 +284,7 @@ wk.register(
     F = {
       ":HopChar1<cr>",
       "hop char1"
-    }
+    },
   },
   {}
 )
@@ -363,11 +379,20 @@ wk.register(
 
 vim.api.nvim_exec(
   [[
-if executable('fcitx')
-   autocmd InsertLeave * :call system('fcitx-remote -c')
-   autocmd CmdlineLeave * :call system('fcitx-remote -c')
-endif
-]]
+		augroup fern-settings
+		autocmd!
+		autocmd FileType fern nmap <silent> <buffer> p <Plug>(fern-action-preview:toggle)
+		augroup END
+	]],
+  false
 )
 
-
+vim.api.nvim_exec(
+  [[
+		if executable('fcitx')
+			 autocmd InsertLeave * :call system('fcitx-remote -c')
+			 autocmd CmdlineLeave * :call system('fcitx-remote -c')
+		endif
+	]],
+  false
+)
