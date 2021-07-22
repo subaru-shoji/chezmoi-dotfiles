@@ -7,18 +7,6 @@ if fn.empty(fn.glob(install_path)) > 0 then
   execute "packadd packer.nvim"
 end
 
-vim.api.nvim_exec(
-  [[
-  augroup Packer
-    autocmd!
-    autocmd BufWritePre init.lua Format
-    autocmd BufEnter init.lua PackerInstall
-    autocmd BufEnter init.lua PackerCompile
-  augroup end
-]],
-  false
-)
-
 vim.cmd [[packadd packer.nvim]]
 require("packer").startup(
   function(use)
@@ -58,6 +46,7 @@ require("packer").startup(
       "mhartington/formatter.nvim",
       config = function()
         require("formatter").setup {
+          logging = false,
           filetype = {
             lua = {
               -- luafmt
@@ -71,23 +60,52 @@ require("packer").startup(
             }
           }
         }
+
+        vim.api.nvim_exec(
+          [[
+						augroup FormatAutogroup
+							autocmd!
+							autocmd BufWritePost *.lua FormatWrite
+						augroup END
+					]],
+          true
+        )
       end
     }
     use {
-      "neovim/nvim-lspconfig",
-      config = function()
-        require "lspconfig".tsserver.setup {}
-      end
+      "neovim/nvim-lspconfig"
     }
     use {
       "kabouzeid/nvim-lspinstall",
       config = function()
         require "lspinstall".setup() -- important
 
-        local servers = require "lspinstall".installed_servers()
-        for _, server in pairs(servers) do
-          require "lspconfig"[server].setup {}
+        local function setup_servers()
+          require "lspinstall".setup()
+          local servers = require "lspinstall".installed_servers()
+          for _, server in pairs(servers) do
+            require "lspconfig"[server].setup {}
+          end
         end
+
+        setup_servers()
+
+        -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+        require "lspinstall".post_install_hook = function()
+          setup_servers() -- reload installed servers
+          vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+        end
+
+        local lspconfig = require "lspconfig"
+        lspconfig.lua.setup {
+          settings = {
+            Lua = {
+              diagnostics = {
+                globals = {"vim"}
+              }
+            }
+          }
+        }
       end
     }
     use {
@@ -112,6 +130,9 @@ require("packer").startup(
     use {
       "nvim-lua/completion-nvim",
       config = function()
+        vim.g.completion_enable_auto_popup = 0
+        vim.g.completion_sorting = "none"
+
         vim.cmd [[autocmd BufEnter * lua require'completion'.on_attach()]]
       end
     }
@@ -123,12 +144,6 @@ require("packer").startup(
     }
     use "marko-cerovac/material.nvim"
     use "euclidianAce/BetterLua.vim"
-    use {
-      "tjdevries/nlua.nvim",
-      config = function()
-        require("nlua.lsp.nvim").setup(require("lspconfig"), {})
-      end
-    }
     use {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}}
     use {
       "windwp/nvim-autopairs",
@@ -140,11 +155,15 @@ require("packer").startup(
     use "tversteeg/registers.nvim"
     use {
       "TimUntersberger/neogit",
-      requires = "nvim-lua/plenary.nvim",
       config = function()
-        require("neogit").setup {}
+        require("neogit").setup {
+          integrations = {
+            diffview = true
+          }
+        }
       end
     }
+    use "sindrets/diffview.nvim"
     use "f-person/git-blame.nvim"
     use "yamatsum/nvim-cursorline"
     use {
@@ -162,7 +181,6 @@ require("packer").startup(
         require("bufferline").setup {}
       end
     }
-    use "tamago324/nlsp-settings.nvim"
     use "simrat39/symbols-outline.nvim"
     use "mg979/vim-visual-multi"
     use "yuki-yano/fern-preview.vim"
@@ -170,6 +188,7 @@ require("packer").startup(
   end
 )
 
+vim.cmd("set guicursor=")
 vim.o.termguicolors = true
 
 vim.o.pumblend = 15
@@ -195,10 +214,8 @@ vim.g.mapleader = " "
 vim.wo.number = true
 vim.wo.cursorcolumn = true
 
-vim.cmd("set guicursor=")
-
--- vimp.inoremap({'expr'}, '<tab>', 'pumvisible() ? "\\<c-n>" : "\\<tab>"')
--- vimp.inoremap({'expr'}, '<s-tab>', 'pumvisible() ? "\\<c-p>" : "\\<tab>"')
+vimp.imap("<tab>", "<Plug>(completion_smart_tab)")
+vimp.imap("<s-tab>", "<Plug>(completion_smart_s_tab)")
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = "menuone,noinsert,noselect"
@@ -206,7 +223,7 @@ vim.o.completeopt = "menuone,noinsert,noselect"
 -- Avoid showing message extra message when using completion
 vim.o.shortmess = vim.o.shortmess .. "c"
 
-vim.g.timeoutlen = 0
+vim.g.timeoutlen = 10
 
 vimp.imap("qq", "<esc>")
 
@@ -225,7 +242,7 @@ vimp.inoremap("<c-s>", "<esc>:update<cr>")
 
 vimp.nnoremap("<c-i>", ":Telescope jumplist<cr>")
 
-vimp.nnoremap({"silent"}, "<esc><esc>", ":nohl<cr>")
+vimp.nnoremap({"silent", "nowait"}, "<esc><esc>", ":nohl<cr>")
 
 vimp.nmap("<s-up>", "v<up>")
 vimp.nmap("<s-down>", "v<down>")
@@ -251,6 +268,7 @@ vim.api.nvim_exec(
 )
 vimp.nnoremap({"silent"}, "J", ":BufferLineCyclePrev<cr>")
 vimp.nnoremap("L", "<c-w>w")
+vimp.nnoremap("W", "<c-w>w")
 
 local wk = require("which-key")
 local telescope = require("telescope.builtin")
@@ -284,7 +302,7 @@ wk.register(
     F = {
       ":HopChar1<cr>",
       "hop char1"
-    },
+    }
   },
   {}
 )
@@ -328,7 +346,32 @@ wk.register(
       w = {"<c-w>c", "quit window"},
       q = {":bdelete<cr>", "quit buffer"}
     },
-    g = {},
+    g = {
+      s = {
+        function()
+          require("neogit").open({kind = "split"})
+        end,
+        "neogit status"
+      },
+      c = {
+        function()
+          require("neogit").open({"commit"})
+        end,
+        "neogit commit"
+      },
+      b = {
+        function()
+          require("neogit").open({"branch"})
+        end,
+        "neogit branch"
+      },
+      l = {
+        function()
+          require("neogit").open({"log"})
+        end,
+        "neogit log"
+      }
+    },
     y = {'"+y', "yank to clipboard"},
     e = {
       e = {
@@ -381,7 +424,7 @@ vim.api.nvim_exec(
   [[
 		augroup fern-settings
 		autocmd!
-		autocmd FileType fern nmap <silent> <buffer> p <Plug>(fern-action-preview:toggle)
+		autocmd FileType fern nmap <silent> <buffer> H <Plug>(fern-action-preview:toggle)
 		augroup END
 	]],
   false
