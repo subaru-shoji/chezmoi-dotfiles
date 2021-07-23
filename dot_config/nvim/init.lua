@@ -134,6 +134,17 @@ require("packer").startup(
         vim.g.completion_sorting = "none"
 
         vim.cmd [[autocmd BufEnter * lua require'completion'.on_attach()]]
+
+        vim.nvim_exec(
+          [[
+					augroup CompletionTriggerCharacter
+							autocmd!
+							autocmd BufEnter * let completion_enable_auto_popup = 1
+							autocmd BufEnter *.lua let completion_enable_auto_popup = 0
+					augroup end
+				]],
+          false
+        )
       end
     }
     use {
