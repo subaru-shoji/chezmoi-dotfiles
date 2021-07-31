@@ -1,4 +1,4 @@
 # Defined in - @ line 1
 function ce --wraps='chezmoi managed -i f | fzf | xargs chezmoi edit --apply' --description 'alias ce=chezmoi managed -i f | fzf | xargs chezmoi edit --apply'
-  chezmoi edit --apply (chezmoi managed | fzf)
+	chezmoi edit --apply $HOME/(chezmoi managed --include=files | fzf)
 end
