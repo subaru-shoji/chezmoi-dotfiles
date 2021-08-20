@@ -22,7 +22,8 @@ require("packer").startup(function(use)
     }
     use {
         "kyazdani42/nvim-tree.lua",
-        requires = {"kyazdani42/nvim-web-devicons"}
+        requires = {"kyazdani42/nvim-web-devicons"},
+        config = function() vim.g.nvim_tree_follow = 1 end
     }
     use {
 
@@ -34,6 +35,7 @@ require("packer").startup(function(use)
     use "lambdalisue/fern-renderer-nerdfont.vim"
     use "lambdalisue/fern-git-status.vim"
     use "lambdalisue/fern-hijack.vim"
+    use "yuki-yano/fern-preview.vim"
     use {"neovim/nvim-lspconfig"}
     use {
         "tjdevries/nlua.nvim",
@@ -86,19 +88,23 @@ require("packer").startup(function(use)
     }
     use "marko-cerovac/material.nvim"
     use "euclidianAce/BetterLua.vim"
-    use {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}}
+    use {
+        "rcarriga/nvim-dap-ui",
+        requires = {"mfussenegger/nvim-dap"},
+        config = function() require("dapui").setup() end
+    }
     use {
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup() end
     }
     use "b3nj5m1n/kommentary"
-    use "tversteeg/registers.nvim"
     use {
         "TimUntersberger/neogit",
         config = function()
             require("neogit").setup {integrations = {diffview = true}}
         end
     }
+    use {"tyru/open-browser-github.vim", requires = "tyru/open-browser.vim"}
     use {'iberianpig/tig-explorer.vim', requires = {'rbgrouleff/bclose.vim'}}
     use {
 
@@ -116,10 +122,21 @@ require("packer").startup(function(use)
     }
     use "simrat39/symbols-outline.nvim"
     use "mg979/vim-visual-multi"
-    use "yuki-yano/fern-preview.vim"
+    use {
+        'akinsho/flutter-tools.nvim',
+        requires = 'nvim-lua/plenary.nvim',
+        config = function()
+            require("flutter-tools").setup {
+                flutter_lookup_cmd = "asdf where flutter",
+                debugger = {enabled = true}
+            }
+            require("telescope").load_extension("flutter")
+        end
+    }
+    use "sheerun/vim-polyglot"
 end)
 
-vim.cmd("set guicursor=")
+-- vim.cmd("set guicursor=")
 vim.o.termguicolors = true
 
 vim.o.pumblend = 15
@@ -153,7 +170,6 @@ vim.o.shortmess = vim.o.shortmess .. "c"
 
 vim.g.timeoutlen = 10
 
-vimp.imap("qq", "<esc>")
 vimp.imap("<c-q>", "<esc>")
 
 vimp.imap({"silent"}, "<c-a>", "<c-o>I")
@@ -161,14 +177,16 @@ vimp.imap({"silent"}, "<c-e>", "<c-o>A")
 vimp.cmap({"silent"}, "<c-a>", "<home>")
 vimp.cmap({"silent"}, "<c-e>", "<end>")
 vimp.nmap("<c-a>", "0")
-vimp.nmap("<c-e>", "$")
+vimp.nmap("<c-e>", "g_")
 vimp.vmap("<c-a>", "0")
-vimp.vmap("<c-e>", "$")
+vimp.vmap("<c-e>", "g_")
 
 vimp.nnoremap("<c-s>", ":update<cr>")
 vimp.vnoremap("<c-s>", ":update<cr>")
 vimp.inoremap("<c-s>", "<esc>:update<cr>")
 
+vimp.nnoremap("H", "<c-o>")
+vimp.nnoremap("L", "<c-i>")
 vimp.nnoremap("<c-i>", ":Telescope jumplist<cr>")
 
 vimp.nnoremap({"silent", "nowait"}, "<esc><esc>", ":nohl<cr>")
@@ -186,6 +204,8 @@ vimp.imap("<s-down>", "<esc>v<down>")
 vimp.imap("<s-left>", "<esc>v<left>")
 vimp.imap("<s-right>", "<esc>v<right>")
 
+vimp.vmap("Y", '"+y')
+
 vim.api.nvim_exec([[
   augroup Packer
     autocmd!
@@ -193,7 +213,6 @@ vim.api.nvim_exec([[
   augroup end
 ]], false)
 vimp.nnoremap({"silent"}, "J", ":BufferLineCyclePrev<cr>")
-vimp.nnoremap("L", "<c-w>w")
 vimp.nnoremap("W", "<c-w>w")
 
 local wk = require("which-key")
@@ -203,7 +222,6 @@ wk.register({
     D = {
         function() require("lspsaga.hover").render_hover_doc() end, "definition"
     },
-    H = {function() require("lspsaga.hover").render_hover_doc() end, "hover"},
     R = {function() require"lspsaga.provider".lsp_finder() end, "references"},
     f = {function() require"hop".hint_words() end, "hop"},
     F = {":HopChar1<cr>", "hop char1"}
@@ -241,8 +259,7 @@ wk.register({
             end, "quit all"
         },
         w = {"<c-w>c", "quit window"},
-        q = {":Bdelete<cr>", "quit buffer"},
-        b = {":Bdelete<cr>", "quit buffer"}
+        q = {":Bdelete<cr>", "quit buffer"}
     },
     g = {
         s = {
@@ -253,16 +270,37 @@ wk.register({
         b = {function() require("neogit").open({"branch"}) end, "neogit branch"},
         l = {function() require("neogit").open({"log"}) end, "neogit log"},
         t = {":Tig<cr>", "tig"},
-        g = {":Tig<cr>", "tig"}
+        g = {":Tig<cr>", "tig"},
+        h = {":OpenGithubFile<cr>", "open github"}
     },
-    y = {'"+y', "yank to clipboard"},
     e = {
         e = {":Fern . -reveal=%<cr>", "file explorer"},
         t = {":Fern . -drawer -reveal=% -toggle<cr>", "file tree"}
     },
     b = {
+        b = {":NvimTreeToggle<cr>", "file-tree bar"},
         f = {":NvimTreeToggle<cr>", "file-tree bar"},
         s = {":SymbolsOutline<cr>", "symbols-outline bar"}
+    },
+    m = {
+        function()
+            if vim.o.mouse ~= "a" then
+                vim.o.mouse = "a"
+            else
+                vim.o.mouse = ""
+            end
+        end, "mouse toggle"
+    },
+    t = {
+        m = {
+            function()
+                if vim.o.mouse ~= "a" then
+                    vim.o.mouse = "a"
+                else
+                    vim.o.mouse = ""
+                end
+            end, "mouse toggle"
+        }
     },
     ["."] = {
         function() require("lspsaga.codeaction").code_action() end, "lsp action"
