@@ -36,12 +36,27 @@ require("packer").startup(function(use)
     use "lambdalisue/fern-git-status.vim"
     use "lambdalisue/fern-hijack.vim"
     use "yuki-yano/fern-preview.vim"
-    use {"neovim/nvim-lspconfig"}
+    use {
+        "neovim/nvim-lspconfig",
+        config = function()
+            require'lspconfig'.rust_analyzer.setup {}
+            require'lspconfig'.tsserver.setup {}
+        end
+    }
     use {
         "tjdevries/nlua.nvim",
         config = function()
             require('nlua.lsp.nvim').setup(require('lspconfig'), {})
             vim.cmd [[autocmd BufWritePost *.lua silent lua require'nlua'.format_file()]]
+        end
+    }
+    use {"rust-lang/rust.vim", init = function() vim.g.rustfmt_autosave = 1 end}
+
+    use 'leafgarland/typescript-vim'
+    use {
+        'peitalin/vim-jsx-typescript',
+        config = function()
+            vim.cmd [[autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact]]
         end
     }
 
@@ -66,7 +81,6 @@ require("packer").startup(function(use)
     use {
         "nvim-lua/completion-nvim",
         config = function()
-            vim.g.completion_enable_auto_popup = 0
             vim.g.completion_sorting = "none"
 
             vim.cmd [[autocmd BufEnter * lua require'completion'.on_attach()]]
