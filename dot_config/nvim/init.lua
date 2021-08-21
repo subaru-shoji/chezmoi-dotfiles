@@ -148,6 +148,28 @@ require("packer").startup(function(use)
         end
     }
     use "sheerun/vim-polyglot"
+    use "kevinhwang91/nvim-bqf"
+    use {
+        "mhinz/vim-grepper",
+        config = function()
+            vim.api.nvim_exec([[
+                augroup Grepper
+                    au!
+                    au User Grepper call setqflist([], 'r', {'context': {'bqf': {'pattern_hl': histget('/')}}}) | botright copen
+                augroup END
+
+            ]], false)
+
+            vim.g.grepper = {
+                open = 0,
+                quickfix = 1,
+                searchreg = 1,
+                highlight = 1
+            }
+        end
+    }
+    use "jremmen/vim-ripgrep"
+    use {'yuki-yano/fzf-preview.vim', branch = 'release/rpc'}
 end)
 
 -- vim.cmd("set guicursor=")
@@ -228,6 +250,10 @@ vim.api.nvim_exec([[
 ]], false)
 vimp.nnoremap({"silent"}, "J", ":BufferLineCyclePrev<cr>")
 vimp.nnoremap("W", "<c-w>w")
+vimp.nnoremap("R", "<c-w>w")
+
+vimp.nmap("gs", "<plug>(GrepperOperator)")
+vimp.xmap("gs", "<plug>(GrepperOperator)")
 
 local wk = require("which-key")
 local telescope = require("telescope.builtin")
@@ -236,7 +262,7 @@ wk.register({
     D = {
         function() require("lspsaga.hover").render_hover_doc() end, "definition"
     },
-    R = {function() require"lspsaga.provider".lsp_finder() end, "references"},
+    -- R = {function() require"lspsaga.provider".lsp_finder() end, "references"},
     f = {function() require"hop".hint_words() end, "hop"},
     F = {":HopChar1<cr>", "hop char1"}
 }, {})
@@ -258,7 +284,7 @@ wk.register({
             function() require("telescope.builtin").oldfiles() end,
             "find recent files"
         },
-        g = find_match_word_action,
+        g = {":Grepper -tool ag<cr>", "Grepper"},
         s = find_match_word_action,
         ["/"] = find_match_word_action,
         w = find_match_word_action,
