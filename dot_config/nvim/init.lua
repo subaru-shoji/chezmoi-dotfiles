@@ -50,7 +50,10 @@ require("packer").startup(function(use)
             vim.cmd [[autocmd BufWritePost *.lua silent! lua require'nlua'.format_file()]]
         end
     }
-    use {"rust-lang/rust.vim", init = function() vim.g.rustfmt_autosave = 1 end}
+    use {
+        "rust-lang/rust.vim",
+        setup = function() vim.g.rustfmt_autosave = 1 end
+    }
 
     use 'leafgarland/typescript-vim'
     use {
@@ -90,13 +93,13 @@ require("packer").startup(function(use)
 
             vim.cmd [[autocmd BufEnter * lua require'completion'.on_attach()]]
 
-            vim.api.nvim_exec([[
+            vim.cmd([[
 					augroup CompletionTriggerCharacter
 							autocmd!
 							autocmd BufEnter * let completion_enable_auto_popup = 1
 							autocmd BufEnter *.lua let completion_enable_auto_popup = 0
 					augroup end
-				]], false)
+				]])
         end
     }
     use 'famiu/bufdelete.nvim'
@@ -157,13 +160,13 @@ require("packer").startup(function(use)
     use {
         "mhinz/vim-grepper",
         config = function()
-            vim.api.nvim_exec([[
+            vim.cmd([[
                 augroup Grepper
-                    au!
-                    au User Grepper call setqflist([], 'r', {'context': {'bqf': {'pattern_hl': histget('/')}}}) | botright copen
+                    autocmd!
+                    autocmd User Grepper call setqflist([], 'r', {'context': {'bqf': {'pattern_hl': histget('/')}}}) | botright copen
                 augroup END
 
-            ]], false)
+            ]])
 
             vim.g.grepper = {
                 open = 0,
@@ -258,12 +261,12 @@ vimp.imap("<s-right>", "<esc>v<right>")
 vimp.vmap("Y", '"+y')
 vimp.vmap("X", '"+x')
 
-vim.api.nvim_exec([[
+vim.cmd([[
   augroup Packer
     autocmd!
     autocmd BufEnter * map <buffer> <silent> <s-k> <cmd>BufferLineCycleNext<cr>
   augroup end
-]], false)
+]])
 vimp.nnoremap({"silent"}, "J", "<cmd>BufferLineCyclePrev<cr>")
 vimp.nnoremap("W", "<c-w>w")
 vimp.nnoremap("R", "<c-w>w")
@@ -294,17 +297,23 @@ wk.register({
     [" "] = find_files_action,
     ["/"] = find_match_word_action,
     f = {
-        name = "file",
-        f = find_files_action,
+        name = "find",
+        d = {"<cmd>Grepper -grepprg fd --hidden -t f<cr>", "fd quickfix"},
+        f = {"<cmd>Grepper -grepprg fd --hidden -t f<cr>", "fd quickfix"},
+        t = find_files_action,
         r = {
             function() require("telescope.builtin").oldfiles() end,
             "find recent files"
         },
-        g = {"<cmd>Grepper -tool ag<cr>", "Grepper"},
-        p = {"<cmd>Grepper -tool ag<cr>", "Grepper Project"},
-        s = find_match_word_action,
-        ["/"] = find_match_word_action,
         c = {function() telescope.commands() end, "find command"}
+    },
+    s = {
+        name = "search",
+        s = {"<cmd>Grepper -tool ag<cr>", "Grepper Project"},
+        g = {"<cmd>Grepper -tool ag<cr>", "Grepper Project"},
+        p = {"<cmd>Grepper -tool ag<cr>", "Grepper Project"},
+        b = find_match_word_action,
+        ["/"] = find_match_word_action
     },
     q = {
         a = {
@@ -373,16 +382,17 @@ wk.register({
     j = {"G", "go to bottom"}
 }, {prefix = "g"})
 
-vim.api.nvim_exec([[
+vim.cmd([[
 		augroup fern-settings
 		autocmd!
 		autocmd FileType fern nmap <silent> <buffer> H <Plug>(fern-action-preview:toggle)
 		augroup END
-	]], false)
+	]])
 
-vim.api.nvim_exec([[
+vim.cmd([[
 		if executable('fcitx')
 			 autocmd InsertLeave * call system('fcitx-remote -c')
 			 autocmd CmdlineLeave * call system('fcitx-remote -c')
 		endif
-	]], false)
+	]])
+
