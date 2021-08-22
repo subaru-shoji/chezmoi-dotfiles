@@ -89,7 +89,7 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -222,3 +222,5 @@ set $brightness_step 10
 bindsym XF86KbdBrightnessUp   exec xbacklight -inc $brightness_step
 bindsym XF86KbdBrightnessDown exec xbacklight -dec $brightness_step
 
+bindsym $mod+Tab exec --no-startup-id ~/.config/i3/i3ipc/focus-next-visible.py
+bindsym $mod+w exec --no-startup-id ~/.config/i3/i3ipc/focus-next-visible.py
