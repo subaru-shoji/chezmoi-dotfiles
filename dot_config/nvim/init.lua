@@ -14,7 +14,7 @@ require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
     use "svermeulen/vimpeccable"
     use "norcalli/nvim_utils"
-    use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+    use {"nvim-treesitter/nvim-treesitter", run = "<cmd>TSUpdate"}
     use {"hoob3rt/lualine.nvim", requires = {"kyazdani42/nvim-web-devicons"}}
     use {
         "nvim-telescope/telescope.nvim",
@@ -232,15 +232,15 @@ vimp.nmap("<c-e>", "g_")
 vimp.vmap("<c-a>", "0")
 vimp.vmap("<c-e>", "g_")
 
-vimp.nnoremap("<c-s>", ":update<cr>")
-vimp.vnoremap("<c-s>", ":update<cr>")
-vimp.inoremap("<c-s>", "<esc>:update<cr>")
+vimp.nnoremap("<c-s>", "<cmd>update<cr>")
+vimp.vnoremap("<c-s>", "<cmd>update<cr>")
+vimp.inoremap("<c-s>", "<esc><cmd>update<cr>")
 
 vimp.nnoremap("H", "<c-o>")
 vimp.nnoremap("L", "<c-i>")
-vimp.nnoremap("<c-i>", ":Telescope jumplist<cr>")
+vimp.nnoremap("<c-i>", "<cmd>Telescope jumplist<cr>")
 
-vimp.nnoremap({"silent", "nowait"}, "<esc><esc>", ":nohl<cr>")
+vimp.nnoremap({"silent", "nowait"}, "<esc><esc>", "<cmd>nohl<cr>")
 
 vimp.nmap("<s-up>", "v<up>")
 vimp.nmap("<s-down>", "v<down>")
@@ -261,10 +261,10 @@ vimp.vmap("X", '"+x')
 vim.api.nvim_exec([[
   augroup Packer
     autocmd!
-    autocmd BufEnter * map <buffer> <silent> <s-k> :BufferLineCycleNext<cr>
+    autocmd BufEnter * map <buffer> <silent> <s-k> <cmd>BufferLineCycleNext<cr>
   augroup end
 ]], false)
-vimp.nnoremap({"silent"}, "J", ":BufferLineCyclePrev<cr>")
+vimp.nnoremap({"silent"}, "J", "<cmd>BufferLineCyclePrev<cr>")
 vimp.nnoremap("W", "<c-w>w")
 vimp.nnoremap("R", "<c-w>w")
 
@@ -280,7 +280,7 @@ wk.register({
     },
     -- R = {function() require"lspsaga.provider".lsp_finder() end, "references"},
     f = {function() require"hop".hint_words() end, "hop"},
-    F = {":HopChar1<cr>", "hop char1"}
+    F = {"<cmd>HopChar1<cr>", "hop char1"}
 }, {})
 
 vimp.inoremap("<c-f>", [[<c-o><cmd>lua require "hop".hint_words()<cr>]])
@@ -300,7 +300,7 @@ wk.register({
             function() require("telescope.builtin").oldfiles() end,
             "find recent files"
         },
-        g = {":Grepper -tool ag<cr>", "Grepper"},
+        g = {"<cmd>Grepper -tool ag<cr>", "Grepper"},
         s = find_match_word_action,
         ["/"] = find_match_word_action,
         w = find_match_word_action,
@@ -310,12 +310,12 @@ wk.register({
         a = {
             function()
                 if (vim.fn.confirm("Quit all?", "Yes\nNo") == 1) then
-                    vim.cmd(":qa")
+                    vim.cmd("qa")
                 end
             end, "quit all"
         },
         w = {"<c-w>c", "quit window"},
-        q = {":Bdelete<cr>", "quit buffer"}
+        q = {"<cmd>Bdelete<cr>", "quit buffer"}
     },
     g = {
         s = {
@@ -325,19 +325,19 @@ wk.register({
         c = {function() require("neogit").open({"commit"}) end, "neogit commit"},
         b = {function() require("neogit").open({"branch"}) end, "neogit branch"},
         l = {function() require("neogit").open({"log"}) end, "neogit log"},
-        t = {":Tig<cr>", "tig"},
-        g = {":Tig<cr>", "tig"},
-        h = {":OpenGithubFile<cr>", "open github"}
+        t = {"<cmd>Tig<cr>", "tig"},
+        g = {"<cmd>Tig<cr>", "tig"},
+        h = {"<cmd>OpenGithubFile<cr>", "open github"}
     },
     e = {
-        e = {":Fern . -reveal=%<cr>", "file explorer"},
-        t = {":Fern . -drawer -reveal=% -toggle<cr>", "file tree"}
+        e = {"<cmd>Fern . -reveal=%<cr>", "file explorer"},
+        t = {"<cmd>Fern . -drawer -reveal=% -toggle<cr>", "file tree"}
     },
     b = {
-        b = {":NvimTreeToggle<cr>", "file-tree bar"},
-        f = {":NvimTreeToggle<cr>", "file-tree bar"},
-        s = {":SymbolsOutline<cr>", "symbols-outline bar"},
-        t = {":TroubleToggle<cr>", "trouble bar"}
+        b = {"<cmd>NvimTreeToggle<cr>", "file-tree bar"},
+        f = {"<cmd>NvimTreeToggle<cr>", "file-tree bar"},
+        s = {"<cmd>SymbolsOutline<cr>", "symbols-outline bar"},
+        t = {"<cmd>TroubleToggle<cr>", "trouble bar"}
     },
     m = {
         function()
@@ -382,7 +382,7 @@ vim.api.nvim_exec([[
 
 vim.api.nvim_exec([[
 		if executable('fcitx')
-			 autocmd InsertLeave * :call system('fcitx-remote -c')
-			 autocmd CmdlineLeave * :call system('fcitx-remote -c')
+			 autocmd InsertLeave * call system('fcitx-remote -c')
+			 autocmd CmdlineLeave * call system('fcitx-remote -c')
 		endif
 	]], false)
