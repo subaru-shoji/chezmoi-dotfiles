@@ -47,7 +47,7 @@ require("packer").startup(function(use)
         "tjdevries/nlua.nvim",
         config = function()
             require('nlua.lsp.nvim').setup(require('lspconfig'), {})
-            vim.cmd [[autocmd BufWritePost *.lua silent lua require'nlua'.format_file()]]
+            vim.cmd [[autocmd BufWritePost *.lua silent! lua require'nlua'.format_file()]]
         end
     }
     use {"rust-lang/rust.vim", init = function() vim.g.rustfmt_autosave = 1 end}
@@ -78,6 +78,11 @@ require("packer").startup(function(use)
         "onsails/lspkind-nvim",
         config = function() require("lspkind").init() end
     }
+    use {
+        "ray-x/lsp_signature.nvim",
+        config = function() require"lsp_signature".setup() end
+    }
+
     use {
         "nvim-lua/completion-nvim",
         config = function()
@@ -170,9 +175,19 @@ require("packer").startup(function(use)
     }
     use "jremmen/vim-ripgrep"
     use {'yuki-yano/fzf-preview.vim', branch = 'release/rpc'}
+    use {
+        "folke/trouble.nvim",
+        requires = "kyazdani42/nvim-web-devicons",
+        config = function()
+            require("trouble").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
 end)
 
--- vim.cmd("set guicursor=")
 vim.o.termguicolors = true
 
 vim.o.pumblend = 15
@@ -241,6 +256,7 @@ vimp.imap("<s-left>", "<esc>v<left>")
 vimp.imap("<s-right>", "<esc>v<right>")
 
 vimp.vmap("Y", '"+y')
+vimp.vmap("X", '"+x')
 
 vim.api.nvim_exec([[
   augroup Packer
@@ -320,7 +336,8 @@ wk.register({
     b = {
         b = {":NvimTreeToggle<cr>", "file-tree bar"},
         f = {":NvimTreeToggle<cr>", "file-tree bar"},
-        s = {":SymbolsOutline<cr>", "symbols-outline bar"}
+        s = {":SymbolsOutline<cr>", "symbols-outline bar"},
+        t = {":TroubleToggle<cr>", "trouble bar"}
     },
     m = {
         function()
