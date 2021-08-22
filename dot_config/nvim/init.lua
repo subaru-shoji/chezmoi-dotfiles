@@ -287,7 +287,7 @@ vimp.inoremap("<c-f>", [[<c-o><cmd>lua require "hop".hint_words()<cr>]])
 
 local find_files_action = {function() telescope.find_files() end, "find file"}
 local find_match_word_action = {
-    function() require("telescope.builtin").live_grep() end, "find match word"
+    "<cmd>Grepper -buffer -tool ag<cr>", "Grepper buffer"
 }
 
 wk.register({
@@ -301,9 +301,9 @@ wk.register({
             "find recent files"
         },
         g = {"<cmd>Grepper -tool ag<cr>", "Grepper"},
+        p = {"<cmd>Grepper -tool ag<cr>", "Grepper Project"},
         s = find_match_word_action,
         ["/"] = find_match_word_action,
-        w = find_match_word_action,
         c = {function() telescope.commands() end, "find command"}
     },
     q = {
