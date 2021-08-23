@@ -189,6 +189,8 @@ require("packer").startup(function(use)
             }
         end
     }
+    use "machakann/vim-sandwich"
+    use "thinca/vim-qfreplace"
 end)
 
 vim.o.termguicolors = true
@@ -225,6 +227,7 @@ vim.o.shortmess = vim.o.shortmess .. "c"
 vim.g.timeoutlen = 10
 
 vimp.imap("<c-q>", "<esc>")
+vimp.imap("jj", "<esc>")
 
 vimp.imap({"silent"}, "<c-a>", "<c-o>I")
 vimp.imap({"silent"}, "<c-e>", "<c-o>A")
@@ -396,3 +399,26 @@ vim.cmd([[
 		endif
 	]])
 
+vim.g['eskk#kakutei_when_unique_candidate'] = 1
+vim.g['eskk#enable_completion'] = 0
+vim.g['eskk#no_default_mappings'] = 1
+vim.g['eskk#keep_state'] = 0
+vim.g['eskk#egg_like_newline'] = 1
+vim.g['eskk#show_annotation'] = 1
+
+vim.g['eskk#marker_henkan'] = "[変換]"
+vim.g['eskk#marker_henkan_select'] = "[選択]"
+vim.g['eskk#marker_okuri'] = "[送り]"
+vim.g['eskk#marker_jisyo_touroku'] = "[辞書]"
+
+vim.cmd([[
+    augroup vimrc_eskk
+  autocmd!
+  autocmd User eskk-enable-post lmap <buffer> l <Plug>(eskk:disable)
+augroup END
+    ]])
+
+vimp.imap('jk', '<Plug>(eskk:toggle)')
+vimp.cmap('jk', '<Plug>(eskk:toggle)')
+vimp.imap('kk', '<Plug>(eskk:toggle)')
+vimp.cmap('kk', '<Plug>(eskk:toggle)')
