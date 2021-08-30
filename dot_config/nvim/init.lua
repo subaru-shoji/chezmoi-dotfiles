@@ -10,8 +10,9 @@ if fn.empty(fn.glob(install_path)) > 0 then
     execute "packadd packer.nvim"
 end
 
-if fn.filereadable("/usr/local/share/skk/dictionary.yaskkserv2") then
-    fn.system({"yaskkserv2", "/usr/local/share/skk/dictionary.yaskkserv2"})
+local skk_dictionary_file_path = "/usr/local/share/skk/dictionary.yaskkserv2"
+if fn.filereadable(skk_dictionary_file_path) then
+    fn.system({"yaskkserv2", skk_dictionary_file_path})
 end
 
 require("packer").startup(function(use)
