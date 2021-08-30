@@ -10,6 +10,10 @@ if fn.empty(fn.glob(install_path)) > 0 then
     execute "packadd packer.nvim"
 end
 
+if fn.filereadable("/usr/local/share/skk/dictionary.yaskkserv2") then
+    fn.system({"yaskkserv2", "/usr/local/share/skk/dictionary.yaskkserv2"})
+end
+
 require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
     use "svermeulen/vimpeccable"
@@ -420,5 +424,5 @@ augroup END
 
 vimp.imap('jk', '<Plug>(eskk:toggle)')
 vimp.cmap('jk', '<Plug>(eskk:toggle)')
-vimp.imap('kk', '<Plug>(eskk:toggle)')
-vimp.cmap('kk', '<Plug>(eskk:toggle)')
+
+vim.g['eskk#server'] = {host = 'localhost', port = 1178}
