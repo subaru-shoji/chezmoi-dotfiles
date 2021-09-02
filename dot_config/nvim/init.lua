@@ -46,6 +46,8 @@ require("packer").startup(function(use)
         config = function()
             require'lspconfig'.rust_analyzer.setup {}
             require'lspconfig'.tsserver.setup {}
+
+            vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)]]
         end
     }
     use {
