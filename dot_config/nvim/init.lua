@@ -198,7 +198,12 @@ require("packer").startup(function(use)
     }
     use "machakann/vim-sandwich"
     use "thinca/vim-qfreplace"
-    use "glepnir/dashboard-nvim"
+    use {
+        "glepnir/dashboard-nvim",
+        setup = function()
+            vim.g.dashboard_default_executive = 'telescope'
+        end
+    }
     use {
         "rmagatti/auto-session",
         config = function()
