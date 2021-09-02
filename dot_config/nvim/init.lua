@@ -196,6 +196,15 @@ require("packer").startup(function(use)
     }
     use "machakann/vim-sandwich"
     use "thinca/vim-qfreplace"
+    use "glepnir/dashboard-nvim"
+    use {
+        "rmagatti/auto-session",
+        config = function()
+            require('auto-session').setup {
+                auto_session_enable_last_session = true
+            }
+        end
+    }
 end)
 
 vim.o.termguicolors = true
