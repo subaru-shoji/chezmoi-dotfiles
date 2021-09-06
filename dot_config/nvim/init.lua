@@ -11,7 +11,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 local skk_dictionary_file_path = "/usr/local/share/skk/dictionary.yaskkserv2"
-if fn.filereadable(skk_dictionary_file_path) then
+if fn.executable("yaskkserv2") and fn.filereadable(skk_dictionary_file_path) then
     fn.system({"yaskkserv2", skk_dictionary_file_path})
 end
 
