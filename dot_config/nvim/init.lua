@@ -322,10 +322,11 @@ wk.register({
     [" "] = find_files_action,
     ["/"] = find_match_word_action,
     f = {
-        name = "find",
+        name = "file",
         d = {"<cmd>Grepper -grepprg fd --hidden -t f<cr>", "fd quickfix"},
         f = {"<cmd>Grepper -grepprg fd --hidden -t f<cr>", "fd quickfix"},
-        t = find_files_action,
+        z = find_files_action,
+        t = {"<cmd>TroubleToggle<cr>", "trouble bar"},
         r = {
             function() require("telescope.builtin").oldfiles() end,
             "find recent files"
@@ -340,7 +341,13 @@ wk.register({
         b = find_match_word_action,
         ["/"] = find_match_word_action
     },
+    l = {
+        name = "lsp",
+        r = {"<cmd>Lspsaga rename<cr>", "rename"},
+        t = {"<cmd>TroubleToggle<cr>", "trouble bar"}
+    },
     q = {
+        name = "quit",
         a = {
             function()
                 if (vim.fn.confirm("Quit all?", "Yes\nNo") == 1) then
@@ -352,6 +359,7 @@ wk.register({
         q = {"<cmd>Bdelete<cr>", "quit buffer"}
     },
     g = {
+        name = "git",
         s = {
             function() require("neogit").open({kind = "split"}) end,
             "neogit status"
@@ -360,7 +368,7 @@ wk.register({
         b = {function() require("neogit").open({"branch"}) end, "neogit branch"},
         l = {function() require("neogit").open({"log"}) end, "neogit log"},
         t = {"<cmd>Tig<cr>", "tig"},
-        g = {"<cmd>Tig<cr>", "tig"},
+        g = {"<cmd>Telescope git_status<cr>", "telescopt git status"},
         h = {"<cmd>OpenGithubFile<cr>", "open github"}
     },
     e = {
@@ -383,6 +391,7 @@ wk.register({
         end, "mouse toggle"
     },
     t = {
+        name = "toggle",
         m = {
             function()
                 if vim.o.mouse ~= "a" then
@@ -433,14 +442,9 @@ vim.g['eskk#marker_henkan_select'] = "[選択]"
 vim.g['eskk#marker_okuri'] = "[送り]"
 vim.g['eskk#marker_jisyo_touroku'] = "[辞書]"
 
-vim.cmd([[
-    augroup vimrc_eskk
-  autocmd!
-  autocmd User eskk-enable-post lmap <buffer> l <Plug>(eskk:disable)
-augroup END
-    ]])
-
 vimp.imap('jk', '<Plug>(eskk:toggle)')
 vimp.cmap('jk', '<Plug>(eskk:toggle)')
+vimp.imap('<c-j>', '<Plug>(eskk:toggle)')
+vimp.cmap('<c-j>', '<Plug>(eskk:toggle)')
 
 vim.g['eskk#server'] = {host = 'localhost', port = 1178}
