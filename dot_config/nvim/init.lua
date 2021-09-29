@@ -510,7 +510,8 @@ wk.register({
     r = {function() telescope.oldfiles() end, "recent files"},
     g = {function() telescope.git_status() end, "git status"},
     d = {function() telescope.lsp_document_diagnostics() end, "lsp diagnotics"},
-    t = {function() telescope.lsp_document_diagnostics() end, "lsp diagnotics"}
+    t = {function() telescope.lsp_document_diagnostics() end, "lsp diagnotics"},
+    b = {function() telescope.buffers() end, "buffers"}
 }, {prefix = "<tab>"})
 
 vim.cmd([[
