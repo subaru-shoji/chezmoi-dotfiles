@@ -124,7 +124,7 @@ require("packer").startup(function(use)
                 typescript = {{cmd = {"prettier -w"}}},
                 typescriptreact = {{cmd = {"prettier -w"}}}
             }
-            -- vim.cmd [[ autocmd BufWritePost * FormatWrite ]]
+            vim.cmd [[ autocmd BufWritePost * FormatWrite ]]
         end
     }
     use {
