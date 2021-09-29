@@ -1,9 +1,9 @@
 local execute = vim.api.nvim_command
-local fn = vim.fn
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+local install_path = vim.fn.stdpath("data") ..
+                         "/site/pack/packer/start/packer.nvim"
 
-if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+    vim.fn.system({
         "git", "clone", "https://github.com/wbthomason/packer.nvim",
         install_path
     })
@@ -11,30 +11,80 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 local skk_dictionary_file_path = "/usr/local/share/skk/dictionary.yaskkserv2"
-if fn.executable("yaskkserv2") == 1 and
-    fn.filereadable(skk_dictionary_file_path) == 1 then
-    fn.system({"yaskkserv2", skk_dictionary_file_path})
+if vim.fn.executable("yaskkserv2") == 1 and
+    vim.fn.filereadable(skk_dictionary_file_path) == 1 then
+    vim.fn.system({"yaskkserv2", skk_dictionary_file_path})
 end
 
 require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
     use "svermeulen/vimpeccable"
     use "norcalli/nvim_utils"
-    use {"nvim-treesitter/nvim-treesitter", run = "<cmd>TSUpdate"}
-    use {"hoob3rt/lualine.nvim", requires = {"kyazdani42/nvim-web-devicons"}}
+    use {
+        'hoob3rt/lualine.nvim',
+        requires = {'kyazdani42/nvim-web-devicons'},
+        config = function()
+            require('lualine').setup {
+                options = {
+                    theme = "material-nvim",
+                    disabled_filetypes = {"Trouble"}
+                },
+                sections = {
+                    lualine_c = {
+                        {
+                            'filename',
+                            file_status = true, -- displays file status (readonly status, modified status)
+                            path = 1 -- 0 = just filename, 1 = relative path, 2 = absolute path
+                        }
+                    },
+                    lualine_a = {'mode'},
+                    lualine_b = {'branch'},
+                    lualine_x = {'encoding', 'fileformat', 'filetype'},
+                    lualine_y = {'progress'},
+                    lualine_z = {'location'}
+                },
+                extensions = {'quickfix', 'nvim-tree'}
+            }
+        end
+    }
+    use {"nvim-treesitter/nvim-treesitter", run = "<cmd>TSUpdate<cr>"}
     use {
         "nvim-telescope/telescope.nvim",
-        requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}}
+        requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}},
+        config = function()
+            local actions = require('telescope.actions')
+            require('telescope').setup {
+                defaults = {
+                    mappings = {
+                        i = {
+                            ["<C-j>"] = actions.move_selection_next,
+                            ["<C-k>"] = actions.move_selection_previous,
+                            ["<C-q>"] = actions.smart_send_to_qflist +
+                                actions.open_qflist,
+                            ["<esc>"] = actions.close
+                        }
+                    }
+                }
+            }
+        end
     }
+    use "voldikss/vim-floaterm"
     use {
         "kyazdani42/nvim-tree.lua",
         requires = {"kyazdani42/nvim-web-devicons"},
-        config = function() vim.g.nvim_tree_follow = 1 end
+        config = function()
+            require('nvim-tree').setup {lsp_diagnostics = true}
+        end
     }
     use {
 
         "lambdalisue/fern.vim",
-        setup = function() vim.g["fern#renderer"] = "nerdfont" end
+        setup = function() vim.g["fern#renderer"] = "nerdfont" end,
+        config = function()
+            vim.cmd(
+                [[ autocmd FileType fern nmap <silent> <buffer> P <Plug>(fern-action-preview:toggle) ]])
+
+        end
     }
     use "lambdalisue/nerdfont.vim"
     use "lambdalisue/glyph-palette.vim"
@@ -42,13 +92,22 @@ require("packer").startup(function(use)
     use "lambdalisue/fern-git-status.vim"
     use "lambdalisue/fern-hijack.vim"
     use "yuki-yano/fern-preview.vim"
+    use "jose-elias-alvarez/nvim-lsp-ts-utils"
     use {
         "neovim/nvim-lspconfig",
         config = function()
             require'lspconfig'.rust_analyzer.setup {}
-            require'lspconfig'.tsserver.setup {}
+            require'lspconfig'.tsserver.setup {
+                on_attach = function()
+                    require("nvim-lsp-ts-utils").setup {
+                        enable_import_on_completion = true,
+                        enable_formatting = true,
+                        formatter = "prettier"
+                    }
+                end
+            }
 
-            vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)]]
+            vim.cmd [[autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 1000)]]
         end
     }
     use {
@@ -56,6 +115,16 @@ require("packer").startup(function(use)
         config = function()
             require('nlua.lsp.nvim').setup(require('lspconfig'), {})
             vim.cmd [[autocmd BufWritePost *.lua silent! lua require'nlua'.format_file()]]
+        end
+    }
+    use {
+        "lukas-reineke/format.nvim",
+        config = function()
+            require"format".setup {
+                typescript = {{cmd = {"prettier -w"}}},
+                typescriptreact = {{cmd = {"prettier -w"}}}
+            }
+            -- vim.cmd [[ autocmd BufWritePost * FormatWrite ]]
         end
     }
     use {
@@ -71,12 +140,22 @@ require("packer").startup(function(use)
         end
     }
 
-    use {"tyru/eskk.vim"}
     use {
-        "glepnir/lspsaga.nvim",
-        config = function()
-            local saga = require "lspsaga"
-            saga.init_lsp_saga()
+        "tyru/eskk.vim",
+        setup = function()
+            vim.g['eskk#kakutei_when_unique_candidate'] = 1
+            vim.g['eskk#enable_completion'] = 0
+            vim.g['eskk#no_default_mappings'] = 1
+            vim.g['eskk#keep_state'] = 0
+            vim.g['eskk#egg_like_newline'] = 1
+            vim.g['eskk#show_annotation'] = 1
+
+            vim.g['eskk#marker_henkan'] = "[変換]"
+            vim.g['eskk#marker_henkan_select'] = "[選択]"
+            vim.g['eskk#marker_okuri'] = "[送り]"
+            vim.g['eskk#marker_jisyo_touroku'] = "[辞書]"
+
+            vim.g['eskk#server'] = {host = 'localhost', port = 1178}
         end
     }
     use {
@@ -137,7 +216,6 @@ require("packer").startup(function(use)
     use {"tyru/open-browser-github.vim", requires = "tyru/open-browser.vim"}
     use {'iberianpig/tig-explorer.vim', requires = {'rbgrouleff/bclose.vim'}}
     use {
-
         "phaazon/hop.nvim",
         as = "hop",
         config = function()
@@ -145,12 +223,22 @@ require("packer").startup(function(use)
             require"hop".setup {keys = "etovxqpdygfblzhckisuran"}
         end
     }
+    use "easymotion/vim-easymotion"
     use {
         "akinsho/nvim-bufferline.lua",
         requires = "kyazdani42/nvim-web-devicons",
-        config = function() require("bufferline").setup {} end
+        config = function()
+            require("bufferline").setup {
+                options = {
+                    custom_filter = function(buf_number)
+                        if vim.bo[buf_number].filetype ~= "qf" then
+                            return true
+                        end
+                    end
+                }
+            }
+        end
     }
-    use "simrat39/symbols-outline.nvim"
     use "mg979/vim-visual-multi"
     use {
         'akinsho/flutter-tools.nvim',
@@ -207,19 +295,14 @@ require("packer").startup(function(use)
     }
     use {
         "rmagatti/auto-session",
-        config = function()
-            require('auto-session').setup {
-                auto_session_enable_last_session = true
-            }
-        end
+        config = function() require('auto-session').setup() end
     }
 end)
 
 vim.o.termguicolors = true
 
 vim.o.pumblend = 15
-require("material").set()
-require("lualine").setup {options = {theme = "material-nvim"}}
+vim.cmd [[colorscheme material]]
 
 local vimp = require("vimp")
 
@@ -266,7 +349,7 @@ vimp.inoremap("<c-s>", "<esc><cmd>update<cr>")
 
 vimp.nnoremap("H", "<c-o>")
 vimp.nnoremap("L", "<c-i>")
-vimp.nnoremap("<c-i>", "<cmd>Telescope jumplist<cr>")
+vimp.nnoremap("<c-h>", "<cmd>Telescope jumplist<cr>")
 
 vimp.nnoremap({"silent", "nowait"}, "<esc><esc>", "<cmd>nohl<cr>")
 
@@ -286,12 +369,8 @@ vimp.imap("<s-right>", "<esc>v<right>")
 vimp.vmap("Y", '"+y')
 vimp.vmap("X", '"+x')
 
-vim.cmd([[
-  augroup Packer
-    autocmd!
-    autocmd BufEnter * map <buffer> <silent> <s-k> <cmd>BufferLineCycleNext<cr>
-  augroup end
-]])
+vim.cmd(
+    [[ autocmd BufEnter * map <buffer> <silent> <s-k> <cmd>BufferLineCycleNext<cr> ]])
 vimp.nnoremap({"silent"}, "J", "<cmd>BufferLineCyclePrev<cr>")
 vimp.nnoremap("W", "<c-w>w")
 vimp.nnoremap("R", "<c-w>w")
@@ -308,7 +387,9 @@ wk.register({
     },
     -- R = {function() require"lspsaga.provider".lsp_finder() end, "references"},
     f = {function() require"hop".hint_words() end, "hop"},
-    F = {"<cmd>HopChar1<cr>", "hop char1"}
+    F = {"<cmd>HopChar1<cr>", "hop char1"},
+    s = {"<cmd>HopChar1<cr>", "hop char1"},
+    S = {"<Plug>(easymotion-overwin-f)", "easymotion-overwin"}
 }, {})
 
 vimp.inoremap("<c-f>", [[<c-o><cmd>lua require "hop".hint_words()<cr>]])
@@ -324,14 +405,11 @@ wk.register({
     f = {
         name = "file",
         d = {"<cmd>Grepper -grepprg fd --hidden -t f<cr>", "fd quickfix"},
+        e = {"<cmd>Fern . -reveal=%<cr>", "file explorer"},
         f = {"<cmd>Grepper -grepprg fd --hidden -t f<cr>", "fd quickfix"},
         z = find_files_action,
-        t = {"<cmd>TroubleToggle<cr>", "trouble bar"},
-        r = {
-            function() require("telescope.builtin").oldfiles() end,
-            "find recent files"
-        },
-        c = {function() telescope.commands() end, "find command"}
+        t = {"<cmd>NvimTreeToggle<cr>", "file-tree bar"},
+        r = {function() telescope.oldfiles() end, "find recent files"}
     },
     s = {
         name = "search",
@@ -343,8 +421,20 @@ wk.register({
     },
     l = {
         name = "lsp",
-        r = {"<cmd>Lspsaga rename<cr>", "rename"},
-        t = {"<cmd>TroubleToggle<cr>", "trouble bar"}
+        r = {function() vim.lsp.buf.rename() end, "rename symbol"},
+        R = {
+            function()
+                local current_file_path = vim.fn.expand("%f")
+                local changed_file_path =
+                    vim.fn.input("Change file name: ", current_file_path)
+                vim.lsp.util.rename(current_file_path, changed_file_path)
+            end, "rename file"
+        },
+        t = {"<cmd>TroubleToggle<cr>", "trouble bar"},
+        ["."] = {
+            function() require("lspsaga.codeaction").code_action() end,
+            "lsp action"
+        }
     },
     q = {
         name = "quit",
@@ -372,14 +462,10 @@ wk.register({
         h = {"<cmd>OpenGithubFile<cr>", "open github"}
     },
     e = {
-        e = {"<cmd>Fern . -reveal=%<cr>", "file explorer"},
-        t = {"<cmd>Fern . -drawer -reveal=% -toggle<cr>", "file tree"}
-    },
-    b = {
-        b = {"<cmd>NvimTreeToggle<cr>", "file-tree bar"},
-        f = {"<cmd>NvimTreeToggle<cr>", "file-tree bar"},
-        s = {"<cmd>SymbolsOutline<cr>", "symbols-outline bar"},
-        t = {"<cmd>TroubleToggle<cr>", "trouble bar"}
+        a = {"<cmd>NvimTreeToggle<cr>", "file-tree bar"},
+        s = {"<cmd>Fern . -drawer -reveal=% -toggle<cr>", "file tree"},
+        d = {"<cmd>Fern . -reveal=%<cr>", "file explorer"},
+        f = {"<cmd>FloatermNew ranger<cr>", "ranger"}
     },
     m = {
         function()
@@ -403,25 +489,29 @@ wk.register({
         }
     },
     ["."] = {
-        function() require("lspsaga.codeaction").code_action() end, "lsp action"
+        function() telescope.lsp_code_actions() end, "telescope lsp action"
     }
 }, {prefix = "<leader>"})
 
 wk.register({
-    d = {function() vim.lsp.buf.definition() end, "go to definition"},
-    r = {
-        function() require"lspsaga.provider".lsp_finder() end, "show reference"
-    },
+    d = {function() telescope.lsp_definitions() end, "go to definition"},
+    r = {function() telescope.lsp_references() end, "show reference"},
     k = {"gg", "go to top"},
     j = {"G", "go to bottom"}
 }, {prefix = "g"})
 
-vim.cmd([[
-		augroup fern-settings
-		autocmd!
-		autocmd FileType fern nmap <silent> <buffer> H <Plug>(fern-action-preview:toggle)
-		augroup END
-	]])
+wk.register({k = {"gg", "go to top"}, j = {"G", "go to bottom"}},
+            {prefix = "g", mode = "v"})
+
+wk.register({
+    ["<tab>"] = {"<cmd>Telescope<cr>", "telescope"},
+    c = {function() telescope.commands() end, "find command"},
+    f = {function() telescope.fd() end, "fd"},
+    r = {function() telescope.oldfiles() end, "recent files"},
+    g = {function() telescope.git_status() end, "git status"},
+    d = {function() telescope.lsp_document_diagnostics() end, "lsp diagnotics"},
+    t = {function() telescope.lsp_document_diagnostics() end, "lsp diagnotics"}
+}, {prefix = "<tab>"})
 
 vim.cmd([[
 		if executable('fcitx')
@@ -430,21 +520,9 @@ vim.cmd([[
 		endif
 	]])
 
-vim.g['eskk#kakutei_when_unique_candidate'] = 1
-vim.g['eskk#enable_completion'] = 0
-vim.g['eskk#no_default_mappings'] = 1
-vim.g['eskk#keep_state'] = 0
-vim.g['eskk#egg_like_newline'] = 1
-vim.g['eskk#show_annotation'] = 1
-
-vim.g['eskk#marker_henkan'] = "[変換]"
-vim.g['eskk#marker_henkan_select'] = "[選択]"
-vim.g['eskk#marker_okuri'] = "[送り]"
-vim.g['eskk#marker_jisyo_touroku'] = "[辞書]"
-
 vimp.imap('jk', '<Plug>(eskk:toggle)')
 vimp.cmap('jk', '<Plug>(eskk:toggle)')
+vimp.nmap('<c-j>', 'i<Plug>(eskk:toggle)')
 vimp.imap('<c-j>', '<Plug>(eskk:toggle)')
 vimp.cmap('<c-j>', '<Plug>(eskk:toggle)')
 
-vim.g['eskk#server'] = {host = 'localhost', port = 1178}
