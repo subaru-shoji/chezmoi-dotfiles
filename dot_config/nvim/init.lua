@@ -139,7 +139,15 @@ require("packer").startup(function(use)
     }
 
     use 'vim-denops/denops.vim'
-    use {"vim-skk/skkeleton"}
+    use {
+        "vim-skk/skkeleton",
+        config = function()
+            function skkeleton_init()
+                vim.fn["skkeleton#config"]({eggLikeNewline = true})
+            end
+            vim.cmd [[ autocmd User skkeleton-initialize-pre lua skkeleton_init() ]]
+        end
+    }
     use {
         'Shougo/ddc.vim',
         requires = {
@@ -167,8 +175,9 @@ require("packer").startup(function(use)
                 tabnine = {mark = "TN", maxCandidates = 5, isVolatile = true}
             })
             vim.cmd [[
-inoremap <silent><expr> <TAB> pumvisible() ? '<C-n>' : (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ? '<TAB>' : ddc#manual_complete()
-inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
+inoremap <silent><expr> <tab> pumvisible() ? '<c-n>' : (col('.') <= 1 <bar><bar> getline('.')[col('.') - 2] =~# '\s') ? '<tab>' : ddc#manual_complete()
+inoremap <expr><s-tab>  pumvisible() ? '<c-p>' : '<c-h>'
+inoremap <expr><cr>  pumvisible() ? "<c-y>" : "<cr>"
             ]]
             vim.fn["ddc#enable"]()
             vim.fn["ddc_nvim_lsp_doc#enable"]()
@@ -306,7 +315,6 @@ vim.wo.number = true
 -- vim.wo.cursorcolumn = true
 vim.wo.cursorline = true
 
-vim.o.completeopt = "menuone,noinsert,noselect"
 vim.o.shortmess = vim.o.shortmess .. "c"
 
 vim.g.timeoutlen = 10
