@@ -1,4 +1,3 @@
-local execute = vim.api.nvim_command
 local install_path = vim.fn.stdpath("data") ..
                          "/site/pack/packer/start/packer.nvim"
 
@@ -7,13 +6,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
         "git", "clone", "https://github.com/wbthomason/packer.nvim",
         install_path
     })
-    execute "packadd packer.nvim"
-end
-
-local skk_dictionary_file_path = "/usr/local/share/skk/dictionary.yaskkserv2"
-if vim.fn.executable("yaskkserv2") == 1 and
-    vim.fn.filereadable(skk_dictionary_file_path) == 1 then
-    vim.fn.system({"yaskkserv2", skk_dictionary_file_path})
+    vim.cmd "packadd packer.nvim"
 end
 
 require("packer").startup(function(use)
@@ -30,13 +23,7 @@ require("packer").startup(function(use)
                     disabled_filetypes = {"Trouble"}
                 },
                 sections = {
-                    lualine_c = {
-                        {
-                            'filename',
-                            file_status = true, -- displays file status (readonly status, modified status)
-                            path = 1 -- 0 = just filename, 1 = relative path, 2 = absolute path
-                        }
-                    },
+                    lualine_c = {{'filename', file_status = true, path = 1}},
                     lualine_a = {'mode'},
                     lualine_b = {'branch'},
                     lualine_x = {'encoding', 'fileformat', 'filetype'},
@@ -141,24 +128,6 @@ require("packer").startup(function(use)
     }
 
     use {
-        "tyru/eskk.vim",
-        setup = function()
-            vim.g['eskk#kakutei_when_unique_candidate'] = 1
-            vim.g['eskk#enable_completion'] = 0
-            vim.g['eskk#no_default_mappings'] = 1
-            vim.g['eskk#keep_state'] = 0
-            vim.g['eskk#egg_like_newline'] = 1
-            vim.g['eskk#show_annotation'] = 1
-
-            vim.g['eskk#marker_henkan'] = "[変換]"
-            vim.g['eskk#marker_henkan_select'] = "[選択]"
-            vim.g['eskk#marker_okuri'] = "[送り]"
-            vim.g['eskk#marker_jisyo_touroku'] = "[辞書]"
-
-            vim.g['eskk#server'] = {host = 'localhost', port = 1178}
-        end
-    }
-    use {
         "kosayoda/nvim-lightbulb",
         config = function()
             vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
@@ -168,27 +137,44 @@ require("packer").startup(function(use)
         "onsails/lspkind-nvim",
         config = function() require("lspkind").init() end
     }
-    use {
-        "ray-x/lsp_signature.nvim",
-        config = function() require"lsp_signature".setup() end
-    }
 
+    use 'vim-denops/denops.vim'
+    use {"vim-skk/skkeleton"}
     use {
-        "nvim-lua/completion-nvim",
+        'Shougo/ddc.vim',
+        requires = {
+            "Shougo/ddc-around", "Shougo/ddc-matcher_head",
+            "Shougo/ddc-nvim-lsp", "Shougo/ddc-sorter_rank",
+            "LumaKernel/ddc-tabnine", "matsui54/ddc-nvim-lsp-doc"
+        },
         config = function()
-            vim.g.completion_sorting = "none"
+            local patch_global = vim.fn["ddc#custom#patch_global"]
+            patch_global("sources",
+                         {"tabnine", "nvim-lsp", "skkeleton", "around"})
 
-            vim.cmd [[autocmd BufEnter * lua require'completion'.on_attach()]]
-
-            vim.cmd([[
-					augroup CompletionTriggerCharacter
-							autocmd!
-							autocmd BufEnter * let completion_enable_auto_popup = 1
-							autocmd BufEnter *.lua let completion_enable_auto_popup = 0
-					augroup end
-				]])
+            patch_global("sourceOptions", {
+                _ = {matchers = {"matcher_head"}, sorters = {"sorter_rank"}},
+                around = {mark = "A"},
+                ["nvim-lsp"] = {
+                    mark = "lsp",
+                    forceCompletionPattern = "\\.\\w*|:\\w*|->\\w*"
+                },
+                skkeleton = {
+                    mark = "skkeleton",
+                    matchers = {"skkeleton"},
+                    sorters = {}
+                },
+                tabnine = {mark = "TN", maxCandidates = 5, isVolatile = true}
+            })
+            vim.cmd [[
+inoremap <silent><expr> <TAB> pumvisible() ? '<C-n>' : (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ? '<TAB>' : ddc#manual_complete()
+inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
+            ]]
+            vim.fn["ddc#enable"]()
+            vim.fn["ddc_nvim_lsp_doc#enable"]()
         end
     }
+
     use 'famiu/bufdelete.nvim'
 
     use {
@@ -320,13 +306,7 @@ vim.wo.number = true
 -- vim.wo.cursorcolumn = true
 vim.wo.cursorline = true
 
-vimp.imap("<tab>", "<Plug>(completion_smart_tab)")
-vimp.imap("<s-tab>", "<Plug>(completion_smart_s_tab)")
-
--- Set completeopt to have a better completion experience
 vim.o.completeopt = "menuone,noinsert,noselect"
-
--- Avoid showing message extra message when using completion
 vim.o.shortmess = vim.o.shortmess .. "c"
 
 vim.g.timeoutlen = 10
@@ -515,15 +495,13 @@ wk.register({
 }, {prefix = "<tab>"})
 
 vim.cmd([[
-		if executable('fcitx')
-			 autocmd InsertLeave * call system('fcitx-remote -c')
-			 autocmd CmdlineLeave * call system('fcitx-remote -c')
+		if executable('fcitx5')
+			 autocmd InsertLeave * call system('fcitx5-remote -c')
+			 autocmd CmdlineLeave * call system('fcitx5-remote -c')
 		endif
 	]])
 
-vimp.imap('jk', '<Plug>(eskk:toggle)')
-vimp.cmap('jk', '<Plug>(eskk:toggle)')
-vimp.nmap('<c-j>', 'i<Plug>(eskk:toggle)')
-vimp.imap('<c-j>', '<Plug>(eskk:toggle)')
-vimp.cmap('<c-j>', '<Plug>(eskk:toggle)')
+vimp.nmap('<c-k>', 'i<Plug>(skkeleton-enable)')
+vimp.imap('<c-k>', '<Plug>(skkeleton-toggle)')
+vimp.cmap('<c-k>', '<Plug>(skkeleton-toggle)')
 
