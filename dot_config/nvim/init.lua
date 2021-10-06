@@ -93,6 +93,7 @@ require("packer").startup(function(use)
                     }
                 end
             }
+            require'lspconfig'.elmls.setup {}
 
             vim.cmd [[autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 1000)]]
         end
