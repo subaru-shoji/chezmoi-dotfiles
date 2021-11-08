@@ -84,6 +84,7 @@ require("packer").startup(function(use)
         "neovim/nvim-lspconfig",
         config = function()
             require'lspconfig'.rust_analyzer.setup {}
+            require'lspconfig'.elmls.setup {}
             require'lspconfig'.tsserver.setup {
                 on_attach = function()
                     require("nvim-lsp-ts-utils").setup {
@@ -175,6 +176,9 @@ require("packer").startup(function(use)
                 },
                 tabnine = {mark = "TN", maxCandidates = 5, isVolatile = true}
             })
+
+            patch_global({backspaceCompletion = true})
+
             vim.cmd [[
 inoremap <silent><expr> <tab> pumvisible() ? '<c-n>' : (col('.') <= 1 <bar><bar> getline('.')[col('.') - 2] =~# '\s') ? '<tab>' : ddc#manual_complete()
 inoremap <expr><s-tab>  pumvisible() ? '<c-p>' : '<c-h>'
