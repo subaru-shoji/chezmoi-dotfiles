@@ -111,7 +111,8 @@ require("packer").startup(function(use)
         config = function()
             require"format".setup {
                 typescript = {{cmd = {"prettier -w"}}},
-                typescriptreact = {{cmd = {"prettier -w"}}}
+                typescriptreact = {{cmd = {"prettier -w"}}},
+                markdown = {{cmd = {"prettier -w"}}}
             }
             vim.cmd [[ autocmd BufWritePost * FormatWrite ]]
         end
@@ -295,7 +296,12 @@ inoremap <expr><cr>  pumvisible() ? "<c-y>" : "<cr>"
     }
     use {
         "rmagatti/auto-session",
-        config = function() require('auto-session').setup() end
+        config = function()
+            require('auto-session').setup {auto_restore_enabled = false}
+            vim.o.sessionoptions =
+                "blank,buffers,curdir,folds,help,options,tabpages,winsize,resize,winpos,terminal"
+
+        end
     }
 end)
 
@@ -455,6 +461,7 @@ wk.register({
         h = {"<cmd>OpenGithubFile<cr>", "open github"}
     },
     e = {
+        name = "explorer",
         a = {"<cmd>NvimTreeToggle<cr>", "file-tree bar"},
         s = {"<cmd>Fern . -drawer -reveal=% -toggle<cr>", "file tree"},
         d = {"<cmd>Fern . -reveal=%<cr>", "file explorer"},
