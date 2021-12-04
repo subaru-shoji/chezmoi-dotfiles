@@ -60,7 +60,7 @@ require("packer").startup(function(use)
         "kyazdani42/nvim-tree.lua",
         requires = {"kyazdani42/nvim-web-devicons"},
         config = function()
-            require('nvim-tree').setup {lsp_diagnostics = true}
+            require('nvim-tree').setup {diagnostics = {enable = false}}
         end
     }
     use {
@@ -84,6 +84,7 @@ require("packer").startup(function(use)
         "neovim/nvim-lspconfig",
         config = function()
             require'lspconfig'.rust_analyzer.setup {}
+            require'lspconfig'.clojure_lsp.setup {}
             require'lspconfig'.elmls.setup {}
             require'lspconfig'.tsserver.setup {
                 on_attach = function()
@@ -154,18 +155,16 @@ require("packer").startup(function(use)
     use {
         'Shougo/ddc.vim',
         requires = {
-            "Shougo/ddc-around", "Shougo/ddc-matcher_head",
-            "Shougo/ddc-nvim-lsp", "Shougo/ddc-sorter_rank",
-            "LumaKernel/ddc-tabnine", "matsui54/ddc-nvim-lsp-doc"
+            "Shougo/ddc-matcher_head", "Shougo/ddc-nvim-lsp",
+            "Shougo/ddc-sorter_rank", "LumaKernel/ddc-tabnine",
+            "matsui54/ddc-nvim-lsp-doc"
         },
         config = function()
             local patch_global = vim.fn["ddc#custom#patch_global"]
-            patch_global("sources",
-                         {"tabnine", "nvim-lsp", "skkeleton", "around"})
+            patch_global("sources", {"nvim-lsp", "skkeleton"})
 
             patch_global("sourceOptions", {
                 _ = {matchers = {"matcher_head"}, sorters = {"sorter_rank"}},
-                around = {mark = "A"},
                 ["nvim-lsp"] = {
                     mark = "lsp",
                     forceCompletionPattern = "\\.\\w*|:\\w*|->\\w*"
