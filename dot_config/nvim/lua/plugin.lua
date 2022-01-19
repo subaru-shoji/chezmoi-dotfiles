@@ -9,7 +9,8 @@ end
 
 local tbl = {
     {"wbthomason/packer.nvim"}, {"nvim-lua/plenary.nvim"},
-    {"vim-denops/denops.vim"}, {"svermeulen/vimpeccable"}
+    {"vim-denops/denops.vim"}, {"svermeulen/vimpeccable"},
+    {"lambdalisue/guise.vim"}
 }
 
 function merge(tbl1, tbl2) for _, t in ipairs(tbl2) do table.insert(tbl1, t) end end
@@ -30,8 +31,10 @@ local plugin_list = get_lua_plugin_list()
 for _, v in ipairs(plugin_list) do merge(tbl, require("plugin." .. v)) end
 
 require("packer").startup({
-    tbl, config = {
-        compile_path = vim.fn.stdpath('data') .. '/site/plugin/packer_compiled.lua'
+    tbl,
+    config = {
+        compile_path = vim.fn.stdpath('data') ..
+            '/site/plugin/packer_compiled.lua'
     }
 })
 
