@@ -17,7 +17,7 @@ function merge(tbl1, tbl2) for _, t in ipairs(tbl2) do table.insert(tbl1, t) end
 
 function get_lua_plugin_list()
     local handle = io.popen(
-                       "find ~/.config/nvim/lua/plugin -type f -name '*.lua' -printf '%P\n' | xargs -I{} basename {} .lua")
+                       [[fd --base-directory $HOME/.config/nvim/lua/plugin .lua | xargs -I{} basename {} .lua| sed 's/\//./g']])
     local result = handle:read("*a")
     handle:close()
     local find_list = vim.split(result, '\n')

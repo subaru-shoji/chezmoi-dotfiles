@@ -43,7 +43,7 @@ vimp.vmap("X", '"+x')
 vim.cmd(
     [[ autocmd BufEnter * map <buffer> <silent> <s-k> <cmd>BufferLineCycleNext<cr> ]])
 vimp.nnoremap({"silent"}, "J", "<cmd>BufferLineCyclePrev<cr>")
-vimp.nnoremap("W", "<c-w>w")
+vimp.nnoremap("W", "<cmd>lua require('nvim-window').pick()<cr>")
 
 vimp.nmap("gs", "<plug>(GrepperOperator)")
 vimp.xmap("gs", "<plug>(GrepperOperator)")
@@ -120,14 +120,10 @@ wk.register({
     },
     a = {
         name = "appear",
-        a = {"<cmd>NvimTreeToggle<cr>", "file-tree bar"},
-        s = {
-            function()
-                local sidebar = require("sidebar-nvim")
-                local opts = {open = true}
-                sidebar.setup(opts)
-            end, "sidebar"
+        a = {
+            function() vim.fn["sidebar#toggle"]('nvimtree') end, "file-tree bar"
         },
+        s = {function() vim.fn["sidebar#toggle"]('sidebar') end, "sidebar"},
         f = {"<cmd>FloatermNew ranger<cr>", "ranger"}
     },
     t = {
@@ -142,6 +138,7 @@ wk.register({
             end, "mouse toggle"
         }
     },
+    w = {function() require('nvim-window').pick() end, "switch window"},
     ["."] = {
         function()
             -- telescope.lsp_code_actions()
