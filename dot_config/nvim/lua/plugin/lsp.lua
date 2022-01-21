@@ -2,12 +2,29 @@ return {
     {
         "neovim/nvim-lspconfig",
         config = function()
+            local capabilities = require('cmp_nvim_lsp').update_capabilities(
+                                     vim.lsp.protocol.make_client_capabilities())
             local on_attach = function()
                 require('folding').on_attach()
             end
-            require("lspconfig").rust_analyzer.setup({on_attach = on_attach})
-            require("lspconfig").clojure_lsp.setup({on_attach = on_attach})
-            require("lspconfig").elmls.setup({on_attach = on_attach})
+
+            local lsp_server_list = {
+                rust_analyzer = {},
+                clojure_lsp = {},
+                elmls = {}
+            }
+
+            local util = require("util")
+
+            local base_config = {
+                capabilities = capabilities,
+                on_attach = on_attach
+            }
+
+            for server, config in ipairs(lsp_server_list) do
+                local merged_config = util.merge(config, base_config)
+                require("lspconfig")[server].setup(merged_config)
+            end
 
             vim.cmd(
                 [[autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 1000)]])

@@ -13,7 +13,7 @@ vim.o.shiftwidth = vim.o.tabstop
 
 vim.wo.number = true
 -- vim.wo.cursorcolumn = true
-vim.wo.cursorline = true
+-- vim.wo.cursorline = true
 vim.opt.fillchars["eob"] = "　"
 
 vim.o.shortmess = vim.o.shortmess .. "c"

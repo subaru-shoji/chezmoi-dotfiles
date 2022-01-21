@@ -1,4 +1,4 @@
-return {
+return true and {} or {
     {
         "Shougo/ddc.vim",
         requires = {
