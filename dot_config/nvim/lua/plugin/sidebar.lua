@@ -64,7 +64,7 @@ return {
 
             require("nvim-tree").setup({
                 diagnostics = {enable = true},
-                view = {mappings = {custom_only = true, list = list}}
+                view = {mappings = {custom_only = false, list = list}}
             })
         end
     }, {"sidebar-nvim/sidebar.nvim"}
