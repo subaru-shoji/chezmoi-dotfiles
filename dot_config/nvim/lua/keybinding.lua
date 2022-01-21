@@ -43,7 +43,7 @@ vimp.vmap("X", '"+x')
 vim.cmd(
     [[ autocmd BufEnter * map <buffer> <silent> <s-k> <cmd>BufferLineCycleNext<cr> ]])
 vimp.nnoremap({"silent"}, "J", "<cmd>BufferLineCyclePrev<cr>")
-vimp.nnoremap("W", "<cmd>lua require('nvim-window').pick()<cr>")
+vimp.nnoremap("W", "<c-w>w")
 
 vimp.nmap("gs", "<plug>(GrepperOperator)")
 vimp.xmap("gs", "<plug>(GrepperOperator)")
