@@ -1,3 +1,8 @@
+function openSidebar()
+    vim.cmd [[SidebarNvimOpen]]
+    vim.cmd [[exe 1 . "wincmd w"]]
+end
+
 return {
     {
         "brglng/vim-sidebar-manager",
@@ -17,7 +22,7 @@ return {
                         return vim.fn.getwinvar(nr, '&filetype') ==
                                    'SidebarNvim'
                     end,
-                    open = "SidebarNvimOpen",
+                    open = openSidebar,
                     close = "SidebarNvimClose"
                 }
 
