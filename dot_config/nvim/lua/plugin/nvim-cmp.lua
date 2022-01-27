@@ -19,15 +19,15 @@ return {
                     end
                 },
                 mapping = {
-                    ['<CR>'] = cmp.mapping.confirm({select = true}),
-                    ['<Tab>'] = function(fallback)
+                    ['<cr>'] = cmp.mapping.confirm({select = false}),
+                    ['<tab>'] = function(fallback)
                         if cmp.visible() then
                             cmp.select_next_item()
                         else
                             fallback()
                         end
                     end,
-                    ['<S-Tab>'] = function(fallback)
+                    ['<s-tab>'] = function(fallback)
                         if cmp.visible() then
                             cmp.select_prev_item()
                         else
