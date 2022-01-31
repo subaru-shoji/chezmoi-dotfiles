@@ -12,17 +12,43 @@ return {
             local cmp = require "cmp"
 
             cmp.setup({
+                completion = {autocomplete = false},
                 snippet = {
-                    -- REQUIRED - you must specify a snippet engine
                     expand = function(args)
                         vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
                     end
                 },
                 mapping = {
-                    ['<cr>'] = cmp.mapping.confirm({select = false}),
+                    ['<c-n>'] = function()
+                        if cmp.visible() then
+                            cmp.select_next_item()
+                        else
+                            cmp.complete()
+                        end
+                    end,
+                    ['<cr>'] = cmp.mapping.confirm({select = true}),
+                    ['<bs>'] = cmp.mapping.close(),
                     ['<tab>'] = function(fallback)
                         if cmp.visible() then
                             cmp.select_next_item()
+                            return
+                        end
+
+                        local cursor = vim.api.nvim_win_get_cursor(0)
+                        local line = vim.api.nvim_get_current_line()
+
+                        if cursor[2] == 0 then
+                            fallback()
+                            return
+                        end
+
+                        local beforeCursorCol = cursor[2] - 1
+                        local oneLetterBefore = string.sub(line,
+                                                           beforeCursorCol,
+                                                           beforeCursorCol)
+
+                        if string.match(oneLetterBefore, '[^%s]') then
+                            cmp.complete()
                         else
                             fallback()
                         end
@@ -36,10 +62,13 @@ return {
                     end
                 },
                 sources = cmp.config.sources({
-                    {name = 'nvim_lsp'}, {name = 'vsnip'}
-                }, {{name = 'buffer'}})
+                    {
+                        name = 'nvim_lsp',
+                        max_item_count = 10,
+                        trigger_characters = {'.'}
+                    }
+                })
             })
-
             -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
             -- cmp.setup.cmdline('/', {sources = {{name = 'buffer'}}})
 
