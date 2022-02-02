@@ -1,4 +1,4 @@
-return {
+return true and {} or {
     {
         "hrsh7th/nvim-cmp",
         requires = {

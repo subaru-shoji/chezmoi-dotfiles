@@ -2,8 +2,8 @@ return {
     {
         "neovim/nvim-lspconfig",
         config = function()
-            local capabilities = require('cmp_nvim_lsp').update_capabilities(
-                                     vim.lsp.protocol.make_client_capabilities())
+            -- local capabilities = require('cmp_nvim_lsp').update_capabilities(
+            --                          vim.lsp.protocol.make_client_capabilities())
             local on_attach = function()
                 require('folding').on_attach()
             end
@@ -17,11 +17,11 @@ return {
             local util = require("util")
 
             local base_config = {
-                capabilities = capabilities,
+                -- capabilities = capabilities,
                 on_attach = on_attach
             }
 
-            for server, config in ipairs(lsp_server_list) do
+            for server, config in pairs(lsp_server_list) do
                 local merged_config = util.merge(config, base_config)
                 require("lspconfig")[server].setup(merged_config)
             end
