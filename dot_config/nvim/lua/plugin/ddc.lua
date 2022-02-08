@@ -44,6 +44,9 @@ imap <silent><expr> <cr> pum#visible() ? "\<c-y>" : "\<cr>"
             -- vim.fn["signature_help#enable"]()
             vim.fn["popup_preview#enable"]()
         end
+    }, {
+        "Shougo/pum.vim",
+        config = function() vim.fn['pum#set_option']('border', 'rounded') end
     }
 }
 

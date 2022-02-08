@@ -9,9 +9,9 @@ vimp.imap({"silent"}, "<c-a>", "<c-o>I")
 vimp.imap({"silent"}, "<c-e>", "<c-o>A")
 vimp.cmap({"silent"}, "<c-a>", "<home>")
 vimp.cmap({"silent"}, "<c-e>", "<end>")
-vimp.nmap("<c-a>", "0")
+vimp.nmap("<c-a>", "^")
 vimp.nmap("<c-e>", "g_")
-vimp.vmap("<c-a>", "0")
+vimp.vmap("<c-a>", "^")
 vimp.vmap("<c-e>", "g_")
 
 vimp.nnoremap("<c-s>", "<cmd>update<cr>")
@@ -52,12 +52,15 @@ local wk = require("which-key")
 local telescope = require("telescope.builtin")
 
 wk.register({
-    D = {function() vim.lsp.buf.hover() end, "definition"},
+    D = {
+        function() require('goto-preview').goto_preview_definition() end,
+        "definition"
+    },
     f = {function() require("hop").hint_words() end, "hop"},
     F = {"<cmd>HopChar1<cr>", "hop char1"},
     s = {"<cmd>HopChar1<cr>", "hop char1"},
     S = {"<Plug>(easymotion-overwin-f)", "easymotion-overwin"},
-    ["/"] = {function() require("searchbox").incsearch() end, "SearchBox"}
+    ["?"] = {function() require("searchbox").incsearch() end, "SearchBox"}
 }, {})
 
 vimp.inoremap("<c-f>", [[<c-o><cmd>lua require "hop".hint_words()<cr>]])

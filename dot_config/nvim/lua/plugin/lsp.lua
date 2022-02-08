@@ -37,5 +37,16 @@ return {
         end
     },
     {"onsails/lspkind-nvim", config = function() require("lspkind").init() end},
-    {"pierreglaser/folding-nvim"}
+    {"pierreglaser/folding-nvim"}, {
+        "ray-x/lsp_signature.nvim",
+        config = function()
+            require"lsp_signature".setup {
+                bind = true,
+                handler_opts = {border = "rounded"}
+            }
+        end
+    }, {
+        "rmagatti/goto-preview",
+        config = function() require('goto-preview').setup {} end
+    }
 }
