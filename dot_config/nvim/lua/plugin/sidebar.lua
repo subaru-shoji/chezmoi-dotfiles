@@ -34,15 +34,17 @@ return {
         config = function()
             local tree_cb = require("nvim-tree.config").nvim_tree_callback
             local list = {
-                {key = {"<CR>", "o", "<2-LeftMouse>"}, cb = tree_cb("edit")},
-                {key = {"<2-RightMouse>", "<C-]>"}, cb = tree_cb("cd")},
+                {
+                    key = {"<CR>", "o", "l", "<2-LeftMouse>"},
+                    cb = tree_cb("edit")
+                }, {key = {"<2-RightMouse>", "<C-]>"}, cb = tree_cb("cd")},
                 {key = "<C-v>", cb = tree_cb("vsplit")},
                 {key = "<C-x>", cb = tree_cb("split")},
                 {key = "<C-t>", cb = tree_cb("tabnew")},
                 {key = "<", cb = tree_cb("prev_sibling")},
                 {key = ">", cb = tree_cb("next_sibling")},
                 {key = "P", cb = tree_cb("parent_node")},
-                {key = "<BS>", cb = tree_cb("close_node")},
+                {key = {"<BS>", "h"}, cb = tree_cb("close_node")},
                 {key = "<S-CR>", cb = tree_cb("close_node")},
                 {key = "K", cb = tree_cb("first_sibling")},
                 {key = "J", cb = tree_cb("last_sibling")},
