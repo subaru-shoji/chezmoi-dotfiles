@@ -56,10 +56,8 @@ wk.register({
         function() require('goto-preview').goto_preview_definition() end,
         "definition"
     },
-    f = {function() require("hop").hint_words() end, "hop"},
-    F = {"<cmd>HopChar1<cr>", "hop char1"},
-    s = {"<cmd>HopChar1<cr>", "hop char1"},
-    S = {"<Plug>(easymotion-overwin-f)", "easymotion-overwin"},
+    f = {"<cmd>HopChar2<cr>", "hop char2"},
+    F = {function() require("hop").hint_words() end, "hop"},
     ["?"] = {function() require("searchbox").incsearch() end, "SearchBox"}
 }, {})
 
@@ -196,12 +194,13 @@ end
 wk.register({
     ["<tab>"] = {function() telescope.commands() end, "find command"},
     a = {"<cmd>Telescope<cr>", "telescope"},
+    b = {function() telescope.buffers() end, "buffers"},
     c = {function() appears() end, "appears"},
-    f = {function() telescope.fd() end, "fd"},
-    r = {function() telescope.oldfiles() end, "recent files"},
-    g = {function() telescope.git_status() end, "git status"},
     d = {function() telescope.lsp_document_diagnostics() end, "lsp diagnotics"},
-    b = {function() telescope.buffers() end, "buffers"}
+    f = {function() telescope.fd() end, "fd"},
+    g = {function() telescope.git_status() end, "git status"},
+    r = {function() telescope.oldfiles() end, "recent files"},
+    y = {"<cmd>Telescope neoclip<cr>", "neoclip"}
 }, {prefix = "<tab>"})
 
 vim.cmd([[
