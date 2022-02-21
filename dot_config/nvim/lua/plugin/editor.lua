@@ -46,7 +46,17 @@ return {
         "AckslD/nvim-neoclip.lua",
         requires = {'nvim-telescope/telescope.nvim'},
         config = function()
-            require('neoclip').setup()
+            require('neoclip').setup({
+                keys = {
+                    telescope = {
+                        i = {
+                            select = '<cr>',
+                            paste = '<c-v>',
+                            paste_behind = '<c-k>'
+                        }
+                    }
+                }
+            })
             require('telescope').load_extension('neoclip')
         end
     }
