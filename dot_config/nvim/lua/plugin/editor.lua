@@ -25,7 +25,7 @@ return {
         "mvllow/modes.nvim",
         config = function()
             vim.opt.cursorline = true
-            require('modes').setup()
+            require('modes').setup({line_opacity = 0.2, focus_only = true})
         end
     }, {
         "petertriho/nvim-scrollbar",
