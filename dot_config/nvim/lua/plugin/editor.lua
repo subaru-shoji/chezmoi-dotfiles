@@ -21,9 +21,12 @@ return {
     {
         "numToStr/Comment.nvim",
         config = function() require('Comment').setup() end
-    }, {
-        "yamatsum/nvim-cursorline",
-        config = function() vim.g.cursorline_timeout = 5000 end
+    }, {"xiyaowong/nvim-cursorword"}, {
+        "mvllow/modes.nvim",
+        config = function()
+            vim.opt.cursorline = true
+            require('modes').setup()
+        end
     }, {
         "petertriho/nvim-scrollbar",
         config = function()
@@ -61,3 +64,4 @@ return {
         end
     }
 }
+
