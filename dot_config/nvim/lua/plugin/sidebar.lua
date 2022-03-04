@@ -1,4 +1,4 @@
-function openSidebar()
+local function openSidebar()
     vim.cmd [[SidebarNvimOpen]]
     vim.cmd [[exe 1 . "wincmd w"]]
 end
@@ -66,7 +66,12 @@ return {
                 {key = "-", cb = tree_cb("dir_up")},
                 {key = "s", cb = tree_cb("system_open")},
                 {key = "q", cb = tree_cb("close")},
-                {key = "?", cb = tree_cb("toggle_help")}
+                {key = "?", cb = tree_cb("toggle_help")},
+                {key = "Q", cb = tree_cb("collapse_all")},
+                {key = "S", cb = tree_cb("search_node")},
+                {key = "D", cb = tree_cb("show_file_info")},
+                {key = ".", cb = tree_cb("run_file_command")},
+                {key = "W", action = ""}
             }
 
             require("nvim-tree").setup({
