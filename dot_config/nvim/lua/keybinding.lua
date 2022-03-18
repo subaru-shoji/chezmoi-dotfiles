@@ -210,6 +210,13 @@ vim.cmd([[
 		endif
 	]])
 
+vim.cmd([[
+		if executable('im-select')
+			 autocmd InsertLeave * call system('im-select com.apple.keylayout.ABC')
+			 autocmd CmdlineLeave * call system('im-select com.apple.keylayout.ABC')
+		endif
+	]])
+
 vimp.nmap("<c-k>", "i<Plug>(skkeleton-enable)")
 vimp.imap("<c-k>", "<Plug>(skkeleton-toggle)")
 vimp.cmap("<c-k>", "<Plug>(skkeleton-toggle)")
