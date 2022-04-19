@@ -58,6 +58,13 @@ wk.register({
     },
     f = {"<cmd>HopChar2<cr>", "hop char2"},
     F = {function() require("hop").hint_words() end, "hop"},
+    Q = {
+        function()
+            if vim.fn.confirm("Quit all?", "Yes\nNo") == 1 then
+                vim.cmd("qa")
+            end
+        end, "quit all"
+    },
     ["?"] = {function() require("searchbox").incsearch() end, "SearchBox"}
 }, {})
 
