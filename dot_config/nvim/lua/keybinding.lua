@@ -102,7 +102,6 @@ wk.register({
                 end
             end, "quit all"
         },
-        w = {"<c-w>c", "quit window"},
         q = {
             function()
                 local file_type_list = {"NvimTree", "qf", "Trouble"}
@@ -214,19 +213,23 @@ wk.register({
     y = {"<cmd>Telescope neoclip<cr>", "neoclip"}
 }, {prefix = "<tab>"})
 
-vim.cmd([[
-		if executable('fcitx5')
-			 autocmd InsertLeave * call system('fcitx5-remote -c')
-			 autocmd CmdlineLeave * call system('fcitx5-remote -c')
-		endif
-	]])
-
-vim.cmd([[
-		if executable('im-select')
-			 autocmd InsertLeave * call system('im-select com.apple.keylayout.ABC')
-			 autocmd CmdlineLeave * call system('im-select com.apple.keylayout.ABC')
-		endif
-	]])
+if vim.fn.executable("fcitx5-remote") then
+    for _, event in ipairs({"InsertLeave", "CmdlineLeave"}) do
+        vim.api.nvim_create_autocmd(event, {
+            pattern = "*",
+            callback = function(_) vim.fn.system("fcitx5-remote -c") end
+        })
+    end
+elseif vim.fn.executable("im-select") then
+    for _, event in ipairs({"InsertLeave", "CmdlineLeave"}) do
+        vim.api.nvim_create_autocmd(event, {
+            pattern = "*",
+            callback = function(_)
+                vim.fn.system("im-select com.apple.keylayout.ABC")
+            end
+        })
+    end
+end
 
 vimp.nmap("<c-k>", "i<Plug>(skkeleton-enable)")
 vimp.imap("<c-k>", "<Plug>(skkeleton-toggle)")
