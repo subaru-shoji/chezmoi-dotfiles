@@ -2,7 +2,6 @@ local vimp = require("vimp")
 
 vim.g.mapleader = " "
 
-vimp.imap("<c-q>", "<esc>")
 vimp.imap("jj", "<esc>")
 
 vimp.imap({"silent"}, "<c-a>", "<c-o>I")
@@ -40,10 +39,13 @@ vimp.imap("<s-right>", "<esc>v<right>")
 vimp.vmap("Y", '"+y')
 vimp.vmap("X", '"+x')
 
+-- window/buffer management--
 vim.cmd(
     [[ autocmd BufEnter * map <buffer> <silent> <s-k> <cmd>BufferLineCycleNext<cr> ]])
 vimp.nnoremap({"silent"}, "J", "<cmd>BufferLineCyclePrev<cr>")
 vimp.nnoremap("W", "<c-w>w")
+vim.keymap.set("n", "<c-w>q", function() require("buffer").smart_close() end)
+vim.keymap.set("n", "<c-w>Q", function() require("buffer").close_all() end)
 
 vimp.nmap("gs", "<plug>(GrepperOperator)")
 vimp.xmap("gs", "<plug>(GrepperOperator)")
@@ -58,13 +60,6 @@ wk.register({
     },
     f = {"<cmd>HopChar2<cr>", "hop char2"},
     F = {function() require("hop").hint_words() end, "hop"},
-    Q = {
-        function()
-            if vim.fn.confirm("Quit all?", "Yes\nNo") == 1 then
-                vim.cmd("qa")
-            end
-        end, "quit all"
-    },
     ["?"] = {function() require("searchbox").incsearch() end, "SearchBox"}
 }, {})
 
@@ -101,24 +96,10 @@ wk.register({
         t = {"<cmd>TroubleToggle<cr>", "trouble bar"}
     },
     q = {
-        function()
-            local file_type_list = {"NvimTree", "qf", "Trouble"}
-
-            if require("util").has_value(file_type_list, vim.bo.filetype) then
-                vim.api.nvim_command "wincmd c"
-            else
-                require("bufdelete").bufdelete(0, false)
-            end
-
-        end, "smart quit buffer"
+        a = {require("buffer").close_all, "close_all"},
+        q = {require("buffer").smart_close, "smart quit buffer"}
     },
-    Q = {
-        function()
-            if vim.fn.confirm("Quit all?", "Yes\nNo") == 1 then
-                vim.cmd("qa")
-            end
-        end, "quit all"
-    },
+    x = {require("buffer").smart_close, "smart quit buffer"},
     g = {
         name = "git",
         s = {

@@ -14,7 +14,7 @@ return {
                 elmls = {}
             }
 
-            local util = require("lua/util")
+            local util = require("util")
 
             local base_config = {
                 -- capabilities = capabilities,
