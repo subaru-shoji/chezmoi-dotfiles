@@ -1,14 +1,14 @@
 [Groups/0]
 # Group Name
-Name=en_layout
+Name=jp_layout
 # Layout
-Default Layout=us
+Default Layout=jp
 # Default Input Method
 DefaultIM=mozc
 
 [Groups/0/Items/0]
 # Name
-Name=keyboard-us
+Name=keyboard-jp
 # Layout
 Layout=
 
@@ -20,15 +20,15 @@ Layout=
 
 [Groups/1]
 # Group Name
-Name=jp_layout
+Name=en_layout
 # Layout
-Default Layout=jp
+Default Layout=us
 # Default Input Method
 DefaultIM=mozc
 
 [Groups/1/Items/0]
 # Name
-Name=keyboard-jp
+Name=keyboard-us
 # Layout
 Layout=
 
@@ -39,6 +39,6 @@ Name=mozc
 Layout=
 
 [GroupOrder]
-0=en_layout
-1=jp_layout
+0=jp_layout
+1=en_layout
 
