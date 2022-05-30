@@ -43,11 +43,11 @@ vimp.vmap("X", '"+x')
 vim.cmd(
     [[autocmd BufEnter * map <buffer> <silent> <s-k> <cmd>BufferLineCycleNext<cr>]])
 vimp.nnoremap({"silent"}, "J", "<cmd>BufferLineCyclePrev<cr>")
--- vimp.nnoremap("W", "<c-w>w")
 vim.keymap.set("n", "<c-w>q", function() require("buffer").smart_close() end)
 vim.keymap.set("n", "<c-w>Q", function() require("buffer").close_all() end)
 vim.keymap.set("n", "<c-w>s", "<cmd>rightbelow wincmd s<cr>")
 vim.keymap.set("n", "<c-w>v", "<cmd>rightbelow wincmd v<cr>")
+vim.keymap.set("n", "t", "<cmd>wincmd w<cr>")
 vim.keymap.set("n", "X", "<cmd>Telescope oldfiles<cr>")
 vim.keymap.set("n", "C", function() require("buffer").smart_close() end)
 
@@ -74,7 +74,26 @@ vim.api.nvim_set_keymap("x", "/", ":SearchBoxIncSearch visual_mode=true<CR>",
 local find_files_action = {function() telescope.find_files() end, "find file"}
 wk.register({
     [" "] = find_files_action,
+    a = {function() vim.fn["sidebar#toggle"]('nvimtree') end, "file-tree bar"},
+    g = {"<cmd>Telescope git_status<cr>", "telescopt git status"},
     r = {"<cmd>SearchBoxReplace confirm=menu<cr>", "SearchBoxReplace"},
+    s = {"<cmd>Grepper -tool ag<cr>", "Search Project"},
+    w = {function() require('nvim-window').pick() end, "switch window"},
+    x = {require("buffer").smart_close, "smart quit buffer"},
+    q = {
+        a = {require("buffer").close_all, "close_all"},
+        q = {require("buffer").smart_close, "smart quit buffer"},
+        c = {function() vim.api.nvim_command "wincmd c" end, "close window"}
+    },
+    ["."] = {
+        function()
+            -- telescope.lsp_code_actions()
+            vim.lsp.buf.code_action()
+        end, "telescope lsp action"
+    }
+}, {prefix = "<leader>"})
+
+wk.register({
     f = {
         name = "file",
         b = {"<cmd>Grepper -buffer -tool ag<cr>", "Grepper buffer"},
@@ -82,7 +101,6 @@ wk.register({
         f = {"<cmd>Grepper -grepprg fd --hidden -t f<cr>", "fd quickfix"},
         r = {function() telescope.oldfiles() end, "find recent files"}
     },
-    s = {"<cmd>Grepper -tool ag<cr>", "Search Project"},
     l = {
         name = "lsp",
         r = {function() vim.lsp.buf.rename() end, "rename symbol"},
@@ -96,12 +114,6 @@ wk.register({
         },
         t = {"<cmd>TroubleToggle<cr>", "trouble bar"}
     },
-    q = {
-        a = {require("buffer").close_all, "close_all"},
-        q = {require("buffer").smart_close, "smart quit buffer"},
-        c = {function() vim.api.nvim_command "wincmd c" end, "close window"}
-    },
-    x = {require("buffer").smart_close, "smart quit buffer"},
     g = {
         name = "git",
         s = {
@@ -134,16 +146,8 @@ wk.register({
                 end
             end, "mouse toggle"
         }
-    },
-    w = {function() require('nvim-window').pick() end, "switch window"},
-
-    ["."] = {
-        function()
-            -- telescope.lsp_code_actions()
-            vim.lsp.buf.code_action()
-        end, "telescope lsp action"
     }
-}, {prefix = "<leader>"})
+}, {prefix = ","})
 
 wk.register({
     d = {function() telescope.lsp_definitions() end, "go to definition"},
