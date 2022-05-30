@@ -41,11 +41,15 @@ vimp.vmap("X", '"+x')
 
 -- window/buffer management--
 vim.cmd(
-    [[ autocmd BufEnter * map <buffer> <silent> <s-k> <cmd>BufferLineCycleNext<cr> ]])
+    [[autocmd BufEnter * map <buffer> <silent> <s-k> <cmd>BufferLineCycleNext<cr>]])
 vimp.nnoremap({"silent"}, "J", "<cmd>BufferLineCyclePrev<cr>")
-vimp.nnoremap("W", "<c-w>w")
+-- vimp.nnoremap("W", "<c-w>w")
 vim.keymap.set("n", "<c-w>q", function() require("buffer").smart_close() end)
 vim.keymap.set("n", "<c-w>Q", function() require("buffer").close_all() end)
+vim.keymap.set("n", "<c-w>s", "<cmd>rightbelow wincmd s<cr>")
+vim.keymap.set("n", "<c-w>v", "<cmd>rightbelow wincmd v<cr>")
+vim.keymap.set("n", "X", "<cmd>Telescope oldfiles<cr>")
+vim.keymap.set("n", "C", function() require("buffer").smart_close() end)
 
 vimp.nmap("gs", "<plug>(GrepperOperator)")
 vimp.xmap("gs", "<plug>(GrepperOperator)")
@@ -73,15 +77,12 @@ wk.register({
     r = {"<cmd>SearchBoxReplace confirm=menu<cr>", "SearchBoxReplace"},
     f = {
         name = "file",
+        b = {"<cmd>Grepper -buffer -tool ag<cr>", "Grepper buffer"},
         d = {"<cmd>Grepper -grepprg fd --hidden -t f<cr>", "fd quickfix"},
         f = {"<cmd>Grepper -grepprg fd --hidden -t f<cr>", "fd quickfix"},
         r = {function() telescope.oldfiles() end, "find recent files"}
     },
-    s = {
-        name = "search",
-        s = {"<cmd>Grepper -tool ag<cr>", "Grepper Project"},
-        b = {"<cmd>Grepper -buffer -tool ag<cr>", "Grepper buffer"}
-    },
+    s = {"<cmd>Grepper -tool ag<cr>", "Search Project"},
     l = {
         name = "lsp",
         r = {function() vim.lsp.buf.rename() end, "rename symbol"},
@@ -97,7 +98,8 @@ wk.register({
     },
     q = {
         a = {require("buffer").close_all, "close_all"},
-        q = {require("buffer").smart_close, "smart quit buffer"}
+        q = {require("buffer").smart_close, "smart quit buffer"},
+        c = {function() vim.api.nvim_command "wincmd c" end, "close window"}
     },
     x = {require("buffer").smart_close, "smart quit buffer"},
     g = {
@@ -115,12 +117,11 @@ wk.register({
         h = {"<cmd>OpenGithubFile<cr>", "open github"}
     },
     a = {
-        name = "appear",
+        name = "often use tools",
         a = {
             function() vim.fn["sidebar#toggle"]('nvimtree') end, "file-tree bar"
         },
-        s = {function() vim.fn["sidebar#toggle"]('sidebar') end, "sidebar"},
-        f = {"<cmd>FloatermNew ranger<cr>", "ranger"}
+        s = {"<cmd>botright TigStatus<cr>", "tig status"}
     },
     t = {
         name = "toggle",
@@ -135,6 +136,7 @@ wk.register({
         }
     },
     w = {function() require('nvim-window').pick() end, "switch window"},
+
     ["."] = {
         function()
             -- telescope.lsp_code_actions()

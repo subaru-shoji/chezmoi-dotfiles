@@ -5,7 +5,11 @@ return {
         if require("util").contains(file_type_list, vim.bo.filetype) then
             vim.api.nvim_command "wincmd c"
         else
-            require("bufdelete").bufdelete(0, false)
+            if #vim.fn.win_findbuf(vim.fn.bufnr("%")) > 1 then
+                vim.api.nvim_command "wincmd c"
+            else
+                require("bufdelete").bufdelete(0, false)
+            end
         end
     end,
     close_all = function()
