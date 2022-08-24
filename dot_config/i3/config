@@ -219,8 +219,8 @@ bindsym Print exec flameshot gui
 # Amount to increase/decrease brightness
 set $brightness_step 10
 
-bindsym XF86MonBrightnessUp   exec xbacklight -inc $brightness_step
-bindsym XF86MonBrightnessDown exec xbacklight -dec $brightness_step
+bindsym XF86MonBrightnessUp   exec brightnessctl s +$brightness_step%
+bindsym XF86MonBrightnessDown exec brightnessctl s $brightness_step%-
 
 bindsym $mod+Tab exec --no-startup-id rofi -show window
 bindsym $mod+w exec --no-startup-id ~/.config/i3/i3ipc/focus-next-visible.py
