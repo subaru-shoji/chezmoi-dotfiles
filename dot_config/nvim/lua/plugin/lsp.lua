@@ -1,17 +1,23 @@
 return {
     {
         "neovim/nvim-lspconfig",
+        requires = {
+            "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim"
+        },
         config = function()
+            require("mason").setup()
+            require("mason-lspconfig").setup()
             -- local capabilities = require('cmp_nvim_lsp').update_capabilities(
             --                          vim.lsp.protocol.make_client_capabilities())
             local on_attach = function()
-                require('folding').on_attach()
+                -- require('folding').on_attach()
             end
 
             local lsp_server_list = {
                 rust_analyzer = {},
                 clojure_lsp = {},
-                elmls = {}
+                elmls = {},
+                tsserver = {}
             }
 
             local util = require("util")
