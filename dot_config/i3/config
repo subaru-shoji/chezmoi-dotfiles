@@ -187,6 +187,7 @@ bindsym $mod+r mode "resize"
 bar {
     status_command          i3blocks
     position                top
+		tray_output primary
 }
 
 # i3-gaps
