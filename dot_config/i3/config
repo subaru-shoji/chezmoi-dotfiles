@@ -213,7 +213,7 @@ exec --no-startup-id picom
 exec --no-startup-id libinput-gestures-setup start
 
 
-bindsym $mod+d exec fish -c "rofi -show run"
+bindsym $mod+d exec fish -c "rofi -show run -show-icons"
 # bindsym Print exec --no-startup-id import -window root ~/Pictures/screenshot`date "+%y%m%d%H%M".jpg`
 bindsym Print exec flameshot gui
 
