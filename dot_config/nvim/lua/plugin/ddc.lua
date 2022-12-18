@@ -3,13 +3,12 @@ return {
         "Shougo/ddc.vim",
         requires = {
             "Shougo/ddc-nvim-lsp", "Shougo/ddc-sorter_rank", "Shougo/pum.vim",
-            "Shougo/ddc-matcher_head", "LumaKernel/ddc-file",
-            "matsui54/denops-popup-preview.vim",
-            "matsui54/denops-signature_help"
+            "Shougo/ddc-ui-pum", "Shougo/ddc-matcher_head",
+            "LumaKernel/ddc-file"
         },
         config = function()
             local patch_global = vim.fn["ddc#custom#patch_global"] -- patch_global("sources", {"nvim-lsp", "skkeleton"})
-            patch_global('completionMenu', 'pum.vim')
+            patch_global('ui', 'pum')
             patch_global('autoCompleteEvents',
                          {'InsertEnter', 'TextChangedI', 'TextChangedP'})
             patch_global("sources", {"nvim-lsp", "file", "skkeleton"})
@@ -41,8 +40,6 @@ imap <silent><expr> <cr> pum#visible() ? "\<c-y>" : "\<cr>"
             ]])
 
             vim.fn["ddc#enable"]()
-            -- vim.fn["signature_help#enable"]()
-            vim.fn["popup_preview#enable"]()
         end
     }, {
         "Shougo/pum.vim",

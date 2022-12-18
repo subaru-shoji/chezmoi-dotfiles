@@ -19,7 +19,7 @@ vimp.inoremap("<c-s>", "<esc><cmd>update<cr>")
 
 vimp.nnoremap("H", "<c-o>")
 vimp.nnoremap("L", "<c-i>")
-vimp.nnoremap("<c-h>", "<cmd>Telescope jumplist<cr>")
+vimp.nnoremap("<c-j>", "<cmd>Telescope jumplist<cr>")
 
 vimp.nnoremap({"silent", "nowait"}, "<esc><esc>", "<cmd>nohl<cr>")
 

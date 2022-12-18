@@ -20,3 +20,4 @@ vim.o.shortmess = vim.o.shortmess .. "c"
 vim.o.mouse = "a"
 
 vim.g.timeoutlen = 10
+
