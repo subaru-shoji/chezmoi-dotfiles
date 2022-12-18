@@ -27,7 +27,6 @@ function get_lua_plugin_list()
 end
 
 local plugin_list = get_lua_plugin_list()
-
 for _, v in ipairs(plugin_list) do merge(tbl, require("plugin." .. v)) end
 
 require("packer").startup({

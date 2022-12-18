@@ -2,6 +2,11 @@ return {
     {
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup() end
+    }, {
+        "RRethy/nvim-treesitter-endwise",
+        config = function()
+            require('nvim-treesitter.configs').setup {endwise = {enable = true}}
+        end
     }, {"mg979/vim-visual-multi"}, {"machakann/vim-sandwich"}, {
 
         "lukas-reineke/indent-blankline.nvim",
@@ -62,6 +67,9 @@ return {
             })
             require('telescope').load_extension('neoclip')
         end
+    }, {
+        "p00f/nvim-ts-rainbow",
+        config = function() require("nvim-treesitter.configs").setup({}) end
     }
 }
 

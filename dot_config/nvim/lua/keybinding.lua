@@ -39,6 +39,8 @@ vimp.imap("<s-right>", "<esc>v<right>")
 vimp.vmap("Y", '"+y')
 vimp.vmap("X", '"+x')
 
+vimp.inoremap("<c-bs>", "<c-\\><c-o>db")
+
 -- window/buffer management--
 vim.cmd(
     [[autocmd BufEnter * map <buffer> <silent> <s-k> <cmd>BufferLineCycleNext<cr>]])
