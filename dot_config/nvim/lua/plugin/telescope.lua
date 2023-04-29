@@ -1,7 +1,7 @@
 return {
 	{
 		"nvim-telescope/telescope.nvim",
-		requires = {
+		dependencies = {
 			{ "nvim-lua/popup.nvim" },
 			{ "nvim-lua/plenary.nvim" },
 			{ "kdheepak/lazygit.nvim" },
@@ -11,7 +11,7 @@ return {
 				pattern = "TelescopeFindPre",
 				callback = function()
 					local buf = vim.api.nvim_win_get_buf(0)
-					local normal_file_type = { "dashboard" }
+					local normal_file_type = { "dashboard", "NvimTree" }
 
 					if require("util").contains(normal_file_type, vim.bo.filetype) then
 						return

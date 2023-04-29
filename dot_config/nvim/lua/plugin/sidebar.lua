@@ -6,8 +6,8 @@ end
 return {
 	{
 		"brglng/vim-sidebar-manager",
-		requires = { "nvim-pack/nvim-spectre" },
-		setup = function()
+		dependencies = { "nvim-pack/nvim-spectre" },
+		init = function()
 			local spectre = require("spectre")
 
 			vim.g.sidebars = {
@@ -43,8 +43,8 @@ return {
 		end,
 	},
 	{
-		"kyazdani42/nvim-tree.lua",
-		requires = { "kyazdani42/nvim-web-devicons" },
+		"nvim-tree/nvim-tree.lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("nvim-tree").setup({
 				diagnostics = { enable = true },

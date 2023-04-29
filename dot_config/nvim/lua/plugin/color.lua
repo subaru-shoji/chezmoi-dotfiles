@@ -1,7 +1,7 @@
 return {
     {
         "folke/tokyonight.nvim",
-        setup = function() vim.o.termguicolors = true end,
+        init = function() vim.o.termguicolors = true end,
         config = function()
             vim.g.tokyonight_style = "storm"
             vim.g.tokyonight_italic_functions = true

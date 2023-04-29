@@ -25,8 +25,6 @@ vimp.nnoremap({ "silent", "nowait" }, "<esc><esc>", "<cmd>nohl<cr>")
 
 vimp.nmap("<s-up>", "v<up>")
 vimp.nmap("<s-down>", "v<down>")
-vimp.nmap("<s-left>", "v<left>")
-vimp.nmap("<s-right>", "v<right>")
 vimp.vmap("<s-up>", "<up>")
 vimp.vmap("<s-down>", "<down>")
 vimp.vmap("<s-left>", "<left>")
@@ -262,30 +260,30 @@ local appears = function(opts)
 
 	opts = opts or {}
 	pickers
-		.new(opts, {
-			prompt_title = "appear",
-			finder = finders.new_table({
-				results = { "NvimTreeToggle", "FloatermNew ranger" },
-			}),
-			sorter = conf.generic_sorter(opts),
-			attach_mappings = function(prompt_bufnr)
-				actions.select_default:replace(function()
-					local selection = action_state.get_selected_entry()
-					if selection == nil then
-						print("[telescope] Nothing currently selected")
-						return
-					end
+			.new(opts, {
+				prompt_title = "appear",
+				finder = finders.new_table({
+					results = { "NvimTreeToggle", "FloatermNew ranger" },
+				}),
+				sorter = conf.generic_sorter(opts),
+				attach_mappings = function(prompt_bufnr)
+					actions.select_default:replace(function()
+						local selection = action_state.get_selected_entry()
+						if selection == nil then
+							print("[telescope] Nothing currently selected")
+							return
+						end
 
-					actions.close(prompt_bufnr)
-					local cmd = selection.value
-					print(cmd)
-					vim.cmd(cmd)
-				end)
+						actions.close(prompt_bufnr)
+						local cmd = selection.value
+						print(cmd)
+						vim.cmd(cmd)
+					end)
 
-				return true
-			end,
-		})
-		:find()
+					return true
+				end,
+			})
+			:find()
 end
 
 wk.register({
@@ -326,11 +324,27 @@ wk.register({
 		end,
 		"git status",
 	},
+	j = {
+		function()
+			telescope.jumplist()
+		end,
+		"jumplist",
+	},
+	n = {
+		"<cmd>Telescope notify<cr>",
+		"notify",
+	},
 	r = {
 		function()
 			telescope.oldfiles()
 		end,
 		"recent files",
+	},
+	s = {
+		function()
+			telescope.grep_string()
+		end,
+		"search word",
 	},
 	y = { "<cmd>Telescope neoclip<cr>", "neoclip" },
 }, { prefix = "<tab>" })

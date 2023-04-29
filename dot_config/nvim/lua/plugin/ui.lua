@@ -6,7 +6,7 @@ return {
 			require("dressing").setup()
 		end,
 	},
-	{ "VonHeikemen/searchbox.nvim", requires = { { "MunifTanjim/nui.nvim" } } },
+	{ "VonHeikemen/searchbox.nvim", dependencies = { { "MunifTanjim/nui.nvim" } } },
 	{
 		"nvimdev/dashboard-nvim",
 		event = "VimEnter",
@@ -15,11 +15,11 @@ return {
 				-- config
 			})
 		end,
-		requires = { "nvim-tree/nvim-web-devicons" },
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
 	-- {
 	-- 	"glepnir/dashboard-nvim",
-	-- 	setup = function()
+	-- 	init = function()
 	-- 		-- vim.g.dashboard_custom_section = {
 	-- 		-- 	buffer_list = {
 	-- 		-- 		description = { "Start Project !!" },
@@ -35,8 +35,11 @@ return {
 	-- },
 	{
 		"rcarriga/nvim-notify",
+		dependencies = { "nvim-telescope/telescope.nvim" },
 		config = function()
-			vim.notify = require("notify")
+			local notify = require("notify")
+			notify.setup({ max_width = 40 })
+			vim.notify = notify
 		end,
 	},
 }
