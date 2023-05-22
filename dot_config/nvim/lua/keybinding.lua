@@ -1,53 +1,61 @@
-local vimp = require("vimp")
+-- vikeymap.set."i",g.mapleader = " "
 
-vim.g.mapleader = " "
+vim.keymap.set("i", "jj", "<esc>")
 
-vimp.imap("jj", "<esc>")
+vim.keymap.set("i", "<c-a>", "<c-o>I", { silent = true })
+vim.keymap.set("i", "<c-e>", "<c-o>A", { silent = true })
+vim.keymap.set("c", "<c-a>", "<home>")
+vim.keymap.set("c", "<c-e>", "<end>")
+vim.keymap.set("n", "<c-a>", "^")
+vim.keymap.set("n", "<c-e>", "g_")
+vim.keymap.set("v", "<c-a>", "^")
+vim.keymap.set("v", "<c-e>", "g_")
 
-vimp.imap({ "silent" }, "<c-a>", "<c-o>I")
-vimp.imap({ "silent" }, "<c-e>", "<c-o>A")
-vimp.cmap({ "silent" }, "<c-a>", "<home>")
-vimp.cmap({ "silent" }, "<c-e>", "<end>")
-vimp.nmap("<c-a>", "^")
-vimp.nmap("<c-e>", "g_")
-vimp.vmap("<c-a>", "^")
-vimp.vmap("<c-e>", "g_")
+vim.keymap.set("n", "<c-s>", "<cmd>update<cr>")
+vim.keymap.set("v", "<c-s>", "<cmd>update<cr>")
+vim.keymap.set("i", "<c-s>", "<esc><cmd>update<cr>")
 
-vimp.nnoremap("<c-s>", "<cmd>update<cr>")
-vimp.vnoremap("<c-s>", "<cmd>update<cr>")
-vimp.inoremap("<c-s>", "<esc><cmd>update<cr>")
+vim.keymap.set("n", "H", "<c-o>")
+vim.keymap.set("n", "L", "<c-i>")
+vim.keymap.set("n", "<c-j>", "<cmd>Telescope jumplist<cr>")
 
-vimp.nnoremap("H", "<c-o>")
-vimp.nnoremap("L", "<c-i>")
-vimp.nnoremap("<c-j>", "<cmd>Telescope jumplist<cr>")
+vim.keymap.set("n", "<esc><esc>", "<cmd>nohl<cr>", { silent = true, nowait = true })
 
-vimp.nnoremap({ "silent", "nowait" }, "<esc><esc>", "<cmd>nohl<cr>")
+vim.keymap.set("n", "<c-h>", "<c-w>h")
+vim.keymap.set("n", "<c-j>", "<c-w>j")
+vim.keymap.set("n", "<c-k>", "<c-w>k")
+vim.keymap.set("n", "<c-l>", "<c-w>l")
 
-vimp.nmap("<s-up>", "v<up>")
-vimp.nmap("<s-down>", "v<down>")
-vimp.vmap("<s-up>", "<up>")
-vimp.vmap("<s-down>", "<down>")
-vimp.vmap("<s-left>", "<left>")
-vimp.vmap("<s-right>", "<right>")
-vimp.imap("<s-up>", "<esc>v<up>")
-vimp.imap("<s-down>", "<esc>v<down>")
-vimp.imap("<s-left>", "<esc>v<left>")
-vimp.imap("<s-right>", "<esc>v<right>")
+vim.keymap.set("n", "<c-up>", "<cmd>resize +2<cr>")
+vim.keymap.set("n", "<c-down>", "<cmd>resize -2<cr>")
+vim.keymap.set("n", "<c-left>", "<cmd>vertical resize -2<cr>")
+vim.keymap.set("n", "<c-right>", "<cmd>vertical resize +2<cr>")
 
-vimp.vmap("Y", '"+y')
-vimp.vmap("X", '"+x')
+vim.keymap.set("n", "<s-up>", "v<up>")
+vim.keymap.set("n", "<s-down>", "v<down>")
+vim.keymap.set("v", "<s-up>", "<up>")
+vim.keymap.set("v", "<s-down>", "<down>")
+vim.keymap.set("v", "<s-left>", "<left>")
+vim.keymap.set("v", "<s-right>", "<right>")
+vim.keymap.set("i", "<s-up>", "<esc>v<up>")
+vim.keymap.set("i", "<s-down>", "<esc>v<down>")
+vim.keymap.set("i", "<s-left>", "<esc>v<left>")
+vim.keymap.set("i", "<s-right>", "<esc>v<right>")
 
-vimp.inoremap("<c-bs>", "<c-\\><c-o>db")
+vim.keymap.set("v", "Y", '"+y')
+vim.keymap.set("v", "X", '"+x')
+
+vim.keymap.set("i", "<c-bs>", "<c-\\><c-o>db")
 
 -- window/buffer management--
 -- vim.api.nvim_create_autocmd({ "BufEnter" }, {
 -- 	pattern = { "*" },
 -- 	callback = function()
--- 		vimp.nnoremap({ "silent" }, "K", "<cmd>BufferLineCycleNext<cr>")
+-- 		vim.keymap.set("n",{ "silent" }, "K", "<cmd>BufferLineCycleNext<cr>")
 -- 	end,
 -- })
-vimp.nnoremap({ "silent" }, "K", "<cmd>BufferLineCycleNext<cr>")
-vimp.nnoremap({ "silent" }, "J", "<cmd>BufferLineCyclePrev<cr>")
+vim.keymap.set("n", "K", "<cmd>BufferLineCycleNext<cr>")
+vim.keymap.set("n", "J", "<cmd>BufferLineCyclePrev<cr>")
 vim.keymap.set("n", "<c-w>q", function()
 	require("buffer").smart_close()
 end)
@@ -62,8 +70,7 @@ vim.keymap.set("n", "C", function()
 	require("buffer").smart_close()
 end)
 
-vimp.nmap("gs", "<plug>(GrepperOperator)")
-vimp.xmap("gs", "<plug>(GrepperOperator)")
+vim.keymap.set("n", "gs", "<plug>(GrepperOperator)")
 
 local wk = require("which-key")
 local telescope = require("telescope.builtin")
@@ -90,7 +97,7 @@ wk.register({
 	},
 }, {})
 
-vimp.inoremap("<c-f>", [[<c-o><cmd>lua require "hop".hint_words()<cr>]])
+vim.keymap.set("i", "<c-f>", [[<c-o><cmd>lua require "hop".hint_words()<cr>]])
 vim.api.nvim_set_keymap("x", "/", ":SearchBoxIncSearch visual_mode=true<CR>", { noremap = true })
 
 wk.register({
@@ -121,6 +128,7 @@ wk.register({
 		"switch window",
 	},
 	x = { require("buffer").smart_close, "smart quit buffer" },
+	p = { "<cmd>Telescope neoclip<cr>", "neoclip" },
 	q = {
 		a = { require("buffer").close_all, "close_all" },
 		q = { require("buffer").smart_close, "smart quit buffer" },
@@ -260,30 +268,31 @@ local appears = function(opts)
 
 	opts = opts or {}
 	pickers
-			.new(opts, {
-				prompt_title = "appear",
-				finder = finders.new_table({
-					results = { "NvimTreeToggle", "FloatermNew ranger" },
-				}),
-				sorter = conf.generic_sorter(opts),
-				attach_mappings = function(prompt_bufnr)
-					actions.select_default:replace(function()
-						local selection = action_state.get_selected_entry()
-						if selection == nil then
-							print("[telescope] Nothing currently selected")
-							return
-						end
+		.new(opts, {
+			prokeymap.setp("i"),
+			t_title = "appear",
+			finder = finders.new_table({
+				results = { "NvimTreeToggle", "FloatermNew ranger" },
+			}),
+			sorter = conf.generic_sorter(opts),
+			attach_mappings = function(prompt_bufnr)
+				actions.select_default:replace(function()
+					local selection = action_state.get_selected_entry()
+					if selection == nil then
+						print("[telescope] Nothing currently selected")
+						return
+					end
 
-						actions.close(prompt_bufnr)
-						local cmd = selection.value
-						print(cmd)
-						vim.cmd(cmd)
-					end)
+					actions.close(prompt_bufnr)
+					local cmd = selection.value
+					print(cmd)
+					vim.cmd(cmd)
+				end)
 
-					return true
-				end,
-			})
-			:find()
+				return true
+			end,
+		})
+		:find()
 end
 
 wk.register({
@@ -346,7 +355,7 @@ wk.register({
 		end,
 		"search word",
 	},
-	y = { "<cmd>Telescope neoclip<cr>", "neoclip" },
+	p = { "<cmd>Telescope neoclip<cr>", "neoclip" },
 }, { prefix = "<tab>" })
 
 if vim.fn.executable("fcitx5-remote") then
@@ -369,6 +378,6 @@ elseif vim.fn.executable("im-select") then
 	end
 end
 
-vimp.nmap("<c-k>", "i<Plug>(skkeleton-enable)")
-vimp.imap("<c-k>", "<Plug>(skkeleton-toggle)")
-vimp.cmap("<c-k>", "<Plug>(skkeleton-toggle)")
+vim.keymap.set("n", "<c-k>", "i<Plug>(skkeleton-enable)")
+vim.keymap.set("i", "<c-k>", "<Plug>(skkeleton-toggle)")
+vim.keymap.set("c", "<c-k>", "<Plug>(skkeleton-toggle)")
