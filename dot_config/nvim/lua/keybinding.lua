@@ -47,13 +47,6 @@ vim.keymap.set("v", "X", '"+x')
 
 vim.keymap.set("i", "<c-bs>", "<c-\\><c-o>db")
 
--- window/buffer management--
--- vim.api.nvim_create_autocmd({ "BufEnter" }, {
--- 	pattern = { "*" },
--- 	callback = function()
--- 		vim.keymap.set("n",{ "silent" }, "K", "<cmd>BufferLineCycleNext<cr>")
--- 	end,
--- })
 vim.keymap.set("n", "K", "<cmd>BufferLineCycleNext<cr>")
 vim.keymap.set("n", "J", "<cmd>BufferLineCyclePrev<cr>")
 vim.keymap.set("n", "<c-w>q", function()

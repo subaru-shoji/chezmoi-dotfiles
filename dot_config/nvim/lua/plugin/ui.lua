@@ -17,22 +17,6 @@ return {
 		end,
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
-	-- {
-	-- 	"glepnir/dashboard-nvim",
-	-- 	init = function()
-	-- 		-- vim.g.dashboard_custom_section = {
-	-- 		-- 	buffer_list = {
-	-- 		-- 		description = { "Start Project !!" },
-	-- 		-- 		command = function()
-	-- 		-- 			vim.cmd([[ NvimTreeOpen ]])
-	-- 		-- 			vim.wait(100, function() end)
-	-- 		-- 			require("telescope.builtin").fd()
-	-- 		-- 		end,
-	-- 		-- 	},
-	-- 		-- }
-	-- 		-- vim.g.dashboard_default_executive = "telescope"
-	-- 	end,
-	-- },
 	{
 		"rcarriga/nvim-notify",
 		dependencies = { "nvim-telescope/telescope.nvim" },
