@@ -15,6 +15,9 @@ return {
 
 					if require("util").contains(normal_file_type, vim.bo.filetype) then
 						return
+					elseif vim.api.nvim_win_get_config(0).relative ~= "" then
+						-- close if current window is floating window.
+						vim.api.nvim_win_close(0, false)
 					elseif vim.bo[buf].modifiable == false then
 						require("nvim-window").pick()
 					end
