@@ -1,10 +1,10 @@
 return {
 	{
 		"nvim-telescope/telescope.nvim",
+		tag = "0.1.1",
 		dependencies = {
 			{ "nvim-lua/popup.nvim" },
 			{ "nvim-lua/plenary.nvim" },
-			{ "kdheepak/lazygit.nvim" },
 		},
 		config = function()
 			vim.api.nvim_create_autocmd({ "User" }, {
@@ -37,7 +37,6 @@ return {
 					},
 				},
 			})
-			require("telescope").load_extension("lazygit")
 		end,
 	},
 }
