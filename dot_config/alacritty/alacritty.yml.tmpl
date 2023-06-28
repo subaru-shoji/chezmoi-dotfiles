@@ -1,0 +1,6 @@
+import:
+  - ~/.config/alacritty/alacritty_tokyonight_night.yml
+  - ~/.config/alacritty/alacritty_main.yml
+  {{ if eq .chezmoi.os "darwin" }}
+  - ~/.config/alacritty/alacritty_mac.yml
+  {{ end -}}

@@ -1,0 +1,6 @@
+window:
+  decorations: full
+font:
+  size: 12.5
+key_bindings:
+  - { key: F,      mods: Command|Control, action: ToggleFullscreen }
