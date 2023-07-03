@@ -11,10 +11,10 @@ return {
 			"LumaKernel/ddc-file",
 		},
 		config = function()
-			local patch_global = vim.fn["ddc#custom#patch_global"] -- patch_global("sources", {"nvim-lsp", "skkeleton"})
+			local patch_global = vim.fn["ddc#custom#patch_global"]
 			patch_global("ui", "pum")
 			patch_global("autoCompleteEvents", { "InsertEnter", "TextChangedI", "TextChangedP" })
-			patch_global("sources", { "nvim-lsp", "file", "skkeleton" })
+			patch_global("sources", { "nvim-lsp", "file" })
 			patch_global("sourceOptions", {
 				_ = { matchers = { "matcher_head" }, sorters = { "sorter_rank" } },
 				["nvim-lsp"] = {
@@ -26,11 +26,11 @@ return {
 					isVolatile = true,
 					forceCompletionPattern = "\\S/\\S*",
 				},
-				skkeleton = {
-					mark = "skkeleton",
-					matchers = { "skkeleton" },
-					sorters = {},
-				},
+				-- skkeleton = {
+				-- 	mark = "skkeleton",
+				-- 	matchers = { "skkeleton" },
+				-- 	sorters = {},
+				-- },
 			})
 
 			vim.cmd([[
