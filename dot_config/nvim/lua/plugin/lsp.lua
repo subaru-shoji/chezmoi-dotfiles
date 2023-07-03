@@ -32,10 +32,8 @@ return {
 				end,
 			})
 
-			lspconfig.dartls.setup({})
-
 			vim.api.nvim_create_autocmd("BufWritePre", {
-				pattern = { "*.lua" },
+				pattern = { "*.lua", "*.dart" },
 				callback = function()
 					vim.lsp.buf.format()
 				end,
