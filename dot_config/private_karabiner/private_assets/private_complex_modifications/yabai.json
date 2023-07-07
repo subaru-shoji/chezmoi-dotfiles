@@ -1,0 +1,333 @@
+{
+  "title": "yabai shortcuts",
+  "rules": [
+    {
+      "description": "yabai shortcuts",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "h",
+            "modifiers": {
+              "mandatory": [
+                "left_shift", "left_option"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "zsh -c 'yabai -m window --focus west || yabai -m display --focus west'"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "mandatory": [
+                "left_shift", "left_option"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "zsh -c 'yabai -m window --focus south || yabai -m display --focus south'"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "k",
+            "modifiers": {
+              "mandatory": [
+                "left_shift", "left_option"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "zsh -c 'yabai -m window --focus north || yabai -m display --focus north'"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": [
+                "left_shift", "left_option"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "zsh -c 'yabai -m window --focus east || yabai -m display --focus east'"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "h",
+            "modifiers": {
+              "mandatory": [
+                "left_shift", "left_option", "left_command"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "zsh -c 'yabai -m window --swap west'"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "mandatory": [
+                "left_shift", "left_option", "left_command"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "zsh -c 'yabai -m window --swap south'"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "k",
+            "modifiers": {
+              "mandatory": [
+                "left_shift", "left_option", "left_command"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "zsh -c 'yabai -m window --swap north'"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": [
+                "left_shift", "left_option", "left_command"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "zsh -c 'yabai -m window --swap east'"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "a",
+            "modifiers": {
+              "mandatory": [
+                "left_shift", "left_option"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "zsh -c 'yabai -m window --resize left:-20:0'"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "s",
+            "modifiers": {
+              "mandatory": [
+                "left_shift", "left_option"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "zsh -c 'yabai -m window --resize bottom:0:20'"
+            }
+          ]
+        },
+         {
+          "type": "basic",
+          "from": {
+            "key_code": "w",
+            "modifiers": {
+              "mandatory": [
+                "left_shift", "left_option"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "zsh -c 'yabai -m window --resize top:0:-20'"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "d",
+            "modifiers": {
+              "mandatory": [
+                "left_shift", "left_option"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "zsh -c 'yabai -m window --resize right:20:0'"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "r",
+            "modifiers": {
+              "mandatory": [
+                "left_shift", "left_option"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "zsh -c 'yabai -m space --rotate 90'"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "f",
+            "modifiers": {
+              "mandatory": [
+                "left_shift", "left_option"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "zsh -c 'yabai -m window --toggle zoom-fullscreen'"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "f",
+            "modifiers": {
+              "mandatory": [
+                "left_shift", "left_option", "left_command"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "zsh -c 'yabai -m window --toggle native-fullscreen'"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "t",
+            "modifiers": {
+              "mandatory": [
+                "left_shift", "left_option", "left_command"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "zsh -c 'yabai -m window --toggle float && yabai -m window --grid 4:4:1:1:2:2'"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "t",
+            "modifiers": {
+              "mandatory": [
+                "left_shift", "left_option"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "zsh -c 'yabai -m query --spaces --space | jq -r .type | xargs -I{} echo $(test {} = bsp && echo float || echo bsp) | xargs -I{} yabai -m space --layout {}'"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
