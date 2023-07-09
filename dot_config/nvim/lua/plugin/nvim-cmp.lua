@@ -19,6 +19,10 @@ return {
 						vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
 					end,
 				},
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered(),
+				},
 				mapping = {
 					["<c-n>"] = function()
 						cmp.complete()
