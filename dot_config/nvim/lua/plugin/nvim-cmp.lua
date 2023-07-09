@@ -28,7 +28,7 @@ return {
 						cmp.complete()
 					end,
 					["<cr>"] = cmp.mapping.confirm({ select = true }),
-					["<bs>"] = cmp.mapping.close(),
+					-- ["<bs>"] = cmp.mapping.close(),
 					["<tab>"] = function(fallback)
 						if cmp.visible() then
 							cmp.select_next_item()
