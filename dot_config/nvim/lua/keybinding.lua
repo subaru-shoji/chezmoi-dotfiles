@@ -261,31 +261,31 @@ local appears = function(opts)
 
 	opts = opts or {}
 	pickers
-		.new(opts, {
-			prokeymap.setp("i"),
-			t_title = "appear",
-			finder = finders.new_table({
-				results = { "NvimTreeToggle", "FloatermNew ranger" },
-			}),
-			sorter = conf.generic_sorter(opts),
-			attach_mappings = function(prompt_bufnr)
-				actions.select_default:replace(function()
-					local selection = action_state.get_selected_entry()
-					if selection == nil then
-						print("[telescope] Nothing currently selected")
-						return
-					end
+			.new(opts, {
+				prokeymap.setp("i"),
+				t_title = "appear",
+				finder = finders.new_table({
+					results = { "NvimTreeToggle", "FloatermNew ranger" },
+				}),
+				sorter = conf.generic_sorter(opts),
+				attach_mappings = function(prompt_bufnr)
+					actions.select_default:replace(function()
+						local selection = action_state.get_selected_entry()
+						if selection == nil then
+							print("[telescope] Nothing currently selected")
+							return
+						end
 
-					actions.close(prompt_bufnr)
-					local cmd = selection.value
-					print(cmd)
-					vim.cmd(cmd)
-				end)
+						actions.close(prompt_bufnr)
+						local cmd = selection.value
+						print(cmd)
+						vim.cmd(cmd)
+					end)
 
-				return true
-			end,
-		})
-		:find()
+					return true
+				end,
+			})
+			:find()
 end
 
 wk.register({

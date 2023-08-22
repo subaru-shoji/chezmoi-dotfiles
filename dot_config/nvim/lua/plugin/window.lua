@@ -14,4 +14,5 @@ return {
 			require("winshift").setup({})
 		end,
 	},
+	{ "lambdalisue/guise.vim" },
 }

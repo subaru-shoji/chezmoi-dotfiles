@@ -13,18 +13,16 @@ return {
 
 			require("mason").setup()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "rust_analyzer" },
+				ensure_installed = { "lua_ls" },
 			})
 			local lspconfig = require("lspconfig")
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 			require("mason-lspconfig").setup_handlers({
 				function(server_name) -- default handler (optional)
-					lspconfig[server_name].setup({ capabilities = capabilities })
+					lspconfig[server_name].setup({})
 				end,
 				["lua_ls"] = function()
 					lspconfig.lua_ls.setup({
-						capabilities = capabilities,
 						settings = {
 							Lua = {
 								completion = {
@@ -37,16 +35,12 @@ return {
 			})
 
 			vim.api.nvim_create_autocmd("BufWritePre", {
-				pattern = { "*.lua", "*.dart", "*.rs" },
+				pattern = { "*.lua", "*.dart" },
 				callback = function()
 					vim.lsp.buf.format()
 				end,
 			})
 		end,
-	},
-	{
-		"williamboman/mason.nvim",
-		build = ":MasonUpdate", -- :MasonUpdate updates registry contents
 	},
 	{
 		"jay-babu/mason-null-ls.nvim",
@@ -57,7 +51,7 @@ return {
 		},
 		config = function()
 			require("mason-null-ls").setup({
-				ensure_installed = { "stylua", "jq", "rustfmt" },
+				ensure_installed = { "stylua", "jq" },
 				automatic_installation = false,
 				handlers = {},
 			})
