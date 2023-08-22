@@ -1,4 +1,18 @@
 return {
+	{
+		"folke/noice.nvim",
+		lazy = true,
+		event = "VeryLazy",
+		config = function()
+			require("noice").setup({
+				-- add any options here
+			})
+		end,
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify",
+		},
+	},
 	{ "MunifTanjim/nui.nvim" },
 	{
 		"stevearc/dressing.nvim",
@@ -20,6 +34,8 @@ return {
 	{
 		"rcarriga/nvim-notify",
 		dependencies = { "nvim-telescope/telescope.nvim" },
+		lazy = true,
+		event = { "BufReadPost", "BufNewFile" },
 		config = function()
 			local notify = require("notify")
 			notify.setup({ max_width = 40 })

@@ -6,6 +6,8 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 			"folke/neodev.nvim",
 		},
+		lazy = true,
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			require("neodev").setup({})
 

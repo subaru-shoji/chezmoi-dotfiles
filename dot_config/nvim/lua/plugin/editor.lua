@@ -7,6 +7,8 @@ return {
 	},
 	{
 		"RRethy/nvim-treesitter-endwise",
+		lazy = true,
+		ft = { "ruby", "lua", "vimscript", "bash", "elixir", "fish" },
 		config = function()
 			require("nvim-treesitter.configs").setup({ endwise = { enable = true } })
 		end,
@@ -67,6 +69,8 @@ return {
 	{
 		"AckslD/nvim-neoclip.lua",
 		dependencies = { "nvim-telescope/telescope.nvim" },
+		lazy = true,
+		event = { "BufReadPost", "BufNewFile" },
 		config = function()
 			require("neoclip").setup({
 				keys = {
@@ -84,6 +88,8 @@ return {
 	},
 	{
 		"p00f/nvim-ts-rainbow",
+		lazy = true,
+		event = { "BufReadPost", "BufNewFile" },
 		config = function()
 			require("nvim-treesitter.configs").setup({})
 		end,

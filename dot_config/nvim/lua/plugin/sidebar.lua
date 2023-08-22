@@ -7,6 +7,8 @@ return {
 	{
 		"brglng/vim-sidebar-manager",
 		dependencies = { "nvim-pack/nvim-spectre" },
+		lazy = true,
+		cmd = { "SidebarToggle" },
 		init = function()
 			local spectre = require("spectre")
 
@@ -45,6 +47,8 @@ return {
 	{
 		"nvim-tree/nvim-tree.lua",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
+		lazy = true,
+		cmd = { "NvimTreeOpen" },
 		config = function()
 			require("nvim-tree").setup({
 				diagnostics = { enable = true },

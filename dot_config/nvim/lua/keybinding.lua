@@ -102,7 +102,7 @@ wk.register({
 	},
 	a = {
 		function()
-			vim.fn["sidebar#toggle"]("nvimtree")
+			vim.cmd.SidebarToggle("nvimtree")
 		end,
 		"file-tree bar",
 	},
@@ -110,7 +110,7 @@ wk.register({
 	r = { "<cmd>SearchBoxReplace confirm=menu<cr>", "SearchBoxReplace" },
 	s = {
 		function()
-			vim.fn["sidebar#toggle"]("spectre")
+			vim.cmd.SidebarToggle("spectre")
 		end,
 		"Search Project",
 	},
@@ -176,19 +176,19 @@ wk.register({
 		name = "git",
 		s = {
 			function()
-				require("neogit").open({ kind = "split" })
+				vim.cmd.Neogit("kind=split")
 			end,
 			"neogit status",
 		},
 		c = {
 			function()
-				require("neogit").open({ "commit" })
+				vim.cmd.Neogit("commit")
 			end,
 			"neogit commit",
 		},
 		b = {
 			function()
-				require("neogit").open({ "branch" })
+				vim.cmd.Neogit("branch")
 			end,
 			"neogit branch",
 		},
@@ -200,7 +200,7 @@ wk.register({
 		},
 		l = {
 			function()
-				require("neogit").open({ "log" })
+				vim.cmd.Neogit("log")
 			end,
 			"neogit log",
 		},
@@ -212,7 +212,7 @@ wk.register({
 		name = "often use tools",
 		a = {
 			function()
-				vim.fn["sidebar#toggle"]("nvimtree")
+				vim.cmd.SidebarToggle("nvimtree")
 			end,
 			"file-tree bar",
 		},
