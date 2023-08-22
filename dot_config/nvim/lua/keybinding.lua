@@ -10,6 +10,10 @@ vim.keymap.set("n", "<c-a>", "^")
 vim.keymap.set("n", "<c-e>", "g_")
 vim.keymap.set("v", "<c-a>", "^")
 vim.keymap.set("v", "<c-e>", "g_")
+vim.keymap.set("n", "gj", "G")
+vim.keymap.set("n", "gk", "gg")
+vim.keymap.set("v", "gj", "G")
+vim.keymap.set("v", "gk", "gg")
 
 vim.keymap.set("n", "<c-s>", "<cmd>update<cr>")
 vim.keymap.set("v", "<c-s>", "<cmd>update<cr>")
@@ -246,11 +250,7 @@ wk.register({
 		end,
 		"show reference",
 	},
-	k = { "gg", "go to top" },
-	j = { "G", "go to bottom" },
 }, { prefix = "g" })
-
-wk.register({ k = { "gg", "go to top" }, j = { "G", "go to bottom" } }, { prefix = "g", mode = "v" })
 
 local appears = function(opts)
 	local pickers = require("telescope.pickers")
@@ -261,31 +261,31 @@ local appears = function(opts)
 
 	opts = opts or {}
 	pickers
-			.new(opts, {
-				prokeymap.setp("i"),
-				t_title = "appear",
-				finder = finders.new_table({
-					results = { "NvimTreeToggle", "FloatermNew ranger" },
-				}),
-				sorter = conf.generic_sorter(opts),
-				attach_mappings = function(prompt_bufnr)
-					actions.select_default:replace(function()
-						local selection = action_state.get_selected_entry()
-						if selection == nil then
-							print("[telescope] Nothing currently selected")
-							return
-						end
+		.new(opts, {
+			prokeymap.setp("i"),
+			t_title = "appear",
+			finder = finders.new_table({
+				results = { "NvimTreeToggle", "FloatermNew ranger" },
+			}),
+			sorter = conf.generic_sorter(opts),
+			attach_mappings = function(prompt_bufnr)
+				actions.select_default:replace(function()
+					local selection = action_state.get_selected_entry()
+					if selection == nil then
+						print("[telescope] Nothing currently selected")
+						return
+					end
 
-						actions.close(prompt_bufnr)
-						local cmd = selection.value
-						print(cmd)
-						vim.cmd(cmd)
-					end)
+					actions.close(prompt_bufnr)
+					local cmd = selection.value
+					print(cmd)
+					vim.cmd(cmd)
+				end)
 
-					return true
-				end,
-			})
-			:find()
+				return true
+			end,
+		})
+		:find()
 end
 
 wk.register({
