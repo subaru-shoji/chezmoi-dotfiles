@@ -24,6 +24,10 @@ return {
 						vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
 					end,
 				},
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered(),
+				},
 				mapping = {
 					["<c-n>"] = function()
 						if cmp.visible() then
@@ -32,7 +36,7 @@ return {
 							cmp.complete()
 						end
 					end,
-					["<cr>"] = cmp.mapping.confirm({ select = true }),
+					["<CR>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
 					["<bs>"] = cmp.mapping.close(),
 					["<tab>"] = function(fallback)
 						if cmp.visible() then

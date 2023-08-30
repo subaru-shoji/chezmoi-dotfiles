@@ -16,13 +16,17 @@ return {
 				ensure_installed = { "sumneko_lua", "tsserver" },
 			})
 			local lspconfig = require("lspconfig")
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 			require("mason-lspconfig").setup_handlers({
 				function(server_name) -- default handler (optional)
-					lspconfig[server_name].setup({})
+					lspconfig[server_name].setup({
+						capabilities = capabilities,
+					})
 				end,
 				["lua_ls"] = function()
 					lspconfig.lua_ls.setup({
+						capabilities = capabilities,
 						settings = {
 							Lua = {
 								completion = {
@@ -103,13 +107,13 @@ return {
 		end,
 	},
 	{
-		'nvimdev/lspsaga.nvim',
+		"nvimdev/lspsaga.nvim",
 		config = function()
-			require('lspsaga').setup({})
+			require("lspsaga").setup({})
 		end,
 		dependencies = {
-			'nvim-treesitter/nvim-treesitter',
-			'nvim-tree/nvim-web-devicons'
-		}
-	}
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+	},
 }
