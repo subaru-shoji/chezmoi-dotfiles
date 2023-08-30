@@ -15,11 +15,11 @@ return {
 		end,
 	},
 	{ "lambdalisue/guise.vim" },
-	{
-		"yukimemi/dps-hitori",
-		lazy = false,
-		dependencies = {
-			"vim-denops/denops.vim",
-		},
-	},
+	-- {
+	-- 	"yukimemi/dps-hitori",
+	-- 	lazy = false,
+	-- 	dependencies = {
+	-- 		"vim-denops/denops.vim",
+	-- 	},
+	-- },
 }
