@@ -11,6 +11,8 @@ return {
 			"hrsh7th/cmp-vsnip",
 			"hrsh7th/vim-vsnip",
 			"windwp/nvim-autopairs",
+			"Olical/conjure",
+			"PaterJason/cmp-conjure",
 		},
 		config = function()
 			vim.g.completeopt = { "menu", "menuone", "noselect" }
@@ -75,6 +77,7 @@ return {
 						max_item_count = 10,
 						trigger_characters = { "." },
 					},
+					{ name = "conjure" },
 				}),
 			})
 			-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
