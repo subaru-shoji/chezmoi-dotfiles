@@ -51,8 +51,14 @@ vim.keymap.set("v", "X", '"+x')
 
 vim.keymap.set("i", "<c-bs>", "<c-\\><c-o>db")
 
-vim.keymap.set("n", "K", "<cmd>BufferLineCycleNext<cr>")
-vim.keymap.set("n", "J", "<cmd>BufferLineCyclePrev<cr>")
+--overwrite on enter.
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+	pattern = { "*" },
+	callback = function()
+		vim.keymap.set("n", "K", "<cmd>BufferLineCycleNext<cr>")
+		vim.keymap.set("n", "J", "<cmd>BufferLineCyclePrev<cr>")
+	end,
+})
 vim.keymap.set("n", "<c-w>q", function()
 	require("buffer").smart_close()
 end)
