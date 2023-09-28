@@ -12,4 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " "
+require("lazy.view.config").keys.close = "C"
+require("lazy.view.config").commands.check.key = "O"
+require("lazy.view.config").commands.check.key_plugin = "o"
 require("lazy").setup("plugin")
