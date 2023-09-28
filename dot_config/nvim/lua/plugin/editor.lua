@@ -19,12 +19,10 @@ return {
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		config = function()
-			vim.g.indent_blankline_filetype_exclude = { "dashboard", "help" }
-			vim.opt.list = true
-			vim.opt.listchars:append("eol:↴")
-			require("indent_blankline").setup({
-				show_end_of_line = true,
-				space_char_blankline = " ",
+			require("ibl").setup({
+				exclude = {
+					filetypes = { "dashboard", "help" },
+				},
 			})
 		end,
 	},
