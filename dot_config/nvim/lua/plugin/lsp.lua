@@ -25,15 +25,6 @@ return {
 					})
 				end,
 			})
-
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				pattern = { "*.lua", "*.dart", "*.clj" },
-				callback = function()
-					vim.lsp.buf.format()
-				end,
-			})
-
-			-- vim.cmd([[autocmd BufWritePre ".lua,"*.rs,*.dart lua vim.lsp.buf.format(nil, 1000)]])
 		end,
 	},
 	{
