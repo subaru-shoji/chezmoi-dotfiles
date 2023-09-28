@@ -3,3 +3,8 @@
     url = "git@github.com:edentsai/tig-theme-molokai-like.git"
     ref = "master" # or a commit hash or tag
     refreshPeriod = "168h"
+["bin/asdfzf"]
+		type = "git-repo"
+		url = "git@github.com:reegnz/asdfzf.git"
+		ref = "master"
+		refreshPeriod = "168h"
