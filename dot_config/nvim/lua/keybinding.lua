@@ -21,7 +21,6 @@ vim.keymap.set("i", "<c-s>", "<esc><cmd>update<cr>")
 
 vim.keymap.set("n", "H", "<c-o>")
 vim.keymap.set("n", "L", "<c-i>")
-vim.keymap.set("n", "<c-j>", "<cmd>Telescope jumplist<cr>")
 
 vim.keymap.set("n", "<esc><esc>", "<cmd>nohl<cr>", { silent = true, nowait = true })
 
@@ -258,42 +257,6 @@ wk.register({
 	},
 }, { prefix = "g" })
 
-local appears = function(opts)
-	local pickers = require("telescope.pickers")
-	local finders = require("telescope.finders")
-	local conf = require("telescope.config").values
-	local actions = require("telescope.actions")
-	local action_state = require("telescope.actions.state")
-
-	opts = opts or {}
-	pickers
-			.new(opts, {
-				prokeymap.setp("i"),
-				t_title = "appear",
-				finder = finders.new_table({
-					results = { "NvimTreeToggle", "FloatermNew ranger" },
-				}),
-				sorter = conf.generic_sorter(opts),
-				attach_mappings = function(prompt_bufnr)
-					actions.select_default:replace(function()
-						local selection = action_state.get_selected_entry()
-						if selection == nil then
-							print("[telescope] Nothing currently selected")
-							return
-						end
-
-						actions.close(prompt_bufnr)
-						local cmd = selection.value
-						print(cmd)
-						vim.cmd(cmd)
-					end)
-
-					return true
-				end,
-			})
-			:find()
-end
-
 wk.register({
 	["<tab>"] = {
 		function()
@@ -307,12 +270,6 @@ wk.register({
 			telescope.buffers()
 		end,
 		"buffers",
-	},
-	c = {
-		function()
-			appears()
-		end,
-		"appears",
 	},
 	d = {
 		function()
@@ -350,7 +307,7 @@ wk.register({
 	},
 	s = {
 		function()
-			telescope.grep_string()
+			require("telescope").extensions.egrepify.egrepify({})
 		end,
 		"search word",
 	},
