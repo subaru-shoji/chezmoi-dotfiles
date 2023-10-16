@@ -6,5 +6,4 @@ return {
 			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
 		end,
 	},
-	{ "easymotion/vim-easymotion" },
 }
