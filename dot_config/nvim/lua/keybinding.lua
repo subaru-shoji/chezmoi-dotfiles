@@ -157,9 +157,7 @@ wk.register({
 		f = { "<cmd>Grepper -tool ag<cr>", "Search Project" },
 		d = { "<cmd>Grepper -grepprg fd --hidden -t f<cr>", "fd quickfix" },
 		r = {
-			function()
-				telescope.oldfiles()
-			end,
+			"<Cmd>Telescope frecency <CR>",
 			"find recent files",
 		},
 	},
@@ -300,9 +298,7 @@ wk.register({
 		"notify",
 	},
 	r = {
-		function()
-			telescope.oldfiles()
-		end,
+		"<Cmd>Telescope frecency <CR>",
 		"recent files",
 	},
 	s = {
