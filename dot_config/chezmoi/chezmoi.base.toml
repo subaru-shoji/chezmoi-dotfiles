@@ -1,0 +1,4 @@
+[hooks.apply.pre]
+command = "fish"
+args = [".config/chezmoi/pre-apply.fish"]
+
