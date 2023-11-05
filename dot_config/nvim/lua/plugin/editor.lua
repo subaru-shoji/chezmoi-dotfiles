@@ -128,4 +128,5 @@ return {
 			vim.keymap.set("v", "d", "d<cmd>AutolistRecalculate<cr>")
 		end,
 	},
+	{ "lambdalisue/suda.vim" },
 }

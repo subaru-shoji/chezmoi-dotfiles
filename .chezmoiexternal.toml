@@ -8,3 +8,13 @@
 		url = "git@github.com:reegnz/asdfzf.git"
 		ref = "master"
 		refreshPeriod = "168h"
+[".config/ranger/plugins/ranger_devicons"]
+		type = "git-repo"
+		url = "git@github.com:alexanderjeurissen/ranger_devicons.git"
+    ref = "master" # or a commit hash or tag
+    refreshPeriod = "168h"
+[".config/i3blocks/i3blocks-contrib"]
+		type = "git-repo"
+		url = "git@github.com:vivien/i3blocks-contrib.git"
+    ref = "master" # or a commit hash or tag
+    refreshPeriod = "168h"
