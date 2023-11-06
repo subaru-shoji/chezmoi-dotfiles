@@ -217,6 +217,7 @@ exec --no-startup-id libinput-gestures-setup start
 bindsym $mod+d exec fish -c "rofi -show run -show-icons"
 # bindsym Print exec --no-startup-id import -window root ~/Pictures/screenshot`date "+%y%m%d%H%M".jpg`
 bindsym Print exec flameshot gui
+bindsym --release $mod+Print exec ~/bin/screenshot-window.fish
 
 # Amount to increase/decrease brightness
 set $brightness_step 10
