@@ -1,6 +1,10 @@
 # Defined in - @ line 1
 function android_studio 
-	open -a "Android Studio" $argv;
+  open -a "Android Studio" $argv;
+end
+
+function ruby_mine 
+  open -a "RubyMine" $argv;
 end
 
 function AndroidStudio
