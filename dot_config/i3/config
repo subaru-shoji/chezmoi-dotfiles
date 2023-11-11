@@ -213,6 +213,7 @@ exec --no-startup-id redshift-gtk
 exec --no-startup-id picom
 exec --no-startup-id libinput-gestures-setup start
 exec --no-startup-id fish -c 'if type corectrl > /dev/null 2>&1; corectrl --minimize-systray; end'
+exec --no-startup-id autorandr --change
 
 bindsym $mod+d exec fish -c "rofi -show run -show-icons"
 # bindsym Print exec --no-startup-id import -window root ~/Pictures/screenshot`date "+%y%m%d%H%M".jpg`
