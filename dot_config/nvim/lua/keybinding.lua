@@ -275,6 +275,12 @@ wk.register({
 		end,
 		"lsp diagnotics",
 	},
+	e = {
+		function()
+			require("telescope.finder").my_custom_search()
+		end,
+		"gh pr files",
+	},
 	f = {
 		function()
 			telescope.fd()
