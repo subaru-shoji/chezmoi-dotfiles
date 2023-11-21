@@ -1,4 +1,5 @@
-function ge --wraps='gh pr diff --name-only | fzf --preview "bat  --color=always --line-range :100 {}" | xargs $EDITOR' --description 'alias ge=gh pr diff --name-only | fzf --preview "bat  --color=always --line-range :100 {}" | xargs $EDITOR'
-  gh pr diff --name-only | fzf --preview "bat  --color=always --line-range :100 {}" | xargs $EDITOR $argv
-        
+function ge 
+  filename=gh pr diff --name-only | fzf --query "$argv" --preview "bat  --color=always --line-range :100 {}"
+	echo $filename
+	echo $filename | pbcopy
 end
