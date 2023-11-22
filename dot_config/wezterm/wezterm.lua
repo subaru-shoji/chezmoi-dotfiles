@@ -5,6 +5,7 @@ return {
 	-- font = wezterm.font("FiraCode Nerd Font Mono"),
 	font = wezterm.font("Hack Nerd Font Mono"),
 	font_size = 13,
+	color_scheme = "Tokyo Night Moon",
 	use_ime = true,
 	window_background_opacity = 0.87,
 	hide_tab_bar_if_only_one_tab = true,
