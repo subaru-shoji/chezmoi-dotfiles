@@ -1,6 +1,4 @@
 function ve 
-  set filepath (gh pr diff --name-only | fzf --query "$argv" --preview "bat  --color=always --line-range :100 {}")
 	set repo_root (git rev-parse --show-toplevel)
-	set abs_filepath "$repo_root/$filepath"
-  $EDITOR $abs_filepath
+	gh pr diff --name-only | fzf -m --query "$argv" --preview "bat  --color=always --line-range :100 {}"| awk -v pfx="$repo_root/" '{print pfx $0}' | xargs $EDITOR
 end
