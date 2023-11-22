@@ -10,3 +10,4 @@ zoxide init fish | source
 direnv hook fish | source
   
 fish_add_path ~/bin
+fish_add_path (yarn global bin)
