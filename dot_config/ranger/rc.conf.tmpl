@@ -115,7 +115,7 @@ set preview_images true
 #   Images are shown by using a child window.
 #   Only for users who run X11 in GNU/Linux.
 {{ if (eq .chezmoi.os "linux") }}
-set preview_images_method w3m
+set preview_images_method sixel
 {{ else }}
 set preview_images_method iterm2
 {{ end }}
