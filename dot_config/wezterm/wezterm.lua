@@ -17,4 +17,5 @@ return {
 			action = wezterm.action.DisableDefaultAssignment,
 		},
 	},
+	warn_about_missing_glyphs = false,
 }
