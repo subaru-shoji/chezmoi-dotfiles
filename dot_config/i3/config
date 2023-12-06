@@ -200,10 +200,9 @@ gaps outer 3
 
 focus_follows_mouse no
 
+exec --no-startup-id autorandr --change && nitrogen --restore
 exec --no-startup-id fcitx5 -d
-exec --no-startup-id nitrogen --restore
 exec --no-startup-id nm-applet
-# exec --no-startup-id dunst
 exec --no-startup-id  /usr/lib/notification-daemon-1.0/notification-daemon
 exec --no-startup-id parcellite
 exec --no-startup-id volumeicon
@@ -214,8 +213,8 @@ exec --no-startup-id redshift-gtk
 exec --no-startup-id picom
 exec --no-startup-id libinput-gestures-setup start
 exec --no-startup-id fish -c 'if type corectrl > /dev/null 2>&1; corectrl --minimize-systray; end'
-exec --no-startup-id autorandr --change
 exec --no-startup-id emote
+exec --no-startup-id nitrogen --restore
 
 bindsym $mod+d exec fish -c "rofi -show run -show-icons"
 # bindsym Print exec --no-startup-id import -window root ~/Pictures/screenshot`date "+%y%m%d%H%M".jpg`
