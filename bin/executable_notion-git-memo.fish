@@ -1,9 +1,10 @@
 #!/usr/bin/env fish
 
 set notion_token $NOTION_API_TOKEN
-set database_id "010c7722d414408b8e9da200dbd47268"
+set database_id $NOTION_GIT_MEMO_DATABASE
 set repository_name (basename -s .git (git remote -v | grep fetch | awk '{print $2}'))
 set branch_name (git branch --show-current)
+set browser firefox
 
 # データベースのクエリ
 function query_database
@@ -74,9 +75,9 @@ set page_url (query_database)
 
 if test -n "$page_url"
     echo "Page URL: $page_url"
-		open $page_url
+		$browser $page_url
 else
     set new_page_url (create_page)
     echo "New Page URL: $new_page_url"
-		open $new_page_url
+		$browser $new_page_url
 end
