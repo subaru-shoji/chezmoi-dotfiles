@@ -23,3 +23,6 @@ function gittyup
   open -a "Gittyup" $argv;
 end
 
+function firefox
+	open -a "Firefox" $argv
+end
