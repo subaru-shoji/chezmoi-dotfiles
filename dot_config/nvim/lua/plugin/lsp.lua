@@ -5,6 +5,8 @@ return {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"folke/neodev.nvim",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/nvim-cmp",
 		},
 		lazy = true,
 		event = { "BufReadPre", "BufNewFile" },
@@ -13,7 +15,12 @@ return {
 
 			require("mason").setup()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "tsserver", "clojure_lsp" },
+				ensure_installed = {
+					"lua_ls",
+					"tsserver",
+					"clojure_lsp",
+					"elmls",
+				},
 			})
 			local lspconfig = require("lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -24,6 +31,20 @@ return {
 						capabilities = capabilities,
 					})
 				end,
+			})
+
+			lspconfig.ruby_ls.setup({
+				capabilities = capabilities,
+			})
+
+			lspconfig.steep.setup({
+				-- 補完に対応したcapabilitiesを渡す
+				capabilities = capabilities,
+			})
+
+			require("lspconfig").fsautocomplete.setup({
+				capabilities = capabilities,
+				-- cmd = { "dotnet", "fsautocomplete", "--background-service-enabled" },
 			})
 		end,
 	},
@@ -48,5 +69,11 @@ return {
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-tree/nvim-web-devicons",
 		},
+	},
+	{
+		"VidocqH/lsp-lens.nvim",
+		config = function()
+			require("lsp-lens").setup({})
+		end,
 	},
 }

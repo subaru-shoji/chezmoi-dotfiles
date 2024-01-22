@@ -40,15 +40,23 @@ return {
 	},
 	{
 		"fdschmidt93/telescope-egrepify.nvim",
-		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+		dependencies = { "nvim-telescope/telescope.nvim" },
 		config = function()
 			require("telescope").load_extension("egrepify")
 		end,
 	},
 	{
 		"nvim-telescope/telescope-frecency.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim" },
 		config = function()
 			require("telescope").load_extension("frecency")
+		end,
+	},
+	{
+		"jonarrien/telescope-cmdline.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim" },
+		config = function()
+			require("telescope").load_extension("cmdline")
 		end,
 	},
 }

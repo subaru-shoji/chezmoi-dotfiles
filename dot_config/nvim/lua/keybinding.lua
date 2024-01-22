@@ -1,4 +1,5 @@
--- vikeymap.set."i",g.mapleader = " "
+vim.api.nvim_set_var("mapleader", " ")
+vim.api.nvim_set_var("maplocalleader", ",")
 
 vim.keymap.set("i", "jj", "<esc>")
 
@@ -50,20 +51,15 @@ vim.keymap.set("v", "X", '"+x')
 
 vim.keymap.set("i", "<c-bs>", "<c-\\><c-o>db")
 
---overwrite on enter.
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 	pattern = { "*" },
 	callback = function()
-		vim.keymap.set("n", "K", "<cmd>BufferLineCycleNext<cr>")
-		vim.keymap.set("n", "J", "<cmd>BufferLineCyclePrev<cr>")
+		vim.keymap.set("n", "K", "<cmd>BufferLineCycleNext<cr>", { noremap = true, silent = true, buffer = true })
+		vim.keymap.set("n", "J", "<cmd>BufferLineCyclePrev<cr>", { noremap = true, silent = true, buffer = true })
 	end,
 })
-vim.keymap.set("n", "<c-w>q", function()
-	require("buffer").smart_close()
-end)
-vim.keymap.set("n", "<c-w>Q", function()
-	require("buffer").close_all()
-end)
+vim.keymap.set("n", "K", "<cmd>BufferLineCycleNext<cr>")
+vim.keymap.set("n", "J", "<cmd>BufferLineCyclePrev<cr>")
 vim.keymap.set("n", "<c-w>s", "<cmd>rightbelow wincmd s<cr>")
 vim.keymap.set("n", "<c-w>v", "<cmd>rightbelow wincmd v<cr>")
 vim.keymap.set("n", "t", "<cmd>wincmd w<cr>")
@@ -105,7 +101,7 @@ vim.api.nvim_set_keymap("x", "/", ":SearchBoxIncSearch visual_mode=true<CR>", { 
 wk.register({
 	[" "] = {
 		function()
-			telescope.find_files()
+			telescope.fd()
 		end,
 		"find file",
 	},
@@ -116,12 +112,17 @@ wk.register({
 		"file-tree bar",
 	},
 	g = { "<cmd>Telescope git_status<cr>", "telescopt git status" },
+	o = { "<cmd>Other<cr>", "other switcher" },
 	r = { "<cmd>SearchBoxReplace confirm=menu<cr>", "SearchBoxReplace" },
 	s = {
 		function()
 			vim.cmd.SidebarToggle("spectre")
 		end,
 		"Search Project",
+	},
+	t = {
+		"<cmd>NvimTreeFindFile<cr>",
+		"Find file on NvimTree",
 	},
 	w = {
 		function()
@@ -157,7 +158,7 @@ wk.register({
 		f = { "<cmd>Grepper -tool ag<cr>", "Search Project" },
 		d = { "<cmd>Grepper -grepprg fd --hidden -t f<cr>", "fd quickfix" },
 		r = {
-			"<Cmd>Telescope frecency <CR>",
+			"<Cmd>Telescope frecency workspace=CWD<CR>",
 			"find recent files",
 		},
 	},
@@ -225,6 +226,10 @@ wk.register({
 		},
 		s = { "<cmd>botright TigStatus<cr>", "tig status" },
 	},
+	b = {
+		name = "buffer",
+		p = { "<cmd>BufferLineTogglePin<cr>", "toggle buffer pinned" },
+	},
 	t = {
 		name = "toggle",
 		m = {
@@ -236,6 +241,14 @@ wk.register({
 				end
 			end,
 			"mouse toggle",
+		},
+	},
+	[","] = {
+		name = "language",
+		r = {
+			name = "ruby",
+			o = { "<cmd>Other<cr>", "other switcher" },
+			s = { "<cmd>RailsGenerateSigFile<cr>", "generate sig file" },
 		},
 	},
 }, { prefix = "," })
@@ -257,9 +270,7 @@ wk.register({
 
 wk.register({
 	["<tab>"] = {
-		function()
-			telescope.commands()
-		end,
+		"<cmd>Telescope cmdline<cr>",
 		"find command",
 	},
 	a = { "<cmd>Telescope<cr>", "telescope" },
@@ -304,7 +315,7 @@ wk.register({
 		"notify",
 	},
 	r = {
-		"<Cmd>Telescope frecency <CR>",
+		"<Cmd>Telescope frecency workspace=CWD<CR>",
 		"recent files",
 	},
 	s = {

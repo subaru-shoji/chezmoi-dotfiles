@@ -1,0 +1,3 @@
+return {
+	{ "adelarsq/neofsharp.vim" },
+}

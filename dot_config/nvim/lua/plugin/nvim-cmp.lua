@@ -2,12 +2,11 @@ return {
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
-			"neovim/nvim-lspconfig",
 			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
-			"hrsh7th/nvim-cmp",
 			"hrsh7th/cmp-vsnip",
 			"hrsh7th/vim-vsnip",
 			"windwp/nvim-autopairs",
@@ -78,7 +77,10 @@ return {
 						max_item_count = 10,
 						trigger_characters = { "." },
 					},
+					{ name = "nvim_lsp_signature_help" },
 					{ name = "conjure" },
+					{ name = "vsnip" },
+					{ name = "buffer" },
 				}),
 			})
 			-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
