@@ -72,6 +72,7 @@ vim.keymap.set("n", "gs", "<plug>(GrepperOperator)")
 
 local wk = require("which-key")
 local telescope = require("telescope.builtin")
+local finder = require("telescope.finder")
 
 wk.register({
 	D = {
@@ -111,6 +112,12 @@ wk.register({
 		end,
 		"file-tree bar",
 	},
+	f = {
+		function()
+			require("ranger-nvim").open(true)
+		end,
+		"ranger",
+	},
 	g = { "<cmd>Telescope git_status<cr>", "telescopt git status" },
 	o = { "<cmd>Other<cr>", "other switcher" },
 	r = { "<cmd>SearchBoxReplace confirm=menu<cr>", "SearchBoxReplace" },
@@ -148,6 +155,12 @@ wk.register({
 			vim.lsp.buf.code_action()
 		end,
 		"telescope lsp action",
+	},
+	[","] = {
+		function()
+			finder.language_command_picker()
+		end,
+		"language commands",
 	},
 }, { prefix = "<leader>" })
 
@@ -288,7 +301,7 @@ wk.register({
 	},
 	e = {
 		function()
-			require("telescope.finder").my_custom_search()
+			finder.my_custom_search()
 		end,
 		"gh pr files",
 	},

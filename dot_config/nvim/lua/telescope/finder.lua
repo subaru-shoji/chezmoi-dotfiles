@@ -3,6 +3,10 @@ local finders = require("telescope.finders")
 local previewers = require("telescope.previewers")
 local pickers = require("telescope.pickers")
 local sorters = require("telescope.sorters")
+local conf = require("telescope.config").values
+
+local language_commands = require("command.language_commands")
+local capitalize = require("util").capitalize
 
 local M = {}
 
@@ -34,6 +38,48 @@ M.my_custom_search = function()
 					actions.close(prompt_bufnr)
 					-- 選択されたファイルを開く
 					vim.cmd("edit " .. selection[1])
+				end)
+				return true
+			end,
+		})
+		:find()
+end
+
+local function load_language_command()
+	local filetype = vim.bo.filetype
+
+	local language_command = language_commands[filetype]
+
+	if language_command ~= nil then
+		return language_command
+	else
+		return {} -- 空のテーブルを返す
+	end
+end
+
+M.language_command_picker = function()
+	local language_command = load_language_command()
+	local prompt_title = capitalize(vim.bo.filetype) .. " Commands"
+
+	pickers
+		.new({}, {
+			prompt_title = prompt_title,
+			finder = finders.new_table({
+				results = language_command,
+				entry_maker = function(entry)
+					return {
+						value = entry[2],
+						display = entry[1],
+						ordinal = entry[1],
+					}
+				end,
+			}),
+			sorter = conf.generic_sorter({}),
+			attach_mappings = function(prompt_bufnr, map)
+				actions.select_default:replace(function()
+					actions.close(prompt_bufnr)
+					local selection = actions.get_selected_entry()
+					vim.cmd(selection.value)
 				end)
 				return true
 			end,

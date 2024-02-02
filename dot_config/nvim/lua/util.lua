@@ -29,6 +29,9 @@ Util = {
 
 		return false
 	end,
+	capitalize = function(str)
+		return (str:gsub("^%l", string.upper))
+	end,
 }
 
 return Util
