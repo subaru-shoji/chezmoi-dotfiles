@@ -70,16 +70,6 @@ return {
 		end,
 	},
 	{
-		"nvimdev/lspsaga.nvim",
-		config = function()
-			-- require("lspsaga").setup({})
-		end,
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-tree/nvim-web-devicons",
-		},
-	},
-	{
 		"VidocqH/lsp-lens.nvim",
 		config = function()
 			require("lsp-lens").setup({})
