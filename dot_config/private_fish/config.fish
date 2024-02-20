@@ -9,7 +9,7 @@ fish_add_path ~/Applications
 
 source ~/.asdf/asdf.fish
 
-if status is-interactive
+if test "$TERM" = "tmux-256color"
 	source ~/.asdf/completions/asdf.fish
 
 	zoxide init fish | source
