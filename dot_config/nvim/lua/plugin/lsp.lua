@@ -20,6 +20,9 @@ return {
 					"tsserver",
 					"clojure_lsp",
 					"elmls",
+					"fsautocomplete",
+					"pyright",
+					"ruff_lsp",
 				},
 			})
 			local lspconfig = require("lspconfig")
@@ -31,27 +34,33 @@ return {
 						capabilities = capabilities,
 					})
 				end,
+				["ruff_lsp"] = function()
+					local on_attach = function(client, bufnr)
+						-- Disable hover in favor of Pyright
+						client.server_capabilities.hoverProvider = false
+					end
+					lspconfig["ruff_lsp"].setup({
+						capabilities = capabilities,
+						on_attach = on_attach,
+						init_options = {
+							settings = {
+								-- Any extra CLI arguments for `ruff` go here.
+								args = {},
+								lint = {
+									enable = true
+								}
+							}
+						}
+					})
+				end
 			})
 
-			lspconfig.ruby_ls.setup({
+			lspconfig.ruby_ls.setup {
 				capabilities = capabilities,
-			})
-
-			lspconfig.steep.setup({
-				-- 補完に対応したcapabilitiesを渡す
+			}
+			lspconfig.steep.setup {
 				capabilities = capabilities,
-			})
-
-			require("lspconfig").fsautocomplete.setup({
-				capabilities = capabilities,
-				-- cmd = { "dotnet", "fsautocomplete", "--background-service-enabled" },
-			})
-		end,
-	},
-	{
-		"onsails/lspkind-nvim",
-		config = function()
-			require("lspkind").init()
+			}
 		end,
 	},
 	{
@@ -63,7 +72,7 @@ return {
 	{
 		"nvimdev/lspsaga.nvim",
 		config = function()
-			require("lspsaga").setup({})
+			-- require("lspsaga").setup({})
 		end,
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
