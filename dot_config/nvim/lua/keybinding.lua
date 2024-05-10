@@ -1,6 +1,3 @@
-vim.api.nvim_set_var("mapleader", " ")
-vim.api.nvim_set_var("maplocalleader", ",")
-
 vim.keymap.set("i", "jj", "<esc>")
 
 vim.keymap.set("i", "<c-a>", "<c-o>I", { silent = true })
