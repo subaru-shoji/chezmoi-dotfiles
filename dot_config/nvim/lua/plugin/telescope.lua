@@ -24,6 +24,9 @@ return {
 			})
 
 			local actions = require("telescope.actions")
+
+			local open_with_trouble = require("trouble.sources.telescope").open
+
 			require("telescope").setup({
 				defaults = {
 					mappings = {
@@ -33,7 +36,9 @@ return {
 							["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
 							["<esc>"] = actions.close,
 							["<C-u>"] = false,
+							["<C-t>"] = open_with_trouble,
 						},
+						n = { ["<c-t>"] = open_with_trouble },
 					},
 				},
 			})

@@ -1,1 +1,3 @@
-return { { "Olical/conjure", config = function() end } }
+return {
+	-- { "Olical/conjure", config = function() end }
+}

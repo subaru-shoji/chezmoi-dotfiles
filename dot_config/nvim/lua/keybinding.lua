@@ -112,6 +112,12 @@ wk.register({
 		end,
 		"file-tree bar",
 	},
+	d = {
+		function()
+			vim.cmd.SidebarCloseAll()
+		end,
+		"close sidebar",
+	},
 	f = {
 		function()
 			require("ranger-nvim").open(true)
@@ -165,16 +171,6 @@ wk.register({
 }, { prefix = "<leader>" })
 
 wk.register({
-	f = {
-		name = "file",
-		b = { "<cmd>Grepper -buffer -tool ag<cr>", "Grepper buffer" },
-		f = { "<cmd>Grepper -tool ag<cr>", "Search Project" },
-		d = { "<cmd>Grepper -grepprg fd --hidden -t f<cr>", "fd quickfix" },
-		r = {
-			"<Cmd>Telescope frecency workspace=CWD<CR>",
-			"find recent files",
-		},
-	},
 	l = {
 		name = "lsp",
 		r = {
@@ -191,7 +187,6 @@ wk.register({
 			end,
 			"rename file",
 		},
-		t = { "<cmd>TroubleToggle<cr>", "trouble bar" },
 	},
 	g = {
 		name = "git",
@@ -359,7 +354,3 @@ elseif vim.fn.executable("im-select") then
 		})
 	end
 end
-
-vim.keymap.set("n", "<c-k>", "i<Plug>(skkeleton-enable)")
-vim.keymap.set("i", "<c-k>", "<Plug>(skkeleton-toggle)")
-vim.keymap.set("c", "<c-k>", "<Plug>(skkeleton-toggle)")
