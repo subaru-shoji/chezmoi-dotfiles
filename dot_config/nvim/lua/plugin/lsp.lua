@@ -47,20 +47,20 @@ return {
 								-- Any extra CLI arguments for `ruff` go here.
 								args = {},
 								lint = {
-									enable = true
-								}
-							}
-						}
+									enable = true,
+								},
+							},
+						},
 					})
-				end
+				end,
 			})
 
-			lspconfig.ruby_ls.setup {
+			lspconfig.ruby_lsp.setup({
 				capabilities = capabilities,
-			}
-			lspconfig.steep.setup {
+			})
+			lspconfig.steep.setup({
 				capabilities = capabilities,
-			}
+			})
 		end,
 	},
 	{
