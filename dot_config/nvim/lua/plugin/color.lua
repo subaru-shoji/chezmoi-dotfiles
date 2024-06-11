@@ -27,7 +27,6 @@ return {
 
 			-- カラースキームの適用
 			-- vim.cmd("colorscheme " .. DEFAULT_COLORSCHEME)
-
 			-- 非アクティブウィンドウ向けの関数
 			local function inactivate(win)
 				-- skip for certain situations
