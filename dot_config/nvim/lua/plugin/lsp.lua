@@ -18,11 +18,11 @@ return {
 				ensure_installed = {
 					"lua_ls",
 					"tsserver",
-					"clojure_lsp",
 					"elmls",
 					"fsautocomplete",
 					"pyright",
 					"ruff_lsp",
+					"rust_analyzer",
 				},
 			})
 			local lspconfig = require("lspconfig")
