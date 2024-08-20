@@ -1,0 +1,17 @@
+theme = "catppuccin_mocha"
+editor.bufferline = "always"
+editor.cursorline = true
+editor.color-modes = true
+
+[editor.cursor-shape]
+insert = "bar"
+select = "underline"
+
+[keys.normal]
+C-s = ":w"
+# C = ":buffer-close"
+J = ":buffer-previous"
+K = ":buffer-next"
+
+[keys.insert]
+C-s = [":w", "normal_mode"]

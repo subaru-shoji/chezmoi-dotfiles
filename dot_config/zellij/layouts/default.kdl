@@ -1,0 +1,22 @@
+layout {
+    pane split_direction="vertical" {
+        pane command="env" size="20%" {
+						name "tree"
+						args "EDITOR=ide_edit.fish" "broot"
+				}
+				pane size="80%" {
+						pane command="helix" size="75%" {
+								name "editor"
+						}
+						pane size="25%"
+				}
+    }
+		pane size=2 borderless=true {
+        plugin location="status-bar"
+    }
+		floating_panes {
+				pane {
+						plugin location="zjpane"
+				}
+		}
+}
