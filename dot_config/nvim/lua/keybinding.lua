@@ -15,6 +15,7 @@ vim.keymap.set("n", "gj", "G")
 vim.keymap.set("n", "gk", "gg")
 vim.keymap.set("v", "gj", "G")
 vim.keymap.set("v", "gk", "gg")
+vim.keymap.set("n", "gx", "<esc>:URLOpenUnderCursor<cr>")
 
 vim.keymap.set("n", "<c-s>", "<cmd>update<cr>")
 vim.keymap.set("v", "<c-s>", "<cmd>update<cr>")
@@ -58,17 +59,15 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 		vim.keymap.set("n", "J", "<cmd>BufferLineCyclePrev<cr>", { noremap = true, silent = true, buffer = true })
 	end,
 })
-vim.keymap.set("n", "K", "<cmd>BufferLineCycleNext<cr>")
-vim.keymap.set("n", "J", "<cmd>BufferLineCyclePrev<cr>")
+-- vim.keymap.set("n", "K", "<cmd>BufferLineCycleNext<cr>")
+-- vim.keymap.set("n", "J", "<cmd>BufferLineCyclePrev<cr>")
 vim.keymap.set("n", "<c-w>s", "<cmd>rightbelow wincmd s<cr>")
 vim.keymap.set("n", "<c-w>v", "<cmd>rightbelow wincmd v<cr>")
 vim.keymap.set("n", "t", "<cmd>wincmd w<cr>")
 vim.keymap.set("n", "X", "<cmd>Telescope oldfiles<cr>")
 vim.keymap.set("n", "C", function()
-	require("buffer").smart_close()
+	require("buffer_util").smart_close()
 end)
-
-vim.keymap.set("n", "gs", "<plug>(GrepperOperator)")
 
 local wk = require("which-key")
 local telescope = require("telescope.builtin")
@@ -143,11 +142,11 @@ wk.register({
 		end,
 		"switch window",
 	},
-	x = { require("buffer").smart_close, "smart quit buffer" },
+	x = { require("buffer_util").smart_close, "smart quit buffer" },
 	p = { "<cmd>Telescope neoclip<cr>", "neoclip" },
 	q = {
-		a = { require("buffer").close_all, "close_all" },
-		q = { require("buffer").smart_close, "smart quit buffer" },
+		a = { require("buffer_util").close_all, "close_all" },
+		q = { require("buffer_util").smart_close, "smart quit buffer" },
 		c = {
 			function()
 				vim.api.nvim_command("wincmd c")
@@ -323,7 +322,7 @@ wk.register({
 		"notify",
 	},
 	r = {
-		"<Cmd>Telescope frecency workspace=CWD<CR>",
+		"<cmd>Telescope oldFiles<cr>",
 		"recent files",
 	},
 	s = {
@@ -335,22 +334,3 @@ wk.register({
 	p = { "<cmd>Telescope neoclip<cr>", "neoclip" },
 }, { prefix = "<tab>" })
 
-if vim.fn.executable("fcitx5-remote") then
-	for _, event in ipairs({ "InsertLeave", "CmdlineLeave" }) do
-		vim.api.nvim_create_autocmd(event, {
-			pattern = "*",
-			callback = function(_)
-				vim.fn.system("fcitx5-remote -c")
-			end,
-		})
-	end
-elseif vim.fn.executable("im-select") then
-	for _, event in ipairs({ "InsertLeave", "CmdlineLeave" }) do
-		vim.api.nvim_create_autocmd(event, {
-			pattern = "*",
-			callback = function(_)
-				vim.fn.system("im-select com.apple.keylayout.ABC")
-			end,
-		})
-	end
-end

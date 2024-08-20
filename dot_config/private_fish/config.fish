@@ -15,7 +15,7 @@ fish_add_path $PNPM_HOME
 
 source ~/.asdf/asdf.fish
 
-if test "$TERM" = "tmux-256color"
+if test "$TERM" = "tmux-256color"; or test -n "$ZELLIJ"
 	source ~/.asdf/completions/asdf.fish
 
 	zoxide init fish | source

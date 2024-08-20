@@ -21,3 +21,22 @@ vim.o.mouse = "a"
 
 vim.g.timeoutlen = 10
 
+if vim.fn.executable("fcitx5-remote") then
+	for _, event in ipairs({ "InsertLeave", "CmdlineLeave" }) do
+		vim.api.nvim_create_autocmd(event, {
+			pattern = "*",
+			callback = function(_)
+				vim.fn.system("fcitx5-remote -c")
+			end,
+		})
+	end
+elseif vim.fn.executable("im-select") then
+	for _, event in ipairs({ "InsertLeave", "CmdlineLeave" }) do
+		vim.api.nvim_create_autocmd(event, {
+			pattern = "*",
+			callback = function(_)
+				vim.fn.system("im-select com.apple.keylayout.ABC")
+			end,
+		})
+	end
+end

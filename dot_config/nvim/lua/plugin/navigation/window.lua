@@ -8,18 +8,11 @@ return {
 			})
 		end,
 	},
-	{
-		"sindrets/winshift.nvim",
-		config = function()
-			require("winshift").setup({})
-		end,
-	},
-	{ "lambdalisue/guise.vim" },
 	-- {
-	-- 	"yukimemi/dps-hitori",
-	-- 	lazy = false,
-	-- 	dependencies = {
-	-- 		"vim-denops/denops.vim",
-	-- 	},
+	-- 	"sindrets/winshift.nvim",
+	-- 	config = function()
+	-- 		require("winshift").setup({})
+	-- 	end,
 	-- },
+	-- { "lambdalisue/guise.vim" },
 }

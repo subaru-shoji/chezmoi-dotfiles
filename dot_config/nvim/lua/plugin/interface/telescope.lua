@@ -41,6 +41,11 @@ return {
 						n = { ["<c-t>"] = open_with_trouble },
 					},
 				},
+				pickers = {
+					oldfiles = {
+						cwd_only = true,
+					},
+				},
 			})
 		end,
 	},
@@ -49,13 +54,6 @@ return {
 		dependencies = { "nvim-telescope/telescope.nvim" },
 		config = function()
 			require("telescope").load_extension("egrepify")
-		end,
-	},
-	{
-		"nvim-telescope/telescope-frecency.nvim",
-		dependencies = { "nvim-telescope/telescope.nvim" },
-		config = function()
-			require("telescope").load_extension("frecency")
 		end,
 	},
 	{
