@@ -1,6 +1,10 @@
 function cv --wraps='chezmoi edit --apply /home/simple-web-system/.config/nvim/init.lua' 
   cd ~/.config/nvim
-  $EDITOR .
+  if test $EDITOR = nvim
+    $EDITOR
+  else
+    $EDITOR .
+  end
   chezmoi add -r .
   cd -
 end
