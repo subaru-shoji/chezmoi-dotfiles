@@ -78,6 +78,7 @@ return {
 						trigger_characters = { "." },
 					},
 					{ name = "nvim_lsp_signature_help" },
+					{ name = "path" },
 					{ name = "vsnip" },
 					{ name = "buffer" },
 				}),

@@ -95,7 +95,9 @@ wk.register({
 	},
 }, {})
 
+vim.keymap.set("n", "<c-f>", [[<cmd>lua require "hop".hint_words()<cr>]])
 vim.keymap.set("i", "<c-f>", [[<c-o><cmd>lua require "hop".hint_words()<cr>]])
+vim.keymap.set("v", "<c-f>", [[<cmd>lua require "hop".hint_words()<cr>]])
 vim.api.nvim_set_keymap("x", "/", ":SearchBoxIncSearch visual_mode=true<CR>", { noremap = true })
 
 wk.register({
@@ -333,4 +335,3 @@ wk.register({
 	},
 	p = { "<cmd>Telescope neoclip<cr>", "neoclip" },
 }, { prefix = "<tab>" })
-

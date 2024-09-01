@@ -15,13 +15,13 @@ return {
 		opts = {},
 		cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' },
 		keys = {
-				{
-					mode = { 'v', 'n' },
-					'<Leader>m',
-					'<cmd>MCstart<cr>',
-					desc = 'Create a selection for selected text or word under the cursor',
-				},
+			{
+				mode = { 'v', 'n' },
+				'<Leader>m',
+				'<cmd>MCstart<cr>',
+				desc = 'Create a selection for selected text or word under the cursor',
 			},
+		},
 	},
 	{
 		"RRethy/nvim-treesitter-endwise",
@@ -42,6 +42,12 @@ return {
 					filetypes = { "dashboard", "help" },
 				},
 			})
+		end,
+	},
+	{
+		'nmac427/guess-indent.nvim',
+		config = function()
+			require('guess-indent').setup {}
 		end,
 	},
 	{
