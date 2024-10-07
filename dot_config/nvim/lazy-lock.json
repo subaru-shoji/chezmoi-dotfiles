@@ -34,6 +34,7 @@
   "lualine.nvim": { "branch": "master", "commit": "0a5a66803c7407767b799067986b4dc3036e1983" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "37a336b653f8594df75c827ed589f1c91d91ff6c" },
   "mason.nvim": { "branch": "main", "commit": "0950b15060067f752fde13a779a994f59516ce3d" },
+  "menu": { "branch": "main", "commit": "ea606f6ab2430db0aece8075e62c14132b815ae1" },
   "mini.cursorword": { "branch": "main", "commit": "b6fb7e8556b3e3bb09c5cca1937d8e542f8a0261" },
   "modes.nvim": { "branch": "main", "commit": "326cff3282419b3bcc745061978c1e592cae055d" },
   "multicursors.nvim": { "branch": "main", "commit": "562809aaf203b4c65482a75199166d360f2b9298" },
@@ -77,5 +78,6 @@
   "vim-sidebar-manager": { "branch": "master", "commit": "00d8d34f1ecadd5247639b2aa05032ca0b8883a9" },
   "vim-vsnip": { "branch": "master", "commit": "02a8e79295c9733434aab4e0e2b8c4b7cea9f3a9" },
   "vimpeccable": { "branch": "master", "commit": "bd19b2a86a3d4a0ee184412aa3edb7ed57025d56" },
+  "volt": { "branch": "main", "commit": "43f72b49037c191eb3cfe26ba7a5574b4bfce226" },
   "which-key.nvim": { "branch": "main", "commit": "0099511294f16b81c696004fa6a403b0ae61f7a0" }
 }
