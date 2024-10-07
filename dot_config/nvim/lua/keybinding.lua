@@ -100,6 +100,11 @@ vim.keymap.set("i", "<c-f>", [[<c-o><cmd>lua require "hop".hint_words()<cr>]])
 vim.keymap.set("v", "<c-f>", [[<cmd>lua require "hop".hint_words()<cr>]])
 vim.api.nvim_set_keymap("x", "/", ":SearchBoxIncSearch visual_mode=true<CR>", { noremap = true })
 
+vim.keymap.set("n", "\\", function()
+	local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
+	require("menu").open(options)
+end, {})
+
 wk.register({
 	[" "] = {
 		function()
