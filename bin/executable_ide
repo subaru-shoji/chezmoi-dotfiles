@@ -1,3 +1,21 @@
-#!/usr/bin/env fish
+#! /usr/bin/env fish
+set git_root (git rev-parse --show-toplevel ^/dev/null 2>/dev/null)
 
-kitty -d $argv -- zellij -l ide &
+set -l PROJECT_NAME ""
+if test -n "$git_root"
+		# Git管理下にある場合
+		set  PROJECT_NAME (basename $git_root)
+else
+		# Git管理外の場合、現在のディレクトリをルートとして使用
+		set  PROJECT_NAME (basename $PWD)
+end
+
+set -l NVR_COMMAND __ide_nvr_edit.fish
+set -l GIT_EDITOR __ide_nvr_git_edit.fish
+
+set tab_id (wezterm cli spawn --cwd . env \
+	PROJECT_NAME=$PROJECT_NAME \
+	EDITOR=$NVR_COMMAND \
+	GIT_EDITOR=$GIT_EDITOR \
+	zellij -l ide)
+wezterm cli set-tab-title --tab-id $tab_id $PROJECT_NAME
