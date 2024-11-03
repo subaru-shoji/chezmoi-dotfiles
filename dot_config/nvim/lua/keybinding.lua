@@ -125,10 +125,8 @@ wk.register({
 		"close sidebar",
 	},
 	f = {
-		function()
-			require("ranger-nvim").open(true)
-		end,
-		"ranger",
+		"<cmd>Yazi cwd<cr>",
+		"yazi filer",
 	},
 	g = { "<cmd>Telescope git_status<cr>", "telescope git status" },
 	o = { "<cmd>Other<cr>", "other switcher" },
@@ -242,12 +240,12 @@ wk.register({
 	},
 	b = {
 		name = "buffer",
-		p = { "<cmd>BufferLineTogglePin<cr>", "toggle buffer pinned" },
-		o = { function()
+		z = { function()
 			require('close_buffers').wipe({ type = 'other' })
 		end,
 			"delete other buffer"
-		}
+		},
+		p = { "<cmd>BufferLineTogglePin<cr>", "toggle buffer pinned" },
 	},
 	t = {
 		name = "toggle",
