@@ -130,7 +130,7 @@ wk.register({
 		end,
 		"ranger",
 	},
-	g = { "<cmd>Telescope git_status<cr>", "telescopt git status" },
+	g = { "<cmd>Telescope git_status<cr>", "telescope git status" },
 	o = { "<cmd>Other<cr>", "other switcher" },
 	r = { "<cmd>SearchBoxReplace confirm=menu<cr>", "SearchBoxReplace" },
 	s = {
@@ -243,6 +243,11 @@ wk.register({
 	b = {
 		name = "buffer",
 		p = { "<cmd>BufferLineTogglePin<cr>", "toggle buffer pinned" },
+		o = { function()
+			require('close_buffers').wipe({ type = 'other' })
+		end,
+			"delete other buffer"
+		}
 	},
 	t = {
 		name = "toggle",
@@ -317,6 +322,10 @@ wk.register({
 			telescope.git_status()
 		end,
 		"git status",
+	},
+	h = {
+		"<cmd>Telescope help_tags<cr>",
+		"help",
 	},
 	j = {
 		function()
