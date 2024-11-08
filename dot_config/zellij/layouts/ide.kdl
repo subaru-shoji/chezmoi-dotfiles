@@ -1,6 +1,6 @@
 layout {
     pane split_direction="vertical" {
-        pane command="nvim_project_server.fish" size="70%" {
+        pane command="__ide_nvim_server.fish" size="70%" {
 						name "editor"
 						args "--listen" "/tmp/$($PROJECT_NAME)"
 				}
