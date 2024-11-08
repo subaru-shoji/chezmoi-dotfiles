@@ -1,3 +1,5 @@
+default_mode "locked"
+
 layout {
     pane split_direction="vertical" {
         pane command="__ide_nvim_server.fish" size="70%" {
