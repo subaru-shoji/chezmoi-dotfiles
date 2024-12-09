@@ -1,5 +1,6 @@
 {
   "vimMode": true,
   "newFileLocation": "folder",
-  "newFileFolderPath": "inbox"
+  "newFileFolderPath": "inbox",
+  "alwaysUpdateLinks": true
 }

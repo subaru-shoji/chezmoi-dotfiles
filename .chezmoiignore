@@ -1,7 +1,9 @@
-.DS_Store
+**/.DS_Store
 
 **/.obsidian/icons/
-**/.obsidian/plugins/
-**/.obsidian/!plugins/**/data.json
+**/.obsidian/plugins/**/main.js
+**/.obsidian/plugins/**/manifest.json
+**/.obsidian/plugins/**/styles.css
+**/.obsidian/plugins/**/.gitignore
 **/.obsidian/plugins/remotely-save/data.json
 **/.obsidian/workspace.json
