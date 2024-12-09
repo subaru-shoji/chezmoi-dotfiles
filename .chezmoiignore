@@ -1,3 +1,5 @@
+.DS_Store
+
 **/.obsidian/icons/
 **/.obsidian/plugins/
 **/.obsidian/!plugins/**/data.json
