@@ -2,5 +2,6 @@ jethrokuan/fzf
 decors/fish-ghq
 migutw42/ranger-cd-fish
 jorgebucaran/fisher
-mollifier/fish-cd-gitroot
 jduchateau/fish-flutter-completions
+jorgebucaran/nvm.fish
+asim-tahir/docker-compose.fish
