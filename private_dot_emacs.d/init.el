@@ -71,14 +71,6 @@
     :ensure t
     :hook (emacs-lisp-mode . aggressive-indent-mode)) ;; 自動インデントを強化
 
-  (use-package treesit-auto
-    :ensure t
-    :custom
-    (treesit-auto-install 'prompt)
-    :config
-    (treesit-auto-add-to-auto-mode-alist 'all)
-    (global-treesit-auto-mode)) ;; treesitを自動で設定
-
 
   (use-package highlight-indent-guides
     :ensure t
@@ -89,6 +81,19 @@
     (highlight-indent-guides-responsive 'top)
     (highlight-indent-guides-character ?\|)) ;; インデントを強調
 
+  (use-package tree-sitter
+    :ensure t
+    :config
+    (global-tree-sitter-mode)) ;; シンタックスハイライトを強化
+
+  (use-package tree-sitter-langs
+    :ensure t)
+  (use-package treesit-auto
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
   )
 
 (use-package editor-config :no-require
@@ -151,13 +156,16 @@
     :init
     (savehist-mode))
 
+  (use-package hotfuzz
+    :ensure t)
+
   (use-package orderless
     :ensure t
     :custom
     ;; カスタムスタイルディスパッチャを設定 (Consult wiki参照)
     ;; (orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch))
     ;; (orderless-component-separator #'orderless-escapable-split-on-space)
-    (completion-styles '(orderless basic))
+    (completion-styles '(orderless basic hotfuzz))
     (completion-category-defaults nil)
     (completion-category-overrides '((file (styles partial-completion)))))
 
@@ -249,6 +257,7 @@
     :init
     (with-eval-after-load 'winum
       (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+    (treemacs-project-follow-mode)
     :config
     (progn
       (setq treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
@@ -395,30 +404,52 @@
 (use-package completion-config :no-require
   :config
   (use-package corfu
-    :ensure t
-    ;; オプションのカスタマイズ
-    ;; :custom
-    ;; (corfu-cycle t)                ;; `corfu-next/previous'のサイクリングを有効化
-    ;; (corfu-auto t)                 ;; 自動補完を有効化
-    ;; (corfu-quit-at-boundary nil)   ;; 補完境界で終了しない
-    ;; (corfu-quit-no-match nil)      ;; マッチがなくても終了しない
-    ;; (corfu-preview-current nil)    ;; 現在の候補のプレビューを無効化
-    ;; (corfu-preselect 'prompt)      ;; プロンプトを事前選択
-    ;; (corfu-on-exact-match nil)     ;; 正確な一致の処理を設定
-
-    ;; Corfuを特定のモードでのみ有効化。`global-corfu-modes'も参照。
-    ;; :hook ((prog-mode . corfu-mode)
-    ;;        (shell-mode . corfu-mode)
-    ;;        (eshell-mode . corfu-mode))
-
-    ;; 推奨: Corfuをグローバルに有効化。Dabbrevをグローバルに使用可能(M-/)。`global-corfu-modes'で特定のモードを除外可能。
-    :config
-    (global-corfu-mode))
-
-
-
+  :custom ((corfu-auto t)
+           (corfu-auto-delay 0)
+           (corfu-auto-prefix 1)
+           (corfu-cycle t)
+           (corfu-on-exact-match nil)
+           (tab-always-indent 'complete))
+  :bind (nil
+         :map corfu-map
+         ("TAB" . corfu-insert)
+         ("<tab>" . corfu-insert)
+         ("RET" . nil)
+         ("<return>" . nil))
+  :init
+  (global-corfu-mode +1))
   )
 
+(use-package lsp-config :no-require
+  :config
+  (use-package eglot
+  :ensure t
+  :hook
+  (elm-mode . eglot-ensure)
+  (rust-mode . eglot-ensure)
+  )
+)
+
+(use-package elm-config :no-require
+  :config
+  (use-package elm-mode
+    :ensure t
+    :hook
+    (elm-mode . elm-format-on-save-mode))
+  )
+
+(use-package rust-config :no-require
+  :config
+  (use-package rust-mode
+  :ensure t
+  :custom
+  (rust-format-on-save t))
+
+;; cargoの設定
+(use-package cargo
+  :ensure t
+  :hook (rust-mode . cargo-minor-mode))
+)
 
 ;; meowのキーバインディング設定
 ;; https://github.com/meow-edit/meow/blob/master/KEYBINDING_QWERTY.org
@@ -472,6 +503,7 @@
    '("b" . meow-back-word)
    '("B" . meow-back-symbol)
    '("c" . meow-change)
+   '("C" . delete-window)
    '("d" . meow-delete)
    '("D" . meow-backward-delete)
    '("e" . meow-next-word)
@@ -543,7 +575,10 @@
   :ensure t
   :config
   (meow-global-mode 1)
-  (meow-setup))
+  (meow-setup)
+  ;; :hook
+  ;; (messages-buffer-mode . meow-mode)
+  )
 
 ;; いくつかの便利な設定...
 (use-package emacs
@@ -579,6 +614,7 @@
   (tab-bar-mode +1)
   (recentf-mode +1)
   (global-display-line-numbers-mode 1)
+  (global-tree-sitter-mode)
   )
 
 (setq custom-file (locate-user-emacs-file "custom.el"))
