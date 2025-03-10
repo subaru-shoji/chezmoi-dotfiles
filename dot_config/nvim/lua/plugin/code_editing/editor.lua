@@ -16,8 +16,9 @@ return {
 		cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' },
 		keys = {
 			{
-				mode = { 'v', 'n' },
-				'<Leader>m',
+				mode = { 'v' },
+				-- '<Leader>m',
+				'<c-d>',
 				'<cmd>MCstart<cr>',
 				desc = 'Create a selection for selected text or word under the cursor',
 			},
@@ -87,11 +88,11 @@ return {
 		"kazhala/close-buffers.nvim",
 		config = function()
 			require('close_buffers').setup({
-				filetype_ignore = {},                      -- Filetype to ignore when running deletions
-				file_glob_ignore = {},                     -- File name glob pattern to ignore when running deletions (e.g. '*.md')
-				file_regex_ignore = {},                    -- File name regex pattern to ignore when running deletions (e.g. '.*[.]md')
+				filetype_ignore = {},                        -- Filetype to ignore when running deletions
+				file_glob_ignore = {},                       -- File name glob pattern to ignore when running deletions (e.g. '*.md')
+				file_regex_ignore = {},                      -- File name regex pattern to ignore when running deletions (e.g. '.*[.]md')
 				preserve_window_layout = { 'this', 'nameless' }, -- Types of deletion that should preserve the window layout
-				next_buffer_cmd = nil,                     -- Custom function to retrieve the next buffer when preserving window layout
+				next_buffer_cmd = nil,                       -- Custom function to retrieve the next buffer when preserving window layout
 			})
 		end
 	},
@@ -120,7 +121,17 @@ return {
 		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
 		config = function()
-			require("nvim-treesitter.configs").setup({})
+			require("nvim-treesitter.configs").setup({
+				incremental_selection = {
+					enable = true,
+					keymaps = {
+						-- init_selection = "gnn", -- set to `false` to disable one of the mappings
+						node_incremental = "v",
+						scope_incremental = "t",
+						node_decremental = "T",
+					},
+				}
+			})
 		end,
 	},
 	{

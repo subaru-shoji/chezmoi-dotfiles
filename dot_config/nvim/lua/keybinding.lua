@@ -80,13 +80,13 @@ wk.register({
 		end,
 		"definition",
 	},
-	f = { "<cmd>HopChar2<cr>", "hop char2" },
-	F = {
+	f = {
 		function()
 			require("hop").hint_words()
 		end,
 		"hop",
 	},
+	F = { "<cmd>HopChar2<cr>", "hop char2" },
 	["?"] = {
 		function()
 			require("searchbox").incsearch()
