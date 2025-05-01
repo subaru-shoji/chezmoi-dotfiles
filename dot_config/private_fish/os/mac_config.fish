@@ -26,3 +26,7 @@ end
 function firefox
 	open -a "Firefox" $argv
 end
+
+function vc
+	open -a "Visual Studio Code - Insiders" $argv
+end
