@@ -59,8 +59,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 		vim.keymap.set("n", "J", "<cmd>BufferLineCyclePrev<cr>", { noremap = true, silent = true, buffer = true })
 	end,
 })
--- vim.keymap.set("n", "K", "<cmd>BufferLineCycleNext<cr>")
--- vim.keymap.set("n", "J", "<cmd>BufferLineCyclePrev<cr>")
 vim.keymap.set("n", "<c-w>s", "<cmd>rightbelow wincmd s<cr>")
 vim.keymap.set("n", "<c-w>v", "<cmd>rightbelow wincmd v<cr>")
 vim.keymap.set("n", "t", "<cmd>wincmd w<cr>")
@@ -68,32 +66,6 @@ vim.keymap.set("n", "X", "<cmd>Telescope oldfiles<cr>")
 vim.keymap.set("n", "C", function()
 	require("buffer_util").smart_close()
 end)
-
-local wk = require("which-key")
-local telescope = require("telescope.builtin")
-local finder = require("telescope.finder")
-
-wk.register({
-	D = {
-		function()
-			require("goto-preview").goto_preview_definition()
-		end,
-		"definition",
-	},
-	f = {
-		function()
-			require("hop").hint_words()
-		end,
-		"hop",
-	},
-	F = { "<cmd>HopChar2<cr>", "hop char2" },
-	["?"] = {
-		function()
-			require("searchbox").incsearch()
-		end,
-		"SearchBox",
-	},
-}, {})
 
 vim.keymap.set("n", "<c-f>", [[<cmd>lua require "hop".hint_words()<cr>]])
 vim.keymap.set("i", "<c-f>", [[<c-o><cmd>lua require "hop".hint_words()<cr>]])
@@ -105,245 +77,94 @@ vim.keymap.set("n", "\\", function()
 	require("menu").open(options)
 end, {})
 
-wk.register({
-	[" "] = {
-		function()
-			telescope.fd()
-		end,
-		"find file",
-	},
-	a = {
-		function()
-			vim.cmd.SidebarToggle("nvimtree")
-		end,
-		"file-tree bar",
-	},
-	d = {
-		function()
-			vim.cmd.SidebarCloseAll()
-		end,
-		"close sidebar",
-	},
-	f = {
-		"<cmd>Yazi cwd<cr>",
-		"yazi filer",
-	},
-	g = { "<cmd>Telescope git_status<cr>", "telescope git status" },
-	o = { "<cmd>Other<cr>", "other switcher" },
-	r = { "<cmd>SearchBoxReplace confirm=menu<cr>", "SearchBoxReplace" },
-	s = {
-		function()
-			vim.cmd.SidebarToggle("spectre")
-		end,
-		"Search Project",
-	},
-	t = {
-		"<cmd>NvimTreeFindFile<cr>",
-		"Find file on NvimTree",
-	},
-	w = {
-		function()
-			require("nvim-window").pick()
-		end,
-		"switch window",
-	},
-	x = { require("buffer_util").smart_close, "smart quit buffer" },
-	p = { "<cmd>Telescope neoclip<cr>", "neoclip" },
-	q = {
-		a = { require("buffer_util").close_all, "close_all" },
-		q = { require("buffer_util").smart_close, "smart quit buffer" },
-		c = {
-			function()
-				vim.api.nvim_command("wincmd c")
-			end,
-			"close window",
-		},
-	},
-	["."] = {
-		function()
-			-- telescope.lsp_code_actions()
-			vim.lsp.buf.code_action()
-		end,
-		"telescope lsp action",
-	},
-	[","] = {
-		function()
-			finder.language_command_picker()
-		end,
-		"language commands",
-	},
-}, { prefix = "<leader>" })
 
-wk.register({
-	l = {
-		name = "lsp",
-		r = {
-			function()
-				vim.lsp.buf.rename()
-			end,
-			"rename symbol",
-		},
-		R = {
-			function()
-				local current_file_path = vim.fn.expand("%f")
-				local changed_file_path = vim.fn.input("Change file name: ", current_file_path)
-				vim.lsp.util.rename(current_file_path, changed_file_path)
-			end,
-			"rename file",
-		},
-	},
-	g = {
-		name = "git",
-		s = {
-			function()
-				vim.cmd.Neogit("kind=split")
-			end,
-			"neogit status",
-		},
-		c = {
-			function()
-				vim.cmd.Neogit("commit")
-			end,
-			"neogit commit",
-		},
-		b = {
-			function()
-				vim.cmd.Neogit("branch")
-			end,
-			"neogit branch",
-		},
-		B = {
-			function()
-				require("agitator").git_blame_toggle()
-			end,
-			"git blame",
-		},
-		l = {
-			function()
-				vim.cmd.Neogit("log")
-			end,
-			"neogit log",
-		},
-		t = { "<cmd>Tig<cr>", "tig" },
-		g = { "<cmd>Telescope git_status<cr>", "telescopt git status" },
-		h = { "<cmd>OpenGithubFile<cr>", "open github" },
-	},
-	a = {
-		name = "often use tools",
-		a = {
-			function()
-				vim.cmd.SidebarToggle("nvimtree")
-			end,
-			"file-tree bar",
-		},
-		s = { "<cmd>botright TigStatus<cr>", "tig status" },
-	},
-	b = {
-		name = "buffer",
-		z = { function()
-			require('close_buffers').wipe({ type = 'other' })
-		end,
-			"delete other buffer"
-		},
-		p = { "<cmd>BufferLineTogglePin<cr>", "toggle buffer pinned" },
-	},
-	t = {
-		name = "toggle",
-		m = {
-			function()
-				if vim.o.mouse ~= "a" then
-					vim.o.mouse = "a"
-				else
-					vim.o.mouse = ""
-				end
-			end,
-			"mouse toggle",
-		},
-	},
-	[","] = {
-		name = "language",
-		r = {
-			name = "ruby",
-			o = { "<cmd>Other<cr>", "other switcher" },
-			s = { "<cmd>RailsGenerateSigFile<cr>", "generate sig file" },
-		},
-	},
-}, { prefix = "," })
+local wk = require("which-key")
+local telescope = require("telescope.builtin")
+local finder = require("telescope.finder")
 
-wk.register({
-	d = {
-		function()
-			telescope.lsp_definitions()
-		end,
-		"go to definition",
-	},
-	r = {
-		function()
-			telescope.lsp_references()
-		end,
-		"show reference",
-	},
-}, { prefix = "g" })
+wk.add({
+  -- Mappings without prefix (previously in wk.register({}, {}))
+  { "D", function() require("goto-preview").goto_preview_definition() end, desc = "definition" },
+  { "f", function() require("hop").hint_words() end, desc = "hop" },
+  { "F", "<cmd>HopChar2<cr>", desc = "hop char2" },
+  { "?", function() require("searchbox").incsearch() end, desc = "SearchBox" },
 
-wk.register({
-	["<tab>"] = {
-		"<cmd>Telescope cmdline<cr>",
-		"find command",
-	},
-	a = { "<cmd>Telescope<cr>", "telescope" },
-	b = {
-		function()
-			telescope.buffers()
-		end,
-		"buffers",
-	},
-	d = {
-		function()
-			telescope.lsp_document_diagnostics()
-		end,
-		"lsp diagnotics",
-	},
-	e = {
-		function()
-			finder.my_custom_search()
-		end,
-		"gh pr files",
-	},
-	f = {
-		function()
-			telescope.fd()
-		end,
-		"fd",
-	},
-	g = {
-		function()
-			telescope.git_status()
-		end,
-		"git status",
-	},
-	h = {
-		"<cmd>Telescope help_tags<cr>",
-		"help",
-	},
-	j = {
-		function()
-			telescope.jumplist()
-		end,
-		"jumplist",
-	},
-	n = {
-		"<cmd>Telescope notify<cr>",
-		"notify",
-	},
-	r = {
-		"<cmd>Telescope oldFiles<cr>",
-		"recent files",
-	},
-	s = {
-		function()
-			require("telescope").extensions.egrepify.egrepify({})
-		end,
-		"search word",
-	},
-	p = { "<cmd>Telescope neoclip<cr>", "neoclip" },
-}, { prefix = "<tab>" })
+  -- Mappings with <leader> prefix
+  { "<leader>", group = "leader" },
+  { "<leader> ", function() telescope.fd() end, desc = "find file" },
+  { "<leader>a", function() vim.cmd.SidebarToggle("nvimtree") end, desc = "file-tree bar" },
+  { "<leader>d", function() vim.cmd.SidebarCloseAll() end, desc = "close sidebar" },
+  { "<leader>f", "<cmd>Yazi cwd<cr>", desc = "yazi filer" },
+  { "<leader>g", "<cmd>Telescope git_status<cr>", desc = "telescope git status" },
+  { "<leader>o", "<cmd>Other<cr>", desc = "other switcher" },
+  { "<leader>r", "<cmd>SearchBoxReplace confirm=menu<cr>", desc = "SearchBoxReplace" },
+  { "<leader>s", function() vim.cmd.SidebarToggle("spectre") end, desc = "Search Project" },
+  { "<leader>t", "<cmd>NvimTreeFindFile<cr>", desc = "Find file on NvimTree" },
+  { "<leader>w", function() require("nvim-window").pick() end, desc = "switch window" },
+  { "<leader>x", require("buffer_util").smart_close, desc = "smart quit buffer" },
+  { "<leader>p", "<cmd>Telescope neoclip<cr>", desc = "neoclip" },
+  { "<leader>q", group = "quit/close" },
+  { "<leader>qa", require("buffer_util").close_all, desc = "close_all" },
+  { "<leader>qq", require("buffer_util").smart_close, desc = "smart quit buffer" },
+  { "<leader>qc", function() vim.api.nvim_command("wincmd c") end, desc = "close window" },
+  { "<leader>.", function() vim.lsp.buf.code_action() end, desc = "telescope lsp action" },
+  { "<leader>,", function() finder.language_command_picker() end, desc = "language commands" },
+
+  -- Mappings with , prefix
+  { ",", group = "local leader" },
+  { ",l", group = "lsp" },
+  { ",lr", function() vim.lsp.buf.rename() end, desc = "rename symbol" },
+  { ",lR", function()
+      local current_file_path = vim.fn.expand("%f")
+      local changed_file_path = vim.fn.input("Change file name: ", current_file_path)
+      vim.lsp.util.rename(current_file_path, changed_file_path)
+    end, desc = "rename file" },
+  { ",g", group = "git" },
+  { ",gs", function() vim.cmd.Neogit("kind=split") end, desc = "neogit status" },
+  { ",gc", function() vim.cmd.Neogit("commit") end, desc = "neogit commit" },
+  { ",gb", function() vim.cmd.Neogit("branch") end, desc = "neogit branch" },
+  { ",gB", function() require("agitator").git_blame_toggle() end, desc = "git blame" },
+  { ",gl", function() vim.cmd.Neogit("log") end, desc = "neogit log" },
+  { ",gt", "<cmd>Tig<cr>", desc = "tig" },
+  { ",gg", "<cmd>Telescope git_status<cr>", desc = "telescopt git status" },
+  { ",gh", "<cmd>OpenGithubFile<cr>", desc = "open github" },
+  { ",a", group = "often use tools" },
+  { ",aa", function() vim.cmd.SidebarToggle("nvimtree") end, desc = "file-tree bar" },
+  { ",as", "<cmd>botright TigStatus<cr>", desc = "tig status" },
+  { ",b", group = "buffer" },
+  { ",bz", function() require('close_buffers').wipe({ type = 'other' }) end, desc = "delete other buffer" },
+  { ",bp", "<cmd>BufferLineTogglePin<cr>", desc = "toggle buffer pinned" },
+  { ",t", group = "toggle" },
+  { ",tm", function()
+      if vim.o.mouse ~= "a" then
+        vim.o.mouse = "a"
+      else
+        vim.o.mouse = ""
+      end
+    end, desc = "mouse toggle" },
+  { ",,", group = "language" },
+  { ",,r", group = "ruby" },
+  { ",,ro", "<cmd>Other<cr>", desc = "other switcher" },
+  { ",,rs", "<cmd>RailsGenerateSigFile<cr>", desc = "generate sig file" },
+
+  -- Mappings with g prefix
+  { "g", group = "goto/show" },
+  { "gd", function() telescope.lsp_definitions() end, desc = "go to definition" },
+  { "gr", function() telescope.lsp_references() end, desc = "show reference" },
+
+  -- Mappings with <tab> prefix
+  { "<tab>", group = "telescope" },
+  { "<tab><tab>", "<cmd>Telescope cmdline<cr>", desc = "find command" },
+  { "<tab>a", "<cmd>Telescope<cr>", desc = "telescope" },
+  { "<tab>b", function() telescope.buffers() end, desc = "buffers" },
+  { "<tab>d", function() telescope.lsp_document_diagnostics() end, desc = "lsp diagnotics" },
+  { "<tab>e", function() finder.my_custom_search() end, desc = "gh pr files" },
+  { "<tab>f", function() telescope.fd() end, desc = "fd" },
+  { "<tab>g", function() telescope.git_status() end, desc = "git status" },
+  { "<tab>h", "<cmd>Telescope help_tags<cr>", desc = "help" },
+  { "<tab>j", function() telescope.jumplist() end, desc = "jumplist" },
+  { "<tab>n", "<cmd>Telescope notify<cr>", desc = "notify" },
+  { "<tab>r", "<cmd>Telescope oldFiles<cr>", desc = "recent files" },
+  { "<tab>s", function() require("telescope").extensions.egrepify.egrepify({}) end, desc = "search word" },
+  { "<tab>p", "<cmd>Telescope neoclip<cr>", desc = "neoclip" },
+})
