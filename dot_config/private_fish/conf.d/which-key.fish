@@ -9,7 +9,7 @@ function __which-key
     # Show a slick two‑line menu
     # 1. Display a chic two‑line menu
     gum style \
-      --border rounded --margin "0 1" --padding "1 2" --align left \
+      --border rounded --margin "1 1" --padding "1 2" --align left \
       --bold "g → ghq project" "c → git checkout"
 
     # 2. Show a small hint below the box
