@@ -5,8 +5,7 @@ return {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"folke/neodev.nvim",
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/nvim-cmp",
+			"saghen/blink.cmp"
 		},
 		lazy = true,
 		event = { "BufReadPre", "BufNewFile" },
@@ -17,50 +16,25 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"lua_ls",
-					"tsserver",
 					"elmls",
 					"fsautocomplete",
 					"pyright",
-					"ruff_lsp",
 					"rust_analyzer",
 				},
 			})
 			local lspconfig = require("lspconfig")
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-			require("mason-lspconfig").setup_handlers({
-				function(server_name) -- default handler (optional)
-					lspconfig[server_name].setup({
-						capabilities = capabilities,
-					})
-				end,
-				["ruff_lsp"] = function()
-					local on_attach = function(client, bufnr)
-						-- Disable hover in favor of Pyright
-						client.server_capabilities.hoverProvider = false
-					end
-					lspconfig["ruff_lsp"].setup({
-						capabilities = capabilities,
-						on_attach = on_attach,
-						init_options = {
-							settings = {
-								-- Any extra CLI arguments for `ruff` go here.
-								args = {},
-								lint = {
-									enable = true,
-								},
-							},
-						},
-					})
-				end,
-			})
+			local function server_register(server_name)
+				local opts = {}
+				local success, req_opts = pcall(require, "plugins.lsp.servers." .. server_name)
+				if success then
+					opts = req_opts
+				end
+				opts.capabilities = require("blink.cmp").get_lsp_capabilities(opts.capabilities)
+				lspconfig[server_name].setup(opts)
+			end
 
-			lspconfig.ruby_lsp.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.steep.setup({
-				capabilities = capabilities,
-			})
+			require("mason-lspconfig").setup_handlers({ server_register })
 		end,
 	},
 	{

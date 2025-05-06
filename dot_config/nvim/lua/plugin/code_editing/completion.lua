@@ -1,3 +1,12 @@
+local has_words_before = function()
+	local col = vim.api.nvim_win_get_cursor(0)[2]
+	if col == 0 then
+		return false
+	end
+	local line = vim.api.nvim_get_current_line()
+	return line:sub(col, col):match("%s") == nil
+end
+
 return {
 	'saghen/blink.cmp',
 	-- optional: provides snippets for the snippet source
@@ -25,16 +34,38 @@ return {
 		-- C-k: Toggle signature help (if signature.enabled = true)
 		--
 		-- See :h blink-cmp-config-keymap for defining your own keymap
-		keymap = { preset = 'default' },
+		keymap = {
+			preset = 'enter',
+			-- If completion hasn't been triggered yet, insert the first suggestion; if it has, cycle to the next suggestion.
+			['<Tab>'] = {
+				function(cmp)
+					if has_words_before() then
+						return cmp.insert_next()
+					end
+				end,
+				'fallback',
+			},
+			-- Navigate to the previous suggestion or cancel completion if currently on the first one.
+			['<S-Tab>'] = { 'insert_prev' },
+		},
 
 		appearance = {
 			-- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
 			-- Adjusts spacing to ensure icons are aligned
 			nerd_font_variant = 'mono'
 		},
+		completion = {
+			menu = { border = 'single' },
+			documentation = {
+				window = { border = 'single' },
+				auto_show = true,
+				auto_show_delay_ms = 500,
+			},
+		},
+		signature = { window = { border = 'single' } },
 
 		-- (Default) Only show the documentation popup when manually triggered
-		completion = { documentation = { auto_show = false } },
+		-- completion = { documentation = { auto_show = false } },
 
 		-- Default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, due to `opts_extend`

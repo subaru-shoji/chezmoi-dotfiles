@@ -21,6 +21,8 @@ vim.o.mouse = "a"
 
 vim.g.timeoutlen = 10
 
+vim.o.foldenable = false
+
 if vim.fn.executable("fcitx5-remote") then
 	for _, event in ipairs({ "InsertLeave", "CmdlineLeave" }) do
 		vim.api.nvim_create_autocmd(event, {

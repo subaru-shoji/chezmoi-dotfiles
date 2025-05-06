@@ -49,6 +49,7 @@ vim.keymap.set("i", "<s-right>", "<esc>v<right>")
 
 vim.keymap.set("v", "Y", '"+y')
 vim.keymap.set("v", "X", '"+x')
+vim.keymap.set('x', 'y', "y`]")
 
 vim.keymap.set("i", "<c-bs>", "<c-\\><c-o>db")
 
@@ -96,7 +97,8 @@ wk.add({
   { "<leader>c",  function() require('codex').toggle() end,                         desc = "codex" },
   { "<leader>d",  function() vim.cmd.SidebarCloseAll() end,                         desc = "close sidebar" },
   { "<leader>f",  "<cmd>Yazi cwd<cr>",                                              desc = "yazi filer" },
-  { "<leader>g",  "<cmd>Telescope git_status<cr>",                                  desc = "telescope git status" },
+  { "<leader>g",  "<cmd>LazyGit<cr>",                                               desc = "LazyGit" },
+  -- { "<leader>g",  "<cmd>Telescope git_status<cr>",                                  desc = "telescope git status" },
   { "<leader>o",  "<cmd>Other<cr>",                                                 desc = "other switcher" },
   { "<leader>r",  "<cmd>SearchBoxReplace confirm=menu<cr>",                         desc = "SearchBoxReplace" },
   { "<leader>s",  function() vim.cmd.SidebarToggle("spectre") end,                  desc = "Search Project" },
@@ -139,17 +141,50 @@ wk.add({
   { ",b",  group = "buffer" },
   { ",bz", function() require('close_buffers').wipe({ type = 'other' }) end, desc = "delete other buffer" },
   { ",bp", "<cmd>BufferLineTogglePin<cr>",                                   desc = "toggle buffer pinned" },
-  { ",t",  group = "toggle" },
+  { ",t",  group = "test" },
   {
-    ",tm",
+    ',ta',
     function()
-      if vim.o.mouse ~= "a" then
-        vim.o.mouse = "a"
-      else
-        vim.o.mouse = ""
-      end
+      local qt = require 'quicktest'
+
+      qt.run_all()
     end,
-    desc = "mouse toggle"
+    desc = 'test all',
+  },
+  {
+    ',tf',
+    function()
+      local qt = require("quicktest")
+
+      qt.run_file()
+    end,
+    desc = 'test file',
+  },
+  {
+    ',tt',
+    function()
+      local qt = require("quicktest")
+
+      qt.run_file()
+    end,
+    desc = 'test file',
+  },
+  {
+    ",tl",
+    function()
+      local qt = require("quicktest")
+      -- current_win_mode return currently opened panel, split or popup
+      qt.run_line()
+    end,
+    desc = "test line"
+  },
+  {
+    ",tp",
+    function()
+      local qt = require("quicktest")
+      qt.run_previous()
+    end,
+    desc = "test previous"
   },
   { ",,",         group = "language" },
   { ",,r",        group = "ruby" },

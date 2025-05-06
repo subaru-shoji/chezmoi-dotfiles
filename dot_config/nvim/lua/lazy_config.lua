@@ -26,6 +26,7 @@ require("lazy").setup({
 		{ import = "plugin.interface" },
 		{ import = "plugin.language_support" },
 		{ import = "plugin.navigation" },
+		{ import = "plugin.test" },
 		{ import = "plugin.version_control" },
 	}
 })
