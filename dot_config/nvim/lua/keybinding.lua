@@ -72,6 +72,8 @@ vim.keymap.set("n", "<c-f>", [[<cmd>lua require "hop".hint_words()<cr>]])
 vim.keymap.set("i", "<c-f>", [[<c-o><cmd>lua require "hop".hint_words()<cr>]])
 vim.keymap.set("v", "<c-f>", [[<cmd>lua require "hop".hint_words()<cr>]])
 vim.api.nvim_set_keymap("x", "/", ":SearchBoxIncSearch visual_mode=true<CR>", { noremap = true })
+vim.keymap.set('n', '?', '<cmd>silent vimgrep//gj%|Trouble qflist<cr>',
+  { desc = 'Populate latest search result to quickfix list' })
 
 vim.keymap.set("n", "\\", function()
   local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
@@ -88,7 +90,7 @@ wk.add({
   { "D",          function() require("goto-preview").goto_preview_definition() end, desc = "definition" },
   { "f",          function() require("hop").hint_words() end,                       desc = "hop" },
   { "F",          "<cmd>HopChar2<cr>",                                              desc = "hop char2" },
-  { "?",          function() require("searchbox").incsearch() end,                  desc = "SearchBox" },
+  -- { "?",          function() require("searchbox").incsearch() end,                  desc = "SearchBox" },
 
   -- Mappings with <leader> prefix
   { "<leader>",   group = "leader" },
