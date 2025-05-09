@@ -8,12 +8,15 @@ local has_words_before = function()
 end
 
 return {
-	'saghen/blink.cmp',
+	"saghen/blink.cmp",
 	-- optional: provides snippets for the snippet source
-	dependencies = { 'rafamadriz/friendly-snippets' },
+	dependencies = {
+		"rafamadriz/friendly-snippets",
+		"giuxtaposition/blink-cmp-copilot",
+	},
 
 	-- use a release tag to download pre-built binaries
-	version = '1.*',
+	version = "1.*",
 	-- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
 	-- build = 'cargo build --release',
 	-- If you use nix, you can build from source using latest nightly rust with:
@@ -35,34 +38,34 @@ return {
 		--
 		-- See :h blink-cmp-config-keymap for defining your own keymap
 		keymap = {
-			preset = 'enter',
+			preset = "enter",
 			-- If completion hasn't been triggered yet, insert the first suggestion; if it has, cycle to the next suggestion.
-			['<Tab>'] = {
+			["<Tab>"] = {
 				function(cmp)
 					if has_words_before() then
 						return cmp.insert_next()
 					end
 				end,
-				'fallback',
+				"fallback",
 			},
 			-- Navigate to the previous suggestion or cancel completion if currently on the first one.
-			['<S-Tab>'] = { 'insert_prev' },
+			["<S-Tab>"] = { "insert_prev" },
 		},
 
 		appearance = {
 			-- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
 			-- Adjusts spacing to ensure icons are aligned
-			nerd_font_variant = 'mono'
+			nerd_font_variant = "mono",
 		},
 		completion = {
-			menu = { border = 'single' },
+			menu = { border = "single" },
 			documentation = {
-				window = { border = 'single' },
+				window = { border = "single" },
 				auto_show = true,
 				auto_show_delay_ms = 500,
 			},
 		},
-		signature = { window = { border = 'single' } },
+		signature = { window = { border = "single" } },
 
 		-- (Default) Only show the documentation popup when manually triggered
 		-- completion = { documentation = { auto_show = false } },
@@ -70,7 +73,21 @@ return {
 		-- Default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, due to `opts_extend`
 		sources = {
-			default = { 'lsp', 'path', 'snippets', 'buffer' },
+			default = { "lazydev", "lsp", "path", "snippets", "buffer", "copilot" },
+			providers = {
+				lazydev = {
+					name = "LazyDev",
+					module = "lazydev.integrations.blink",
+					-- make lazydev completions top priority (see `:h blink.cmp`)
+					score_offset = 100,
+				},
+				copilot = {
+					name = "copilot",
+					module = "blink-cmp-copilot",
+					score_offset = 100,
+					async = true,
+				},
+			},
 		},
 
 		-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
@@ -78,9 +95,9 @@ return {
 		-- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
 		--
 		-- See the fuzzy documentation for more information
-		fuzzy = { implementation = "prefer_rust_with_warning" }
+		fuzzy = { implementation = "prefer_rust_with_warning" },
 	},
-	opts_extend = { "sources.default" }
+	opts_extend = { "sources.default" },
 }
 
 -- return {

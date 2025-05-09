@@ -1,7 +1,7 @@
 return {
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.4",
+		tag = "0.1.8",
 		dependencies = {
 			{ "nvim-lua/plenary.nvim" },
 		},
@@ -42,9 +42,9 @@ return {
 					},
 				},
 				pickers = {
-					find_files = {  
-						hidden = true  
-					}  ,
+					find_files = {
+						hidden = true
+					},
 					oldfiles = {
 						cwd_only = true,
 					},
