@@ -7,7 +7,8 @@ return {
 	font_size = 13,
 	color_scheme = "Tokyo Night Moon",
 	use_ime = true,
-	xim_im_name = 'fcitx',
+	xim_im_name = "fcitx",
+	ime_preedit_rendering = "System",
 	window_background_opacity = 0.87,
 	hide_tab_bar_if_only_one_tab = true,
 	keys = {
