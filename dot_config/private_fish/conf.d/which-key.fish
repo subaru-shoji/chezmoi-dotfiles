@@ -10,7 +10,7 @@ function __which-key
     # 1. Display a chic two‑line menu
     gum style \
       --border rounded --margin "1 1" --padding "1 2" --align left \
-      --bold "g → ghq project" "c → git checkout" "z → zoxide"
+      --bold "g → ghq project" "c → git checkout" "l → llm" "z → zoxide"
 
     # 2. Show a small hint below the box
     # gum style --foreground 250 --italic "Press 'g' or 'c' — no Enter needed"
@@ -25,6 +25,8 @@ function __which-key
         case c
             # Pick a branch and check it out
             gc
+        case l
+            claude
         case z
             zi
         case '*'
