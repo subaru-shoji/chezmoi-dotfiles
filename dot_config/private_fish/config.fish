@@ -4,6 +4,7 @@ end
 
 fish_add_path ~/bin
 fish_add_path $YARN_PATH
+fish_add_path $HOME/.npm-global/bin
 fish_add_path ~/.dotnet/tools
 fish_add_path ~/Applications
 fish_add_path $HOME/.local/bin/

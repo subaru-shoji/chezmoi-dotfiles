@@ -382,6 +382,13 @@ wk.add({
 		end,
 		desc = "jumplist",
 	},
+	{
+		"<tab>k",
+		function()
+			telescope.keymaps()
+		end,
+		desc = "keymaps",
+	},
 	{ "<tab>n", "<cmd>Telescope notify<cr>", desc = "notify" },
 	{ "<tab>r", "<cmd>Telescope oldFiles<cr>", desc = "recent files" },
 	{
