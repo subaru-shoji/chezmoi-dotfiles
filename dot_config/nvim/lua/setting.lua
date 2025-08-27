@@ -23,6 +23,8 @@ vim.g.timeoutlen = 10
 
 vim.o.foldenable = false
 
+vim.opt.equalalways = false
+
 if vim.fn.executable("fcitx5-remote") then
 	for _, event in ipairs({ "InsertLeave", "CmdlineLeave" }) do
 		vim.api.nvim_create_autocmd(event, {

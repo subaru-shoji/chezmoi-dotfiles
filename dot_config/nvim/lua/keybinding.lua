@@ -260,13 +260,6 @@ wk.add({
 	},
 	{ ",as", "<cmd>botright TigStatus<cr>", desc = "tig status" },
 	{ ",b", group = "buffer" },
-	{
-		",bz",
-		function()
-			require("close_buffers").wipe({ type = "other" })
-		end,
-		desc = "delete other buffer",
-	},
 	{ ",bp", "<cmd>BufferLineTogglePin<cr>", desc = "toggle buffer pinned" },
 	{ ",t", group = "test" },
 	{
