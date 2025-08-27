@@ -80,7 +80,7 @@ vim.keymap.set(
 )
 
 vim.keymap.set("n", "\\", function()
-	local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
+	local options = vim.bo.ft == "neo-tree" or "default"
 	require("menu").open(options)
 end, {})
 
@@ -119,7 +119,7 @@ wk.add({
 	{
 		"<leader>a",
 		function()
-			vim.cmd.SidebarToggle("nvimtree")
+			vim.cmd.SidebarToggle("neotree")
 		end,
 		desc = "file-tree bar",
 	},
@@ -157,7 +157,7 @@ wk.add({
 		end,
 		desc = "Search Project",
 	},
-	{ "<leader>t", "<cmd>NvimTreeFindFile<cr>", desc = "Find file on NvimTree" },
+	{ "<leader>t", "<cmd>Neotree reveal<cr>", desc = "Find file on Neotree" },
 	{
 		"<leader>w",
 		function()
@@ -254,7 +254,7 @@ wk.add({
 	{
 		",aa",
 		function()
-			vim.cmd.SidebarToggle("nvimtree")
+			vim.cmd.SidebarToggle("neotree")
 		end,
 		desc = "file-tree bar",
 	},

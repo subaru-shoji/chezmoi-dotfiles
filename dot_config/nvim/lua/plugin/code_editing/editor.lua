@@ -10,17 +10,17 @@ return {
 		"smoka7/multicursors.nvim",
 		event = "VeryLazy",
 		dependencies = {
-			'nvimtools/hydra.nvim',
+			"nvimtools/hydra.nvim",
 		},
 		opts = {},
-		cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' },
+		cmd = { "MCstart", "MCvisual", "MCclear", "MCpattern", "MCvisualPattern", "MCunderCursor" },
 		keys = {
 			{
-				mode = { 'v' },
+				mode = { "v" },
 				-- '<Leader>m',
-				'<c-d>',
-				'<cmd>MCstart<cr>',
-				desc = 'Create a selection for selected text or word under the cursor',
+				"<c-d>",
+				"<cmd>MCstart<cr>",
+				desc = "Create a selection for selected text or word under the cursor",
 			},
 		},
 	},
@@ -46,9 +46,9 @@ return {
 		end,
 	},
 	{
-		'nmac427/guess-indent.nvim',
+		"nmac427/guess-indent.nvim",
 		config = function()
-			require('guess-indent').setup {}
+			require("guess-indent").setup({})
 		end,
 	},
 	{
@@ -57,7 +57,7 @@ return {
 			require("Comment").setup()
 		end,
 	},
-	{ 'echasnovski/mini.cursorword', version = '*' },
+	{ "echasnovski/mini.cursorword", version = "*" },
 	{
 		"mvllow/modes.nvim",
 		config = function()
@@ -87,14 +87,14 @@ return {
 	{
 		"kazhala/close-buffers.nvim",
 		config = function()
-			require('close_buffers').setup({
-				filetype_ignore = {},                        -- Filetype to ignore when running deletions
-				file_glob_ignore = {},                       -- File name glob pattern to ignore when running deletions (e.g. '*.md')
-				file_regex_ignore = {},                      -- File name regex pattern to ignore when running deletions (e.g. '.*[.]md')
-				preserve_window_layout = { 'this', 'nameless' }, -- Types of deletion that should preserve the window layout
-				next_buffer_cmd = nil,                       -- Custom function to retrieve the next buffer when preserving window layout
+			require("close_buffers").setup({
+				filetype_ignore = {}, -- Filetype to ignore when running deletions
+				file_glob_ignore = {}, -- File name glob pattern to ignore when running deletions (e.g. '*.md')
+				file_regex_ignore = {}, -- File name regex pattern to ignore when running deletions (e.g. '.*[.]md')
+				preserve_window_layout = { "this", "nameless", "NvimTree" }, -- Types of deletion that should preserve the window layout
+				next_buffer_cmd = nil, -- Custom function to retrieve the next buffer when preserving window layout
 			})
-		end
+		end,
 	},
 	{
 		"AckslD/nvim-neoclip.lua",
@@ -130,7 +130,7 @@ return {
 						scope_incremental = "t",
 						node_decremental = "T",
 					},
-				}
+				},
 			})
 		end,
 	},
@@ -183,42 +183,42 @@ return {
 		end,
 	},
 	{
-		'gen740/SmoothCursor.nvim',
+		"gen740/SmoothCursor.nvim",
 		config = function()
-			require('smoothcursor').setup()
+			require("smoothcursor").setup()
 
 			local autocmd = vim.api.nvim_create_autocmd
 
-			autocmd({ 'ModeChanged' }, {
+			autocmd({ "ModeChanged" }, {
 				callback = function()
 					local current_mode = vim.fn.mode()
-					if current_mode == 'n' then
-						vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = '#8aa872' })
-						vim.fn.sign_define('smoothcursor', { text = '' })
-					elseif current_mode == 'v' then
-						vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = '#bf616a' })
-						vim.fn.sign_define('smoothcursor', { text = '' })
-					elseif current_mode == 'V' then
-						vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = '#bf616a' })
-						vim.fn.sign_define('smoothcursor', { text = '' })
-					elseif current_mode == '�' then
-						vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = '#bf616a' })
-						vim.fn.sign_define('smoothcursor', { text = '' })
-					elseif current_mode == 'i' then
-						vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = '#668aab' })
-						vim.fn.sign_define('smoothcursor', { text = '' })
+					if current_mode == "n" then
+						vim.api.nvim_set_hl(0, "SmoothCursor", { fg = "#8aa872" })
+						vim.fn.sign_define("smoothcursor", { text = "" })
+					elseif current_mode == "v" then
+						vim.api.nvim_set_hl(0, "SmoothCursor", { fg = "#bf616a" })
+						vim.fn.sign_define("smoothcursor", { text = "" })
+					elseif current_mode == "V" then
+						vim.api.nvim_set_hl(0, "SmoothCursor", { fg = "#bf616a" })
+						vim.fn.sign_define("smoothcursor", { text = "" })
+					elseif current_mode == "�" then
+						vim.api.nvim_set_hl(0, "SmoothCursor", { fg = "#bf616a" })
+						vim.fn.sign_define("smoothcursor", { text = "" })
+					elseif current_mode == "i" then
+						vim.api.nvim_set_hl(0, "SmoothCursor", { fg = "#668aab" })
+						vim.fn.sign_define("smoothcursor", { text = "" })
 					end
 				end,
 			})
-		end
+		end,
 	},
 	{
 		"rachartier/tiny-inline-diagnostic.nvim",
 		event = "VeryLazy", -- Or `LspAttach`
 		priority = 1000, -- needs to be loaded in first
 		config = function()
-			require('tiny-inline-diagnostic').setup()
+			require("tiny-inline-diagnostic").setup()
 			vim.diagnostic.config({ virtual_text = false }) -- Only if needed in your configuration, if you already have native LSP diagnostics
-		end
-	}
+		end,
+	},
 }

@@ -13,13 +13,13 @@ return {
 			local spectre = require("spectre")
 
 			vim.g.sidebars = {
-				nvimtree = {
+				neotree = {
 					position = "left",
 					check_win = function(nr)
-						return vim.fn.getwinvar(nr, "&filetype") == "NvimTree"
+						return vim.fn.getwinvar(nr, "&filetype") == "neo-tree"
 					end,
-					open = "NvimTreeOpen",
-					close = "NvimTreeClose",
+					open = "Neotree",
+					close = "Neotree close",
 				},
 				sidebar = {
 					position = "left",
@@ -45,29 +45,14 @@ return {
 		end,
 	},
 	{
-		"nvim-tree/nvim-tree.lua",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		lazy = true,
-		cmd = { "NvimTreeOpen" },
-		config = function()
-			local function my_on_attach(bufnr)
-				local api = require("nvim-tree.api")
-
-				local function opts(desc)
-					return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-				end
-
-				-- default mappings
-				api.config.mappings.default_on_attach(bufnr)
-
-				-- custom mappings
-				vim.keymap.set("n", "l", api.node.open.edit, opts("edit"))
-			end
-			require("nvim-tree").setup({
-				on_attach = my_on_attach,
-				diagnostics = { enable = true },
-			})
-		end,
+		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v3.x",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+			"nvim-tree/nvim-web-devicons", -- optional, but recommended
+		},
+		lazy = false, -- neo-tree will lazily load itself
 	},
 	{ "sidebar-nvim/sidebar.nvim" },
 	{
