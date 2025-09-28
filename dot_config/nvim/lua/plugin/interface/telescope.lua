@@ -25,7 +25,6 @@ return {
 
 				-- 特殊バッファ（サイドバー/診断など）判定用リスト
 				local special_filetypes = {
-					NvimTree = true,
 					Trouble = true,
 					helptag = true,
 					helps = true,

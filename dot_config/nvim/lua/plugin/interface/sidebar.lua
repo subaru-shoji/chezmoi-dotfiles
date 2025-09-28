@@ -51,8 +51,28 @@ return {
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
 			"nvim-tree/nvim-web-devicons", -- optional, but recommended
+			"antosha417/nvim-lsp-file-operations",
 		},
 		lazy = false, -- neo-tree will lazily load itself
+		opts = {
+			source_selector = {
+				winbar = true,
+				statusline = false,
+			},
+			window = {
+				mappings = {
+					["P"] = {
+						"toggle_preview",
+						config = {
+							use_float = false,
+							-- use_image_nvim = true,
+							-- use_snacks_image = true,
+							-- title = 'Neo-tree Preview',
+						},
+					},
+				},
+			},
+		},
 	},
 	{ "sidebar-nvim/sidebar.nvim" },
 	{

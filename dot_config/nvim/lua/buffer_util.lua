@@ -21,7 +21,7 @@ return {
 			return
 		end
 
-		local file_type_list = { "NvimTree", "qf", "Trouble", "spectre_panel", "notify", "help" }
+		local file_type_list = { "neo-tree", "qf", "Trouble", "spectre_panel", "notify", "help" }
 
 		if contains(file_type_list, vim.bo.filetype) then
 			vim.api.nvim_command("wincmd c")

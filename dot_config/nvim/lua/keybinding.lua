@@ -56,8 +56,8 @@ vim.keymap.set("i", "<c-bs>", "<c-\\><c-o>db")
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 	pattern = { "*" },
 	callback = function()
-		vim.keymap.set("n", "K", "<cmd>BufferLineCycleNext<cr>", { noremap = true, silent = true, buffer = true })
-		vim.keymap.set("n", "J", "<cmd>BufferLineCyclePrev<cr>", { noremap = true, silent = true, buffer = true })
+		vim.keymap.set("n", "K", "<cmd>BufferNext<cr>", { noremap = true, silent = true, buffer = true })
+		vim.keymap.set("n", "J", "<cmd>BufferPrevious<cr>", { noremap = true, silent = true, buffer = true })
 	end,
 })
 vim.keymap.set("n", "<c-w>s", "<cmd>rightbelow wincmd s<cr>")
