@@ -52,9 +52,17 @@ return {
 			"MunifTanjim/nui.nvim",
 			"nvim-tree/nvim-web-devicons", -- optional, but recommended
 			"antosha417/nvim-lsp-file-operations",
+			"mrbjarksen/neo-tree-diagnostics.nvim",
 		},
 		lazy = false, -- neo-tree will lazily load itself
 		opts = {
+			sources = {
+				"filesystem",
+				"buffers",
+				"git_status",
+				"diagnostics",
+				-- ...and any additional source
+			},
 			source_selector = {
 				winbar = true,
 				statusline = false,
