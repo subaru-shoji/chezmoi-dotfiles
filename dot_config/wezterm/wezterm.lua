@@ -19,6 +19,11 @@ return {
 			mods = "ALT",
 			action = wezterm.action.DisableDefaultAssignment,
 		},
+		{
+			key = 'Enter',
+			mods = 'SHIFT',
+			action = wezterm.action.SendString('\n')
+		},
 	},
 	warn_about_missing_glyphs = false,
 }
