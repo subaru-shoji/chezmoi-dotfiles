@@ -10,16 +10,4 @@ return {
 			vim.lsp.enable({ "lua_ls", "ts_ls", "biome", "dartls" })
 		end,
 	},
-	{
-		"rmagatti/goto-preview",
-		config = function()
-			require("goto-preview").setup({})
-		end,
-	},
-	{
-		"VidocqH/lsp-lens.nvim",
-		config = function()
-			require("lsp-lens").setup({})
-		end,
-	},
 }
