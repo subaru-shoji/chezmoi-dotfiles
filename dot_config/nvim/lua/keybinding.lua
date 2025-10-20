@@ -118,7 +118,7 @@ wk.add({
 	{
 		"<leader>a",
 		"<cmd>Neotree toggle<cr>",
-		desc = "file-tree bar",
+		desc = "neo-tree",
 	},
 	{ "<leader>f", "<cmd>Yazi cwd<cr>",                      desc = "yazi filer" },
 	{ "<leader>g", "<cmd>LazyGit<cr>",                       desc = "LazyGit" },
