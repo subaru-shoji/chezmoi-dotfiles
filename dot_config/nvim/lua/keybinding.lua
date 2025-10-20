@@ -15,7 +15,6 @@ vim.keymap.set("n", "gj", "G")
 vim.keymap.set("n", "gk", "gg")
 vim.keymap.set("v", "gj", "G")
 vim.keymap.set("v", "gk", "gg")
-vim.keymap.set("n", "gx", "<esc>:URLOpenUnderCursor<cr>")
 
 vim.keymap.set("n", "<c-s>", "<cmd>update<cr>")
 vim.keymap.set("v", "<c-s>", "<cmd>update<cr>")
@@ -212,44 +211,7 @@ wk.add({
 		desc = "rename file",
 	},
 	{ ",g", group = "git" },
-	{
-		",gs",
-		function()
-			vim.cmd.Neogit("kind=split")
-		end,
-		desc = "neogit status",
-	},
-	{
-		",gc",
-		function()
-			vim.cmd.Neogit("commit")
-		end,
-		desc = "neogit commit",
-	},
-	{
-		",gb",
-		function()
-			vim.cmd.Neogit("branch")
-		end,
-		desc = "neogit branch",
-	},
-	{
-		",gB",
-		function()
-			require("agitator").git_blame_toggle()
-		end,
-		desc = "git blame",
-	},
-	{
-		",gl",
-		function()
-			vim.cmd.Neogit("log")
-		end,
-		desc = "neogit log",
-	},
-	{ ",gt", "<cmd>Tig<cr>", desc = "tig" },
 	{ ",gg", "<cmd>Telescope git_status<cr>", desc = "telescopt git status" },
-	{ ",gh", "<cmd>OpenGithubFile<cr>", desc = "open github" },
 	{ ",a", group = "often use tools" },
 	{
 		",aa",
@@ -258,9 +220,7 @@ wk.add({
 		end,
 		desc = "file-tree bar",
 	},
-	{ ",as", "<cmd>botright TigStatus<cr>", desc = "tig status" },
 	{ ",b", group = "buffer" },
-	{ ",bp", "<cmd>BufferLineTogglePin<cr>", desc = "toggle buffer pinned" },
 	{ ",t", group = "test" },
 	{
 		",ta",
@@ -309,7 +269,6 @@ wk.add({
 	{ ",,", group = "language" },
 	{ ",,r", group = "ruby" },
 	{ ",,ro", "<cmd>Other<cr>", desc = "other switcher" },
-	{ ",,rs", "<cmd>RailsGenerateSigFile<cr>", desc = "generate sig file" },
 
 	-- Mappings with g prefix
 	{ "g", group = "goto/show" },
