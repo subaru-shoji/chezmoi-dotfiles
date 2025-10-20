@@ -7,7 +7,7 @@ return {
 		lazy = true,
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
-			vim.lsp.enable({ "lua_ls", "ts_ls", "biome", "dartls" })
+			vim.lsp.enable({ "lua_ls", "ts_ls", "biome", "dartls", "pyright" })
 		end,
 	},
 }
