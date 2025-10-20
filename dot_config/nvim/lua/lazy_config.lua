@@ -18,15 +18,23 @@ require("lazy.view.config").commands.check.key = "O"
 require("lazy.view.config").commands.check.key_plugin = "o"
 require("lazy").setup({
 	spec = {
-		{ import = "plugin" },
+		{ import = "plugin.essential" },
 		{ import = "plugin.ai" },
-		{ import = "plugin.code_editing" },
-		{ import = "plugin.file_management" },
+		{ import = "plugin.buffer" },
+		{ import = "plugin.completion" },
+		{ import = "plugin.editing" },
+		{ import = "plugin.editor_visual" },
+		{ import = "plugin.explorer" },
 		{ import = "plugin.filetype" },
-		{ import = "plugin.interface" },
-		{ import = "plugin.language_support" },
-		{ import = "plugin.navigation" },
+		{ import = "plugin.format" },
+		{ import = "plugin.git" },
+		{ import = "plugin.jump" },
+		{ import = "plugin.lint" },
+		{ import = "plugin.lsp" },
+		{ import = "plugin.register" },
 		{ import = "plugin.test" },
-		{ import = "plugin.version_control" },
+		{ import = "plugin.ui" },
+		{ import = "plugin.util" },
+		{ import = "plugin.window" },
 	}
 })
