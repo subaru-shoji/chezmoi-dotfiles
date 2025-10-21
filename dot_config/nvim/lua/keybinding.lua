@@ -164,18 +164,18 @@ wk.add({
 		desc = "language commands",
 	},
 
-	-- Mappings with , prefix
-	{ ",",  group = "local leader" },
-	{ ",l", group = "lsp" },
+	-- Mappings with ,, prefix
+	{ ",,",  group = "local leader" },
+	{ ",,l", group = "lsp" },
 	{
-		",lr",
+		",,lr",
 		function()
 			vim.lsp.buf.rename()
 		end,
 		desc = "rename symbol",
 	},
 	{
-		",lR",
+		",,lR",
 		function()
 			local current_file_path = vim.fn.expand("%f")
 			local changed_file_path = vim.fn.input("Change file name: ", current_file_path)
@@ -183,20 +183,20 @@ wk.add({
 		end,
 		desc = "rename file",
 	},
-	{ ",g",  group = "git" },
-	{ ",gg", "<cmd>Telescope git_status<cr>", desc = "telescopt git status" },
-	{ ",a",  group = "often use tools" },
+	{ ",,g",  group = "git" },
+	{ ",,gg", "<cmd>Telescope git_status<cr>", desc = "telescopt git status" },
+	{ ",,a",  group = "often use tools" },
 	{
-		",aa",
+		",,aa",
 		function()
 			vim.cmd.SidebarToggle("neotree")
 		end,
 		desc = "file-tree bar",
 	},
-	{ ",b", group = "buffer" },
-	{ ",t", group = "test" },
+	{ ",,b", group = "buffer" },
+	{ ",,t", group = "test" },
 	{
-		",ta",
+		",,ta",
 		function()
 			local qt = require("quicktest")
 
@@ -205,7 +205,7 @@ wk.add({
 		desc = "test all",
 	},
 	{
-		",tf",
+		",,tf",
 		function()
 			local qt = require("quicktest")
 
@@ -214,7 +214,7 @@ wk.add({
 		desc = "test file",
 	},
 	{
-		",tt",
+		",,tt",
 		function()
 			local qt = require("quicktest")
 
@@ -223,7 +223,7 @@ wk.add({
 		desc = "test file",
 	},
 	{
-		",tl",
+		",,tl",
 		function()
 			local qt = require("quicktest")
 			-- current_win_mode return currently opened panel, split or popup
@@ -232,14 +232,13 @@ wk.add({
 		desc = "test line",
 	},
 	{
-		",tp",
+		",,tp",
 		function()
 			local qt = require("quicktest")
 			qt.run_previous()
 		end,
 		desc = "test previous",
 	},
-	{ ",,",   group = "language" },
 	{ ",,r",  group = "ruby" },
 	{ ",,ro", "<cmd>Other<cr>",   desc = "other switcher" },
 
