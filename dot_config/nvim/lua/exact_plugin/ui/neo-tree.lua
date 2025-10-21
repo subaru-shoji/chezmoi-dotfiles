@@ -32,6 +32,7 @@ return {
 						-- title = 'Neo-tree Preview',
 					},
 				},
+				["l"] = "open",
 			},
 		},
 	},
