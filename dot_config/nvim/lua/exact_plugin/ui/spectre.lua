@@ -5,7 +5,8 @@ return {
 			open_cmd = function()
 				vim.cmd('belowright new')
 				vim.cmd('resize ' .. math.floor(vim.o.lines * 0.3)) -- 画面の30%
-			end
+			end,
+			is_insert_mode = true,
 		})
 	end,
 }
