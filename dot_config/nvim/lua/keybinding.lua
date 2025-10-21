@@ -129,7 +129,7 @@ wk.add({
 		"<cmd>Spectre<cr>",
 		desc = "Search Project",
 	},
-	{ "<leader>t",  "<cmd>Neotree reveal<cr>",          desc = "Find file on Neotree" },
+	{ "<leader>t", "<cmd>Neotree reveal<cr>",          desc = "Find file on Neotree" },
 	{
 		"<leader>w",
 		function()
@@ -137,8 +137,8 @@ wk.add({
 		end,
 		desc = "switch window",
 	},
-	{ "<leader>x",  require("buffer_util").smart_close, desc = "smart quit buffer" },
-	{ "<leader>p",  "<cmd>Telescope neoclip<cr>",       desc = "neoclip" },
+	{ "<leader>x", require("buffer_util").smart_close, desc = "smart quit buffer" },
+	{ "<leader>p", "<cmd>Telescope neoclip<cr>",       desc = "neoclip" },
 	{
 		"<leader>y",
 		function()
@@ -249,10 +249,10 @@ wk.add({
 		desc = "test previous",
 	},
 	{ ",,r",  group = "ruby" },
-	{ ",,ro", "<cmd>Other<cr>",   desc = "other switcher" },
+	{ ",,ro", "<cmd>Other<cr>",  desc = "other switcher" },
 
 	-- Mappings with , prefix (Sidekick)
-	{ ",",   group = "sidekick" },
+	{ ",",    group = "sidekick" },
 	{
 		",<tab>",
 		function()
@@ -271,12 +271,12 @@ wk.add({
 		desc = "Toggle CLI",
 	},
 	{
-		",t",
+		",l",
 		function()
 			require("sidekick.cli").send({ msg = "{this}" })
 		end,
 		mode = { "n", "x" },
-		desc = "Send This",
+		desc = "Send Line",
 	},
 	{
 		",f",
@@ -304,7 +304,7 @@ wk.add({
 	},
 
 	-- Mappings with g prefix
-	{ "g",    group = "goto/show" },
+	{ "g",          group = "goto/show" },
 	{
 		"gd",
 		function()
