@@ -242,6 +242,58 @@ wk.add({
 	{ ",,r",  group = "ruby" },
 	{ ",,ro", "<cmd>Other<cr>",   desc = "other switcher" },
 
+	-- Mappings with , prefix (Sidekick)
+	{ ",",   group = "sidekick" },
+	{
+		",<tab>",
+		function()
+			if not require("sidekick").nes_jump_or_apply() then
+				return "<Tab>"
+			end
+		end,
+		expr = true,
+		desc = "Goto/Apply Next Edit Suggestion",
+	},
+	{
+		",a",
+		function()
+			require("sidekick.cli").toggle()
+		end,
+		desc = "Toggle CLI",
+	},
+	{
+		",t",
+		function()
+			require("sidekick.cli").send({ msg = "{this}" })
+		end,
+		mode = { "n", "x" },
+		desc = "Send This",
+	},
+	{
+		",f",
+		function()
+			require("sidekick.cli").send({ msg = "{file}" })
+		end,
+		mode = { "n", "x" },
+		desc = "Send File",
+	},
+	{
+		",v",
+		function()
+			require("sidekick.cli").send({ msg = "{selection}" })
+		end,
+		mode = { "x" },
+		desc = "Send Visual Selection",
+	},
+	{
+		",p",
+		function()
+			require("sidekick.cli").prompt()
+		end,
+		mode = { "n", "x" },
+		desc = "Select Prompt",
+	},
+
 	-- Mappings with g prefix
 	{ "g",    group = "goto/show" },
 	{
