@@ -139,6 +139,15 @@ wk.add({
 	},
 	{ "<leader>x",  require("buffer_util").smart_close, desc = "smart quit buffer" },
 	{ "<leader>p",  "<cmd>Telescope neoclip<cr>",       desc = "neoclip" },
+	{
+		"<leader>y",
+		function()
+			local relative_path = vim.fn.expand("%:.")
+			vim.fn.setreg("+", relative_path)
+			print("Copied: " .. relative_path)
+		end,
+		desc = "yank relative path",
+	},
 	{ "<leader>q",  group = "quit/close" },
 	{ "<leader>qa", require("buffer_util").close_all,   desc = "close_all" },
 	{ "<leader>qq", require("buffer_util").smart_close, desc = "smart quit buffer" },
