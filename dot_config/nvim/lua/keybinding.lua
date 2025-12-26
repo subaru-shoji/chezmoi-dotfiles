@@ -177,6 +177,13 @@ wk.add({
 	{ ",,",  group = "local leader" },
 	{ ",,l", group = "lsp" },
 	{
+		",,ld",
+		function()
+			vim.diagnostic.setqflist()
+		end,
+		desc = "show diagnostics in quickfix",
+	},
+	{
 		",,lr",
 		function()
 			vim.lsp.buf.rename()
@@ -334,7 +341,7 @@ wk.add({
 	{
 		"<tab>d",
 		function()
-			telescope.lsp_document_diagnostics()
+			telescope.diagnostics()
 		end,
 		desc = "lsp diagnotics",
 	},

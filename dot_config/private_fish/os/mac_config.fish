@@ -1,3 +1,6 @@
+# Homebrew PATH
+fish_add_path /opt/homebrew/bin /opt/homebrew/sbin
+
 # Defined in - @ line 1
 function android_studio 
   open -a "Android Studio" $argv;

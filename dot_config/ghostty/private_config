@@ -1,0 +1,4 @@
+# Ghostty Configuration
+
+# 起動時にtmuxを自動起動（fish経由でPATHを有効化）
+command = /opt/homebrew/bin/fish -lc "tmux attach-session -t main 2>/dev/null || tmux new-session -s main"
