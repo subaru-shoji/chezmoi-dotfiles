@@ -1,0 +1,60 @@
+# Brewfile - chezmoi dotfiles dependencies
+# Install: brew bundle --file=Brewfile
+
+# Taps
+tap "homebrew/cask-fonts"
+
+# Shell & Terminal
+brew "fish"
+brew "tmux"
+brew "zellij"
+brew "starship"
+
+# Editors
+brew "neovim"
+brew "helix"
+
+# Git Tools
+brew "git"
+brew "lazygit"
+brew "ghq"
+brew "tig"
+brew "delta"
+
+# Search & Navigation
+brew "fzf"
+brew "ripgrep"
+brew "fd"
+brew "bat"
+brew "zoxide"
+
+# File Managers
+brew "yazi"
+brew "ranger"
+brew "broot"
+
+# Development Tools
+brew "asdf"
+brew "direnv"
+brew "chezmoi"
+
+# Formatters
+brew "stylua"
+
+# Terminal Emulators (cask)
+cask "wezterm"
+cask "alacritty"
+cask "ghostty"
+
+# Development Apps (cask)
+cask "visual-studio-code-insiders"
+cask "android-studio"
+cask "sublime-text"
+cask "sublime-merge"
+
+# Browsers (cask)
+cask "firefox"
+
+# Fonts (cask)
+cask "font-hack-nerd-font"
+cask "font-fira-code-nerd-font"
