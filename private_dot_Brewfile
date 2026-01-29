@@ -1,8 +1,6 @@
 # Brewfile - chezmoi dotfiles dependencies
 # Install: brew bundle --file=Brewfile
-
-# Taps
-tap "homebrew/cask-fonts"
+# Install2; brew bundle --global
 
 # Shell & Terminal
 brew "fish"
@@ -30,7 +28,6 @@ brew "zoxide"
 
 # File Managers
 brew "yazi"
-brew "ranger"
 brew "broot"
 
 # Development Tools
@@ -47,10 +44,8 @@ cask "alacritty"
 cask "ghostty"
 
 # Development Apps (cask)
-cask "visual-studio-code-insiders"
-cask "android-studio"
+cask "visual-studio-code"
 cask "sublime-text"
-cask "sublime-merge"
 
 # Browsers (cask)
 cask "firefox"
