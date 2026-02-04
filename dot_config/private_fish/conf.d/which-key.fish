@@ -37,3 +37,4 @@ function __which-key
 end
 
 bind --mode insert \cg '__which-key; echo; commandline -f repaint'
+bind --mode insert \ex '__which-key; echo; commandline -f repaint'
