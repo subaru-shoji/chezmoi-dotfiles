@@ -1,0 +1,10 @@
+#!/usr/bin/env fish
+
+# fzf でファイル選択、プレビューで delta 表示
+set selected (git diff --name-only --relative HEAD | fzf \
+  --preview 'sh -c "git diff HEAD -- {} | delta --side-by-side --width=\$FZF_PREVIEW_COLUMNS"' \
+  --preview-window=right:70% \
+  --header='Enter: 全画面表示 / Esc: 終了')
+
+# 選択されたら全画面で diff 表示
+test -n "$selected"; and git diff HEAD -- "$selected" | delta --side-by-side
