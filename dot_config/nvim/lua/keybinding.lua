@@ -56,6 +56,11 @@ vim.keymap.set("n", "<c-w>+", "<cmd>resize +2<cr>", { desc = "Height +2" })
 vim.keymap.set("n", "<c-w>-", "<cmd>resize -2<cr>", { desc = "Height -2" })
 vim.keymap.set("n", "<c-w><", "<cmd>vertical resize -2<cr>", { desc = "Width -2" })
 vim.keymap.set("n", "<c-w>>", "<cmd>vertical resize +2<cr>", { desc = "Width +2" })
+-- Window navigation with <C-w> + arrow keys
+vim.keymap.set("n", "<C-w><Up>", "<C-w>k", { desc = "Move to window above" })
+vim.keymap.set("n", "<C-w><Down>", "<C-w>j", { desc = "Move to window below" })
+vim.keymap.set("n", "<C-w><Left>", "<C-w>h", { desc = "Move to window left" })
+vim.keymap.set("n", "<C-w><Right>", "<C-w>l", { desc = "Move to window right" })
 
 vim.keymap.set("n", "t", "<cmd>wincmd w<cr>")
 vim.keymap.set("n", "X", "<cmd>Telescope oldfiles<cr>")
