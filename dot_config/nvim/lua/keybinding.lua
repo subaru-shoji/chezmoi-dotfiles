@@ -25,16 +25,6 @@ vim.keymap.set("n", "L", "<c-i>")
 
 vim.keymap.set("n", "<esc><esc>", "<cmd>nohl<cr>", { silent = true, nowait = true })
 
-vim.keymap.set("n", "<c-h>", "<c-w>h")
-vim.keymap.set("n", "<c-j>", "<c-w>j")
-vim.keymap.set("n", "<c-k>", "<c-w>k")
-vim.keymap.set("n", "<c-l>", "<c-w>l")
-
-vim.keymap.set("n", "<c-up>", "<cmd>resize +2<cr>")
-vim.keymap.set("n", "<c-down>", "<cmd>resize -2<cr>")
-vim.keymap.set("n", "<c-left>", "<cmd>vertical resize +2<cr>")
-vim.keymap.set("n", "<c-right>", "<cmd>vertical resize -2<cr>")
-
 vim.keymap.set("n", "<s-up>", "v<up>")
 vim.keymap.set("n", "<s-down>", "v<down>")
 vim.keymap.set("v", "<s-up>", "<up>")
@@ -61,6 +51,12 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 })
 vim.keymap.set("n", "<c-w>s", "<cmd>rightbelow wincmd s<cr>")
 vim.keymap.set("n", "<c-w>v", "<cmd>rightbelow wincmd v<cr>")
+-- Window resize keymaps for sub mode
+vim.keymap.set("n", "<c-w>+", "<cmd>resize +2<cr>", { desc = "Height +2" })
+vim.keymap.set("n", "<c-w>-", "<cmd>resize -2<cr>", { desc = "Height -2" })
+vim.keymap.set("n", "<c-w><", "<cmd>vertical resize -2<cr>", { desc = "Width -2" })
+vim.keymap.set("n", "<c-w>>", "<cmd>vertical resize +2<cr>", { desc = "Width +2" })
+
 vim.keymap.set("n", "t", "<cmd>wincmd w<cr>")
 vim.keymap.set("n", "X", "<cmd>Telescope oldfiles<cr>")
 vim.keymap.set("n", "C", function()
@@ -103,7 +99,7 @@ wk.add({
 		end,
 		desc = "hop",
 	},
-	{ "F",        "<cmd>HopChar2<cr>", desc = "hop char2" },
+	{ "F", "<cmd>HopChar2<cr>", desc = "hop char2" },
 	-- { "?",          function() require("searchbox").incsearch() end,                  desc = "SearchBox" },
 
 	-- Mappings with <leader> prefix
@@ -120,25 +116,35 @@ wk.add({
 		"<cmd>Neotree toggle<cr>",
 		desc = "neo-tree",
 	},
-	{ "<leader>f", "<cmd>Yazi cwd<cr>",                      desc = "yazi filer" },
-	{ "<leader>g", "<cmd>LazyGit<cr>",                       desc = "LazyGit" },
-	{ "<leader>o", "<cmd>Other<cr>",                         desc = "other switcher" },
+	{ "<leader>f", "<cmd>Yazi cwd<cr>", desc = "yazi filer" },
+	{ "<leader>g", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+	{ "<leader>o", "<cmd>Other<cr>", desc = "other switcher" },
 	{ "<leader>r", "<cmd>SearchBoxReplace confirm=menu<cr>", desc = "SearchBoxReplace" },
 	{
 		"<leader>s",
 		"<cmd>Spectre<cr>",
 		desc = "Search Project",
 	},
-	{ "<leader>t", "<cmd>Neotree reveal<cr>",          desc = "Find file on Neotree" },
+	{ "<leader>t", "<cmd>Neotree reveal<cr>", desc = "Find file on Neotree" },
 	{
 		"<leader>w",
+		function()
+			require("which-key").show({
+				keys = "<c-w>",
+				loop = true, -- Continue until <esc>
+			})
+		end,
+		desc = "window mode",
+	},
+	{
+		"<leader>W",
 		function()
 			require("nvim-window").pick()
 		end,
 		desc = "switch window",
 	},
 	{ "<leader>x", require("buffer_util").smart_close, desc = "smart quit buffer" },
-	{ "<leader>p", "<cmd>Telescope neoclip<cr>",       desc = "neoclip" },
+	{ "<leader>p", "<cmd>Telescope neoclip<cr>", desc = "neoclip" },
 	{
 		"<leader>y",
 		function()
@@ -148,8 +154,8 @@ wk.add({
 		end,
 		desc = "yank relative path",
 	},
-	{ "<leader>q",  group = "quit/close" },
-	{ "<leader>qa", require("buffer_util").close_all,   desc = "close_all" },
+	{ "<leader>q", group = "quit/close" },
+	{ "<leader>qa", require("buffer_util").close_all, desc = "close_all" },
 	{ "<leader>qq", require("buffer_util").smart_close, desc = "smart quit buffer" },
 	{
 		"<leader>qc",
@@ -174,7 +180,7 @@ wk.add({
 	},
 
 	-- Mappings with ,, prefix
-	{ ",,",  group = "local leader" },
+	{ ",,", group = "local leader" },
 	{ ",,l", group = "lsp" },
 	{
 		",,ld",
@@ -199,9 +205,9 @@ wk.add({
 		end,
 		desc = "rename file",
 	},
-	{ ",,g",  group = "git" },
+	{ ",,g", group = "git" },
 	{ ",,gg", "<cmd>Telescope git_status<cr>", desc = "telescopt git status" },
-	{ ",,a",  group = "often use tools" },
+	{ ",,a", group = "often use tools" },
 	{
 		",,aa",
 		function()
@@ -255,11 +261,11 @@ wk.add({
 		end,
 		desc = "test previous",
 	},
-	{ ",,r",  group = "ruby" },
-	{ ",,ro", "<cmd>Other<cr>",  desc = "other switcher" },
+	{ ",,r", group = "ruby" },
+	{ ",,ro", "<cmd>Other<cr>", desc = "other switcher" },
 
 	-- Mappings with , prefix (Sidekick)
-	{ ",",    group = "sidekick" },
+	{ ",", group = "sidekick" },
 	{
 		",<tab>",
 		function()
@@ -311,7 +317,7 @@ wk.add({
 	},
 
 	-- Mappings with g prefix
-	{ "g",          group = "goto/show" },
+	{ "g", group = "goto/show" },
 	{
 		"gd",
 		function()
@@ -328,9 +334,9 @@ wk.add({
 	},
 
 	-- Mappings with <tab> prefix
-	{ "<tab>",      group = "telescope" },
+	{ "<tab>", group = "telescope" },
 	{ "<tab><tab>", "<cmd>Telescope cmdline<cr>", desc = "find command" },
-	{ "<tab>a",     "<cmd>Telescope<cr>",         desc = "telescope" },
+	{ "<tab>a", "<cmd>Telescope<cr>", desc = "telescope" },
 	{
 		"<tab>b",
 		function()
@@ -381,8 +387,8 @@ wk.add({
 		end,
 		desc = "keymaps",
 	},
-	{ "<tab>n", "<cmd>Telescope notify<cr>",    desc = "notify" },
-	{ "<tab>r", "<cmd>Telescope oldFiles<cr>",  desc = "recent files" },
+	{ "<tab>n", "<cmd>Telescope notify<cr>", desc = "notify" },
+	{ "<tab>r", "<cmd>Telescope oldFiles<cr>", desc = "recent files" },
 	{
 		"<tab>s",
 		function()
