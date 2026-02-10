@@ -84,73 +84,11 @@ vim.keymap.set("n", "\\", function()
 	require("menu").open(options)
 end, {})
 
--- Copilot: C-yでwhich-keyのCopilotメニューを表示（insert mode）
-vim.keymap.set("i", "<C-y>", function()
-	local blink = require("blink.cmp")
-	blink.hide()
-	require("copilot.suggestion").next()
-	require("which-key").show({
-		keys = "<Plug>(copilot)",
-		mode = "i",
-	})
-end, { desc = "Copilot menu" })
-
 local wk = require("which-key")
 local telescope = require("telescope.builtin")
 local finder = require("telescope.finder")
 
 wk.add({
-	-- Copilot group (insert mode)
-	{ "<Plug>(copilot)", group = "copilot", mode = "i" },
-	{
-		"<Plug>(copilot)n",
-		function()
-			require("copilot.suggestion").next()
-		end,
-		desc = "next",
-		mode = "i",
-	},
-	{
-		"<Plug>(copilot)p",
-		function()
-			require("copilot.suggestion").prev()
-		end,
-		desc = "prev",
-		mode = "i",
-	},
-	{
-		"<Plug>(copilot)a",
-		function()
-			require("copilot.suggestion").accept()
-		end,
-		desc = "accept",
-		mode = "i",
-	},
-	{
-		"<Plug>(copilot)w",
-		function()
-			require("copilot.suggestion").accept_word()
-		end,
-		desc = "word",
-		mode = "i",
-	},
-	{
-		"<Plug>(copilot)l",
-		function()
-			require("copilot.suggestion").accept_line()
-		end,
-		desc = "line",
-		mode = "i",
-	},
-	{
-		"<Plug>(copilot)d",
-		function()
-			require("copilot.suggestion").dismiss()
-		end,
-		desc = "dismiss",
-		mode = "i",
-	},
-
 	-- Mappings without prefix (previously in wk.register({}, {}))
 	{
 		"D",

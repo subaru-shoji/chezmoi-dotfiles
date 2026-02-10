@@ -19,7 +19,6 @@ require("lazy.view.config").commands.check.key_plugin = "o"
 require("lazy").setup({
 	spec = {
 		{ import = "plugin.essential" },
-		{ import = "plugin.ai" },
 		{ import = "plugin.buffer" },
 		{ import = "plugin.completion" },
 		{ import = "plugin.editing" },
