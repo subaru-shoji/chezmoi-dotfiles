@@ -1,0 +1,6 @@
+# 起動時にtmuxを自動起動
+{{ if eq .chezmoi.os "darwin" -}}
+command = /opt/homebrew/bin/fish -lc "tmux attach-session -t main 2>/dev/null || tmux new-session -s main"
+{{ else -}}
+command = tmux
+{{ end -}}
