@@ -210,7 +210,6 @@ exec --no-startup-id flameshot
 exec --no-startup-id blueman-applet
 exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
 exec --no-startup-id redshift-gtk
-exec --no-startup-id picom
 exec --no-startup-id libinput-gestures-setup start
 exec --no-startup-id fish -c 'if type corectrl > /dev/null 2>&1; corectrl --minimize-systray; end'
 exec --no-startup-id emote
