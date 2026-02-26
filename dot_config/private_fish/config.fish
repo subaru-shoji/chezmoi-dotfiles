@@ -11,6 +11,7 @@ fish_add_path $HOME/.local/bin/
 fish_add_path $HOME/.cargo/bin/
 fish_add_path /usr/share/applications/
 fish_add_path /opt/brew/bin/
+fish_add_path $HOME/go/bin
 
 set -gx PNPM_HOME "$HOME/.local/share/pnpm"
 fish_add_path $PNPM_HOME
@@ -32,6 +33,5 @@ set --erase _asdf_shims
 if test "$TERM" = "tmux-256color"; or test -n "$ZELLIJ"
 	zoxide init fish | source
 	direnv hook fish | source
-	starship init fish | source
 end
   
