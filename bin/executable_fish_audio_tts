@@ -1,0 +1,67 @@
+#!/usr/bin/env fish
+
+set -l usage "Usage: fish_audio_tts <message> [output_mp3_path]"
+
+if test (count $argv) -lt 1 -o (count $argv) -gt 2
+    echo $usage >&2
+    exit 1
+end
+
+if not set -q FISH_API_KEY
+    echo "FISH_API_KEY is not set." >&2
+    exit 1
+end
+
+if not command -q jq
+    echo "jq is required but not installed." >&2
+    exit 1
+end
+
+set -l message $argv[1]
+if test -z "$message"
+    echo "Message is empty." >&2
+    exit 1
+end
+
+set -l output_path
+if test (count $argv) -eq 2
+    set output_path $argv[2]
+else
+    set -l tmp_path (mktemp /tmp/fish_audio_tts.XXXXXX)
+    or begin
+        echo "Failed to create a temporary output path." >&2
+        exit 1
+    end
+    set output_path "$tmp_path.mp3"
+    mv "$tmp_path" "$output_path"
+    or begin
+        rm -f "$tmp_path"
+        echo "Failed to prepare a temporary output path." >&2
+        exit 1
+    end
+end
+
+set -l output_dir (dirname "$output_path")
+if not test -d "$output_dir"
+    echo "Output directory does not exist: $output_dir" >&2
+    exit 1
+end
+
+jq -n \
+    --arg text "$message" \
+    --arg format "mp3" \
+    --arg reference_id "f475531112dd40a99dd0d5b46c293dd1" \
+    '{text: $text, reference_id: $reference_id, format: $format}' | curl --silent --show-error --fail \
+    --request POST "https://api.fish.audio/v1/tts" \
+    --header "Authorization: Bearer $FISH_API_KEY" \
+    --header "Content-Type: application/json" \
+    --header "model: s1" \
+    --data-binary @- \
+    --output "$output_path"
+set -l curl_status $status
+if test $curl_status -ne 0
+    test -f "$output_path"; and rm -f "$output_path"
+    exit $curl_status
+end
+
+echo "$output_path"
