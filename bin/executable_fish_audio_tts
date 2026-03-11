@@ -55,7 +55,7 @@ jq -n \
     --request POST "https://api.fish.audio/v1/tts" \
     --header "Authorization: Bearer $FISH_API_KEY" \
     --header "Content-Type: application/json" \
-    --header "model: s1" \
+    --header "model: s2-pro" \
     --data-binary @- \
     --output "$output_path"
 set -l curl_status $status
