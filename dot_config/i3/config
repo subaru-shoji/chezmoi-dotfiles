@@ -212,7 +212,6 @@ exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
 exec --no-startup-id redshift-gtk
 exec --no-startup-id libinput-gestures-setup start
 exec --no-startup-id fish -c 'if type corectrl > /dev/null 2>&1; corectrl --minimize-systray; end'
-exec --no-startup-id emote
 exec --no-startup-id nitrogen --restore
 
 bindsym $mod+d exec fish -c "rofi -show run -show-icons"
@@ -228,3 +227,4 @@ bindsym XF86MonBrightnessDown exec brightnessctl s $brightness_step%-
 
 bindsym $mod+Tab exec --no-startup-id rofi -show window
 bindsym $mod+w exec --no-startup-id ~/.config/i3/i3ipc/focus-next-visible.py
+bindsym $mod+period exec --no-startup-id gnome-characters
