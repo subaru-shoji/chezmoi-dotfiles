@@ -57,6 +57,12 @@ return {
 				input = {
 					keys = {
 						["<a-t>"] = { "trouble_open", mode = { "n", "i" } },
+						["<f1>"] = { "toggle_help_input", mode = { "n", "i" } },
+					},
+				},
+				list = {
+					keys = {
+						["<f1>"] = "toggle_help_list",
 					},
 				},
 			},

@@ -106,6 +106,15 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- unify help key: <f1> in plugin UIs that don't expose a help key option
+vim.api.nvim_create_autocmd("FileType", {
+	group = augroup("help_with_f1"),
+	pattern = { "lazy" },
+	callback = function(event)
+		vim.keymap.set("n", "<f1>", "?", { buffer = event.buf, remap = true, silent = true, desc = "Help" })
+	end,
+})
+
 -- wrap and spell check in text filetypes
 vim.api.nvim_create_autocmd("FileType", {
 	group = augroup("wrap_spell"),

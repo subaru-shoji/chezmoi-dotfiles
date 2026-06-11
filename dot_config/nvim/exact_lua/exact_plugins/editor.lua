@@ -56,7 +56,7 @@ return {
 				desc = "Window Mode",
 			},
 			{
-				"<leader>?",
+				"<f1>",
 				function()
 					require("which-key").show({ global = false })
 				end,
@@ -124,6 +124,9 @@ return {
 		"folke/trouble.nvim",
 		cmd = { "Trouble" },
 		opts = {
+			keys = {
+				["<f1>"] = "help",
+			},
 			modes = {
 				lsp = {
 					win = { position = "right" },
@@ -182,7 +185,12 @@ return {
 	-- project-wide search & replace
 	{
 		"MagicDuck/grug-far.nvim",
-		opts = { headerMaxWidth = 80 },
+		opts = {
+			headerMaxWidth = 80,
+			keymaps = {
+				help = "<f1>",
+			},
+		},
 		cmd = { "GrugFar", "GrugFarWithin" },
 		keys = {
 			{
@@ -207,7 +215,19 @@ return {
 	{
 		"sindrets/diffview.nvim",
 		cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewFileHistory" },
-		opts = {},
+		opts = function()
+			local actions = require("diffview.actions")
+			return {
+				keymaps = {
+					view = { { "n", "<f1>", actions.help({ "view", "diff1" }), { desc = "Open the help panel" } } },
+					file_panel = { { "n", "<f1>", actions.help("file_panel"), { desc = "Open the help panel" } } },
+					file_history_panel = {
+						{ "n", "<f1>", actions.help("file_history_panel"), { desc = "Open the help panel" } },
+					},
+					option_panel = { { "n", "<f1>", actions.help("option_panel"), { desc = "Open the help panel" } } },
+				},
+			}
+		end,
 		keys = {
 			{
 				"<leader>d",

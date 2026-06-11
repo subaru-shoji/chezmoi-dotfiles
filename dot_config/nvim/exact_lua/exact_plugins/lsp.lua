@@ -11,6 +11,11 @@ return {
 				"shfmt",
 				"prettierd",
 			},
+			ui = {
+				keymaps = {
+					toggle_help = "<f1>",
+				},
+			},
 		},
 		config = function(_, opts)
 			require("mason").setup(opts)
