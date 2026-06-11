@@ -5,8 +5,6 @@
 # Shell & Terminal
 brew "fish"
 brew "tmux"
-brew "zellij"
-brew "starship"
 
 # Editors
 brew "neovim"
@@ -28,24 +26,26 @@ brew "zoxide"
 
 # File Managers
 brew "yazi"
-brew "broot"
 
 # Development Tools
 brew "asdf"
 brew "direnv"
 brew "chezmoi"
+brew "tree-sitter-cli" # nvim-treesitter (main branch) parser builds
 
 # Formatters
 brew "stylua"
 
 # Terminal Emulators (cask)
 cask "wezterm"
-cask "alacritty"
 cask "ghostty"
 
 # Development Apps (cask)
 cask "visual-studio-code"
-cask "sublime-text"
+cask "raycast"
+cask "antigravity"
+cask "codex"
+cask "codex-app"
 
 # Browsers (cask)
 cask "firefox"

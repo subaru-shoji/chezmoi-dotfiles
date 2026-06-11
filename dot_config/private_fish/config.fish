@@ -14,7 +14,7 @@ fish_add_path /opt/brew/bin/
 fish_add_path $HOME/go/bin
 
 set -gx PNPM_HOME "$HOME/.local/share/pnpm"
-fish_add_path $PNPM_HOME
+fish_add_path $PNPM_HOME/bin
 
 # ASDF configuration code
 if test -z $ASDF_DATA_DIR
