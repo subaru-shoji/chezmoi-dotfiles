@@ -1,9 +1,14 @@
 local wezterm = require("wezterm")
 
+local is_mac = wezterm.target_triple:find("apple") ~= nil
+local jp_fallback = is_mac and "Hiragino Sans" or "Noto Sans CJK JP"
+
 return {
 	default_prog = { "zsh", "-lc", "tmux" },
-	-- font = wezterm.font("FiraCode Nerd Font Mono"),
-	font = wezterm.font("Hack Nerd Font Mono"),
+	font = wezterm.font_with_fallback({
+		"Hack Nerd Font Mono",
+		jp_fallback,
+	}),
 	font_size = 13,
 	color_scheme = "Tokyo Night Moon",
 	use_ime = true,
