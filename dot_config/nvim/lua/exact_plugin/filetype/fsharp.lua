@@ -1,3 +1,0 @@
-return {
-	{ "adelarsq/neofsharp.vim" },
-}
