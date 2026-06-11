@@ -38,6 +38,7 @@ return {
 					{ ",b", group = "buffer" },
 					{ ",g", group = "git" },
 					{ ",l", group = "lsp" },
+					{ ",m", group = "multicursor" },
 					{ ",u", group = "toggle" },
 					{ "<tab>", group = "picker" },
 					{ "<leader>q", group = "quit/close" },
