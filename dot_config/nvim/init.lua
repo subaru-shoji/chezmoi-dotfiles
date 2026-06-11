@@ -48,5 +48,13 @@ require("lazy").setup({
 	},
 })
 
+-- C is taken by the global smart_close; rename Check to Fetch (F) instead
+local lazy_view_config = require("lazy.view.config")
+lazy_view_config.commands.fetch = vim.tbl_extend("force", {}, lazy_view_config.commands.check, { key = "F" })
+lazy_view_config.commands.check = nil
+require("lazy.view.commands").commands.fetch = function(opts)
+	require("lazy.manage").check(vim.tbl_extend("keep", opts or {}, { mode = "fetch" }))
+end
+
 require("keymaps")
 require("autocmds")
