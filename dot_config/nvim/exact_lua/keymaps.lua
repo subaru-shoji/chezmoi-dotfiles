@@ -55,6 +55,9 @@ map("v", "<a-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", {
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
+-- treesitter incremental selection: v expands, V shrinks (visual mode)
+require("incremental_selection").setup()
+
 -- undo break-points
 map("i", ",", ",<c-g>u")
 map("i", ".", ".<c-g>u")

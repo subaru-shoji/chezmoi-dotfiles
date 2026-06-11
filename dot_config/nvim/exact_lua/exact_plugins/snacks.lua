@@ -76,6 +76,7 @@ return {
 		{ "<leader>g", function() Snacks.lazygit() end, desc = "Lazygit" },
 		{ "<leader>s", function() Snacks.picker.grep() end, desc = "Grep" },
 		{ "<leader>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
+		{ "U", function() Snacks.picker.undo() end, desc = "Undo History" },
 		-- git category ( ,g )
 		{ ",gg", function() Snacks.picker.git_status() end, desc = "Git Status" },
 		{ ",gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "x" } },

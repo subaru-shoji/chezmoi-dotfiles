@@ -164,4 +164,42 @@ return {
 			})
 		end,
 	},
+
+	-- multi-source hover (LSP / diagnostics / man / dictionary)
+	{
+		"lewis6991/hover.nvim",
+		opts = {
+			providers = {
+				"hover.providers.diagnostic",
+				"hover.providers.lsp",
+				"hover.providers.man",
+				"hover.providers.dictionary",
+			},
+			preview_opts = { border = "rounded" },
+			preview_window = false,
+			title = true,
+		},
+		config = function(_, opts)
+			require("hover").config(opts)
+		end,
+		keys = {
+			{
+				"D",
+				function()
+					-- pressing D again focuses the hover window (for scrolling)
+					local hover_win = vim.b.hover_preview
+					if hover_win and vim.api.nvim_win_is_valid(hover_win) then
+						vim.api.nvim_set_current_win(hover_win)
+					else
+						require("hover").open()
+					end
+				end,
+				desc = "Hover (multi-source)",
+			},
+			-- stylua: ignore start
+			{ "<c-n>", function() require("hover").switch("next") end, desc = "Hover next source" },
+			{ "<c-p>", function() require("hover").switch("previous") end, desc = "Hover prev source" },
+			-- stylua: ignore end
+		},
+	},
 }
