@@ -141,6 +141,11 @@ map("n", "<leader>qa", function()
 	end
 end, { desc = "Quit All" })
 
+-- ai (, a *): other ,a* keymaps live in plugins/ai.lua (sidekick)
+map("x", ",aj", function()
+	require("llm_rewrite").fix_japanese()
+end, { desc = "Fix Japanese with LLM" })
+
 -- toggles (, u *)
 Snacks.toggle({
 	name = "Auto Format",
