@@ -35,6 +35,8 @@ return {
 				{
 					mode = { "n", "x" },
 					{ ",a", group = "ai" },
+					{ ",A", group = "agentic" },
+					{ "<leader>A", group = "agentic" },
 					{ ",b", group = "buffer" },
 					{ ",g", group = "git" },
 					{ ",l", group = "lsp" },
