@@ -13,7 +13,7 @@ dot_config/nvim/
 └── exact_lua/                # → ~/.config/nvim/lua/
     ├── options.lua           # vim options
     ├── keymaps.lua           # プラグイン非依存キーマップ + smart_close/閉じバッファ復元
-    ├── autocmds.lua          # IME自動オフ, active窓のみcursorline, yank highlight等
+    ├── autocmds.lua          # IME切り替え(macism), active窓のみcursorline, yank highlight等
     └── exact_plugins/        # → lua/plugins/ (lazy.nvim が import)
         ├── colorscheme.lua   # tokyonight (moon)
         ├── snacks.lua        # picker / explorer / lazygit / notifier / words / indent...
@@ -48,4 +48,4 @@ dot_config/nvim/
 - `tree-sitter` CLI (>= 0.25, treesitter main branch のパーサビルドに必要)
 - `rg`, `fd`, `lazygit`, `yazi`, `tmux` (>= 3.2), `claude` (Claude Code)
 - 言語: `node` (vtsls/prettierd), `dart` (dartls は SDK 同梱、mason外)
-- IME: `im-select` (macOS) / `fcitx5-remote` (Linux)
+- IME: `macism` (macOS) / `fcitx5-remote` (Linux)

@@ -2,23 +2,23 @@ local function augroup(name)
 	return vim.api.nvim_create_augroup("my_" .. name, { clear = true })
 end
 
--- turn off IME when leaving insert/cmdline mode
-local ime_off
+-- switch IME on insert/cmdline enter/leave
+local ime_switch, events
 if vim.fn.executable("fcitx5-remote") == 1 then
-	ime_off = function()
+	ime_switch = function()
 		vim.fn.system("fcitx5-remote -c")
 	end
-elseif vim.fn.executable("im-select") == 1 then
-	ime_off = function()
-		vim.fn.system("im-select com.apple.keylayout.ABC")
+	events = { "InsertLeave", "CmdlineLeave" }
+elseif vim.fn.executable("macism") == 1 then
+	ime_switch = function()
+		vim.fn.system("macism com.apple.keylayout.ABC")
 	end
+	events = { "InsertEnter", "InsertLeave", "CmdlineEnter", "CmdlineLeave" }
 end
-if ime_off then
-	vim.api.nvim_create_autocmd({ "InsertLeave", "CmdlineLeave" }, {
-		group = augroup("ime_off"),
-		callback = function()
-			ime_off()
-		end,
+if ime_switch then
+	vim.api.nvim_create_autocmd(events, {
+		group = augroup("ime_switch"),
+		callback = ime_switch,
 	})
 end
 
