@@ -4,6 +4,7 @@
 
 # Shell & Terminal
 brew "fish"
+brew "fisher"
 brew "tmux"
 
 # Editors
