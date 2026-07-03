@@ -1,0 +1,6 @@
+# herdr configuration
+# Place this file at ~/.config/herdr/config.toml
+
+[terminal]
+# 新しいペインのシェルを fish にする
+default_shell = "/usr/bin/fish"
