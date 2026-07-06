@@ -1,3 +1,4 @@
 # Ghostty Configuration
 
 config-file = os_config
+background-opacity = 0.9
