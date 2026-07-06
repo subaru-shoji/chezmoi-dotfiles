@@ -15,5 +15,7 @@ show_agent_labels_on_pane_borders = true
 [keys]
 # i3 風の直接バインド。i3 の $mod は Mod4(Super) で i3 側に奪われるため Alt を使う。
 # 既定の prefix バインドは配列で残しつつ Alt を追加する。
-split_vertical = ["prefix+v", "alt+enter"]   # i3 $mod+Return 相当: 左右分割で新ペイン
-new_tab        = ["prefix+c", "alt+c"]       # 新規タブ作成
+split_vertical   = ["prefix+v", "alt+enter"] # i3 $mod+Return 相当: 左右分割で新ペイン
+new_tab          = ["prefix+c", "alt+c"]     # 新規タブ作成
+zoom             = ["prefix+z", "alt+f"]       # i3 $mod+f 相当: ペイン全画面トグル
+switch_tab       = ["prefix+1..9", "alt+1..9"] # i3 $mod+1..9 相当: タブ切替 (ws は現状1個なのでタブに割当)
