@@ -30,7 +30,7 @@ if not contains $_asdf_shims $PATH
 end
 set --erase _asdf_shims
 
-if test "$TERM" = "tmux-256color"; or test -n "$ZELLIJ"
+if test "$TERM" = "tmux-256color"; or test -n "$ZELLIJ"; or test -n "$HERDR_ENV"
 	zoxide init fish | source
 	direnv hook fish | source
 end
