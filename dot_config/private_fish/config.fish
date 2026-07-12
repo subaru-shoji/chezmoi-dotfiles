@@ -12,6 +12,7 @@ fish_add_path $HOME/.cargo/bin/
 fish_add_path /usr/share/applications/
 fish_add_path /opt/brew/bin/
 fish_add_path $HOME/go/bin
+fish_add_path $HOME/.bun/bin
 
 set -gx PNPM_HOME "$HOME/.local/share/pnpm"
 fish_add_path $PNPM_HOME/bin
