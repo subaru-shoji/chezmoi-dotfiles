@@ -15,7 +15,15 @@ show_agent_labels_on_pane_borders = true
 [keys]
 # i3 風の直接バインド。i3 の $mod は Mod4(Super) で i3 側に奪われるため Alt を使う。
 # 既定の prefix バインドは配列で残しつつ Alt を追加する。
-split_vertical   = ["prefix+v", "alt+enter"] # i3 $mod+Return 相当: 左右分割で新ペイン
+split_vertical   = ["prefix+v"]              # 左右分割で新ペイン (alt+enter は下の smart split に割当)
 new_tab          = ["prefix+c", "alt+c"]     # 新規タブ作成
 zoom             = ["prefix+z", "alt+f"]       # i3 $mod+f 相当: ペイン全画面トグル
 switch_tab       = ["prefix+1..9", "alt+1..9"] # i3 $mod+1..9 相当: タブ切替 (ws は現状1個なのでタブに割当)
+
+# i3 $mod+Return 相当のスマート分割: ペイン1個なら左右、2個以上なら上下。
+# デタッチシェルには HERDR_ENV が無いので明示的に付与し、
+# conf.d/herdr.fish のガードを通して herdr_smart_split を呼ぶ。
+[[keys.command]]
+key = "alt+enter"
+type = "shell"
+command = "env HERDR_ENV=keybinding fish -c herdr_smart_split"
