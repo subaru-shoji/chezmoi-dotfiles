@@ -17,6 +17,7 @@ show_agent_labels_on_pane_borders = true
 # 既定の prefix バインドは配列で残しつつ Alt を追加する。
 split_vertical   = ["prefix+v"]              # 左右分割で新ペイン (alt+enter は下の smart split に割当)
 new_tab          = ["prefix+c", "alt+c"]     # 新規タブ作成
+new_workspace    = ["prefix+shift+n", "shift+alt+c"] # 新規スペース(workspace)作成
 zoom             = ["prefix+z", "alt+f"]       # i3 $mod+f 相当: ペイン全画面トグル
 switch_tab       = ["prefix+1..9", "alt+1..9"] # i3 $mod+1..9 相当: タブ切替 (ws は現状1個なのでタブに割当)
 
