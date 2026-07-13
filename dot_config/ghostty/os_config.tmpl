@@ -1,6 +1,8 @@
 # 起動時にherdrを自動起動
 {{ if eq .chezmoi.os "darwin" -}}
 command = /opt/homebrew/bin/fish -lc "herdr"
+# Option キーを Alt として送出 (herdr の alt+ バインド用)
+macos-option-as-alt = true
 {{ else -}}
 command = herdr
 {{ end -}}

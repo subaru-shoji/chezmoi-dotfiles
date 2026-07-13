@@ -3,8 +3,8 @@ onboarding = false
 # Place this file at ~/.config/herdr/config.toml
 
 [terminal]
-# 新しいペインのシェルを fish にする
-default_shell = "/usr/bin/fish"
+# 新しいペインのシェルを fish にする (PATH から解決させて mac/Linux 両対応)
+default_shell = "fish"
 
 [ui.toast]
 delivery = "system"
