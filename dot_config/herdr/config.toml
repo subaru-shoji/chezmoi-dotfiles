@@ -28,3 +28,11 @@ switch_tab       = ["prefix+1..9", "alt+1..9"] # i3 $mod+1..9 相当: タブ切�
 key = "alt+enter"
 type = "shell"
 command = "env HERDR_ENV=keybinding fish -c herdr_smart_split"
+
+# タブレイアウトを崩さずに fish shell を popup で開く
+[[keys.command]]
+key = "prefix+f"
+type = "popup"
+command = "fish"
+width = "80%"
+height = "80%"
