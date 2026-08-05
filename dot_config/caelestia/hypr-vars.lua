@@ -7,6 +7,7 @@ return {
     kbMusicWs = "SUPER + M",
     kbTodoWs = "SUPER + T",
     kbShowPanels = "SUPER + SHIFT + D",
+    kbShowSidebar = "SUPER + B",
 
     kbBrowser = {},
     kbCommunicationWs = {},

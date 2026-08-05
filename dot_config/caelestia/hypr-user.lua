@@ -17,9 +17,6 @@ end
 load_if_exists(hypr .. "/monitors.lua")
 load_if_exists(hypr .. "/workspaces.lua")
 
--- Bar toggle (no built-in kb* var)
-hl.bind("SUPER + B", hl.dsp.exec_cmd("caelestia shell drawers toggle bar"))
-
 -- IME (fcitx5)
 hl.env("GTK_IM_MODULE", "fcitx")
 hl.env("QT_IM_MODULE", "fcitx")
