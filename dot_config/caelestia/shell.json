@@ -1,0 +1,29 @@
+{
+    "appearance": {
+        "transparency": {
+            "enabled": true
+        }
+    },
+    "background": {
+        "wallpaperEnabled": true
+    },
+    "bar": {
+        "persistent": false,
+        "workspaces": {
+            "maxWindowIcons": 10,
+            "shown": 10
+        }
+    },
+    "general": {
+        "apps": {
+            "terminal": [
+                "/usr/bin/ghostty",
+                "--gtk-single-instance=true"
+            ]
+        }
+    },
+    "services": {
+        "useFahrenheit": false,
+        "useTwelveHourClock": false
+    }
+}
