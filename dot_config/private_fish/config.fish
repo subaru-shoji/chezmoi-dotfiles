@@ -1,42 +1,46 @@
-if test (uname) = "Darwin"
-	source ~/.config/fish/os/mac_config.fish
+if status is-interactive
+    # Starship custom prompt
+    command -v starship &> /dev/null && starship init fish | source
+
+    # Direnv + Zoxide
+    command -v direnv &> /dev/null && direnv hook fish | source
+    command -v zoxide &> /dev/null && zoxide init fish | source
+
+    # Better ls
+    command -v eza &> /dev/null && alias ls='eza --icons --group-directories-first -1'
+
+    # Abbrs
+    abbr lg 'lazygit'
+    abbr gd 'git diff'
+    abbr ga 'git add .'
+    abbr gc 'git commit -am'
+    abbr gl 'git log'
+    abbr gs 'git status'
+    abbr gst 'git stash'
+    abbr gsp 'git stash pop'
+    abbr gp 'git push'
+    abbr gpl 'git pull'
+    abbr gsw 'git switch'
+    abbr gsm 'git switch main'
+    abbr gb 'git branch'
+    abbr gbd 'git branch -d'
+    abbr gco 'git checkout'
+    abbr gsh 'git show'
+
+    abbr l 'ls'
+    abbr ll 'ls -l'
+    abbr la 'ls -a'
+    abbr lla 'ls -la'
+
+    # Custom colours
+    cat ~/.local/state/caelestia/sequences.txt 2> /dev/null
+
+    # For jumping between prompts in foot terminal
+    function mark_prompt_start --on-event fish_prompt
+        echo -en "\e]133;A\e\\"
+    end
+
+    # Custom fish config
+    set -q XDG_CONFIG_HOME && set -l cConf $XDG_CONFIG_HOME/caelestia || set -l cConf $HOME/.config/caelestia
+    source $cConf/user-config.fish 2> /dev/null
 end
-
-fish_add_path ~/bin
-fish_add_path $YARN_PATH
-fish_add_path $HOME/.npm-global/bin
-fish_add_path ~/.dotnet/tools
-fish_add_path ~/Applications
-fish_add_path $HOME/.local/bin/
-fish_add_path $HOME/.cargo/bin/
-fish_add_path /usr/share/applications/
-fish_add_path /opt/brew/bin/
-fish_add_path $HOME/go/bin
-fish_add_path $HOME/.bun/bin
-
-set -gx PNPM_HOME "$HOME/.local/share/pnpm"
-fish_add_path $PNPM_HOME/bin
-
-# ASDF configuration code
-if test -z $ASDF_DATA_DIR
-    set _asdf_shims "$HOME/.asdf/shims"
-else
-    set _asdf_shims "$ASDF_DATA_DIR/shims"
-end
-
-# Do not use fish_add_path (added in Fish 3.2) because it
-# potentially changes the order of items in PATH
-if not contains $_asdf_shims $PATH
-    set -gx --prepend PATH $_asdf_shims
-end
-set --erase _asdf_shims
-
-if test "$TERM" = "tmux-256color"; or test -n "$ZELLIJ"; or test -n "$HERDR_ENV"
-	zoxide init fish | source
-	direnv hook fish | source
-end
-  
-
-# tabtab source for packages
-# uninstall by removing these lines
-[ -f ~/.config/tabtab/fish/__tabtab.fish ]; and . ~/.config/tabtab/fish/__tabtab.fish; or true
