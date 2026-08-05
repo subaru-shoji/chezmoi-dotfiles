@@ -4,5 +4,12 @@ return {
     kbCloseWindow = "SUPER + SHIFT + Q",
     kbMoveWinToWs = "SUPER + SHIFT",
     kbLauncher = "SUPER + D",
-    kbCommunicationWs = "SUPER + ALT + D",
+    kbMusicWs = "SUPER + M",
+    kbShowPanels = "SUPER + SHIFT + D",
+
+    kbBrowser = {},
+    kbCommunicationWs = {},
+    kbEditor = {},
+    kbFileExplorer = {},
+    kbAudioSettings = {},
 }
