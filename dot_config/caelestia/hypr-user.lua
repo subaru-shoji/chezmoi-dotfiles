@@ -17,6 +17,13 @@ end
 load_if_exists(hypr .. "/monitors.lua")
 load_if_exists(hypr .. "/workspaces.lua")
 
+-- Steam games (XWayland): prevent off-screen spawn on multi-monitor setups
+hl.window_rule({
+    match  = { class = "steam_app_[0-9]+", xwayland = true },
+    move   = "onscreen cursor",
+    center = true,
+})
+
 -- IME (fcitx5)
 hl.env("GTK_IM_MODULE", "fcitx")
 hl.env("QT_IM_MODULE", "fcitx")
