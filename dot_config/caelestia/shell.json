@@ -8,9 +8,30 @@
         "wallpaperEnabled": true
     },
     "bar": {
-        "persistent": false,
+        "clock": {
+            "background": true,
+            "showDate": true
+        },
+        "persistent": true,
+        "status": {
+            "showAudio": true,
+            "showBattery": false,
+            "showKbLayout": false,
+            "showLockStatus": false,
+            "showMicrophone": true,
+            "showWifi": false
+        },
+        "tray": {
+            "background": true,
+            "compact": false,
+            "recolour": false
+        },
         "workspaces": {
-            "maxWindowIcons": 10,
+            "activeTrail": false,
+            "maxWindowIcons": 5,
+            "occupiedBg": false,
+            "showWindows": false,
+            "showWindowsOnSpecialWorkspaces": true,
             "shown": 10
         }
     },
