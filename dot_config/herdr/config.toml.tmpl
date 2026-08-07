@@ -3,8 +3,14 @@ onboarding = false
 # Place this file at ~/.config/herdr/config.toml
 
 [terminal]
-# 新しいペインのシェルを fish にする (PATH から解決させて mac/Linux 両対応)
+# 新しいペインのシェルを fish にする
+{{- if eq .chezmoi.os "darwin" }}
+default_shell = "/opt/homebrew/bin/fish"
+{{- else if eq .chezmoi.os "linux" }}
+default_shell = "/usr/bin/fish"
+{{- else }}
 default_shell = "fish"
+{{- end }}
 
 [ui.toast]
 delivery = "system"
