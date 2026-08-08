@@ -17,7 +17,7 @@ if not command -q jq
     exit 1
 end
 
-set -l message $argv[1]
+set -l message (string replace -a '…' '' -- $argv[1])
 if test -z "$message"
     echo "Message is empty." >&2
     exit 1
@@ -49,13 +49,13 @@ end
 
 jq -n \
     --arg text "$message" \
-    --arg format "mp3" \
-    --arg reference_id "f475531112dd40a99dd0d5b46c293dd1" \
+    --arg format mp3 \
+    --arg reference_id f475531112dd40a99dd0d5b46c293dd1 \
     '{text: $text, reference_id: $reference_id, format: $format}' | curl --silent --show-error --fail \
     --request POST "https://api.fish.audio/v1/tts" \
     --header "Authorization: Bearer $FISH_API_KEY" \
     --header "Content-Type: application/json" \
-    --header "model: s2-pro" \
+    --header "model: s2.1-pro-free" \
     --data-binary @- \
     --output "$output_path"
 set -l curl_status $status
