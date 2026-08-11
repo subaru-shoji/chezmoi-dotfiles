@@ -41,6 +41,21 @@
                 "/usr/bin/ghostty",
                 "--gtk-single-instance=true"
             ]
+        },
+        "idle": {
+            "inhibitWhenAudio": true,
+            "lockBeforeSleep": true,
+            "timeouts": [
+                {
+                    "idleAction": "lock",
+                    "timeout": 180
+                },
+                {
+                    "idleAction": "dpms off",
+                    "returnAction": "dpms on",
+                    "timeout": 300
+                }
+            ]
         }
     },
     "services": {
