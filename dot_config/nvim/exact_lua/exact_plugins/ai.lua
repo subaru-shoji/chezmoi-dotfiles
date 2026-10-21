@@ -29,6 +29,10 @@ return {
 		},
 	},
 
+	-- herdr workspace integration: annotate code and send it to agents in herdr
+	-- (the sidebar/picker half is a herdr plugin, bound in herdr/config.toml)
+	{ "ChmaraX/herdr-nvim", opts = {} },
+
 	-- send picked files to the AI CLI with <a-a> inside snacks pickers
 	{
 		"folke/snacks.nvim",
