@@ -1,0 +1,18 @@
+#!/bin/sh
+# Serialize both Hyprland and XDG startup paths for the lifetime of aw-qt.
+exec 9>"${XDG_RUNTIME_DIR:?}/activitywatch-start.lock"
+flock -n 9 || exit 0
+# Wait up to 60 seconds for the shell to register a usable tray host.
+ready=false
+for attempt in $(seq 1 60); do
+    if busctl --user get-property org.kde.StatusNotifierWatcher /StatusNotifierWatcher org.kde.StatusNotifierWatcher IsStatusNotifierHostRegistered 2>/dev/null | grep -qx 'b true'; then
+        ready=true
+        break
+    fi
+    sleep 1
+done
+if [ "$ready" != true ]; then
+    echo "ActivityWatch: tray unavailable after 60 seconds; starting without GUI" >&2
+    exec /usr/bin/aw-qt --no-gui
+fi
+exec /usr/bin/aw-qt
